@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "달리기 시합", "달리�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "추억 사진", "추억 사진\추억 사진.vcxproj", "{A40EB41A-0C0D-406F-BE20-46DD66BE70F9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "공원 산책", "공원 산책\공원 산책.vcxproj", "{22E62423-7A48-4223-90C4-74ED5203A0AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{A40EB41A-0C0D-406F-BE20-46DD66BE70F9}.Release|x64.Build.0 = Release|x64
 		{A40EB41A-0C0D-406F-BE20-46DD66BE70F9}.Release|x86.ActiveCfg = Release|Win32
 		{A40EB41A-0C0D-406F-BE20-46DD66BE70F9}.Release|x86.Build.0 = Release|Win32
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Debug|x64.ActiveCfg = Debug|x64
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Debug|x64.Build.0 = Debug|x64
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Debug|x86.ActiveCfg = Debug|Win32
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Debug|x86.Build.0 = Debug|Win32
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Release|x64.ActiveCfg = Release|x64
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Release|x64.Build.0 = Release|x64
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Release|x86.ActiveCfg = Release|Win32
+		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
