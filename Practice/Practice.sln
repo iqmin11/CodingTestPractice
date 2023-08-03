@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "추억 사진", "추억 사
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "공원 산책", "공원 산책\공원 산책.vcxproj", "{22E62423-7A48-4223-90C4-74ED5203A0AE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "신고 결과 받기", "신고 결과 받기\신고 결과 받기.vcxproj", "{7C04E243-4667-483A-BCCA-74E5D8ACD685}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Release|x64.Build.0 = Release|x64
 		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Release|x86.ActiveCfg = Release|Win32
 		{22E62423-7A48-4223-90C4-74ED5203A0AE}.Release|x86.Build.0 = Release|Win32
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Debug|x64.ActiveCfg = Debug|x64
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Debug|x64.Build.0 = Debug|x64
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Debug|x86.ActiveCfg = Debug|Win32
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Debug|x86.Build.0 = Debug|Win32
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Release|x64.ActiveCfg = Release|x64
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Release|x64.Build.0 = Release|x64
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Release|x86.ActiveCfg = Release|Win32
+		{7C04E243-4667-483A-BCCA-74E5D8ACD685}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
