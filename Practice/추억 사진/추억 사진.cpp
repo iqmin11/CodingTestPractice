@@ -45,7 +45,11 @@ int main()
     {
         std::cout << Result[i] << std::endl;
     }
+
+    std::string a;
 }
+
+
 
 //map 탐색
 //테스트 1 〉	통과(0.01ms, 4.14MB)
