@@ -9,7 +9,7 @@ int main()
 	std::cin >> Ex.first;
 	std::cin >> Ex.second;
 
-	ExCoinType.resize(10);
+	ExCoinType.resize(Ex.first);
 
 	for (size_t i = 0; i < ExCoinType.size(); i++)
 	{
