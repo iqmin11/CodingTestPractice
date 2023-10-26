@@ -14,7 +14,7 @@ int TimeToInt(std::string _Time)
 
     std::string Temp = _Time;
     int Hour = 0;
-    int Minuet = 0;
+    int Minute = 0;
 
     for (auto& i : Temp)
     {
@@ -23,8 +23,8 @@ int TimeToInt(std::string _Time)
     }
     std::stringstream TimeData(Temp);
     TimeData >> Hour;
-    TimeData >> Minuet;
-    result = Hour * 60 + Minuet;
+    TimeData >> Minute;
+    result = Hour * 60 + Minute;
     return result;
 }
 

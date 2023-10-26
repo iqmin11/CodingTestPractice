@@ -50,6 +50,5 @@ vector<vector<int>> solution(int n) {
 int main()
 {
     vector<vector<int>> Answer;
-
     Answer = HanoiAlgorithm(1, 3, 2);
 }
