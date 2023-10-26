@@ -7,7 +7,7 @@ std::vector<int> TransVec(int _storey)
 {
     std::vector<int> result;
     std::string storey_str = std::to_string(_storey);
-    int len = storey_str.length();
+    size_t len = storey_str.length();
     result.resize(len);
     for (int i = 0; i < result.size(); i++)
     {
