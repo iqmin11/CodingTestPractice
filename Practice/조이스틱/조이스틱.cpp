@@ -1,9 +1,10 @@
 #include <string>
 #include <vector>
+#include <list>
 
 using namespace std;
 
-int solution(string name) 
+int solution0(string name)
 {
     int answer = 0;
     int TotalCount = 'Z' - 'A' + 1;
@@ -132,9 +133,37 @@ int solution(string name)
     return answer;
 }
 
+//int solution1(string name)
+//{
+//    int answer = 0;
+//    int TotalCount = 'Z' - 'A' + 1;
+//    int HalfCount = TotalCount / 2;
+//
+//    //위 아래 조작에 대한 것
+//    for (size_t i = 0; i < name.length(); i++)
+//    {
+//        int CharToInt = name[i] - 'A';
+//        if (CharToInt >= HalfCount)
+//        {
+//            CharToInt = TotalCount - CharToInt;
+//        }
+//        answer += CharToInt;
+//    }
+//
+//    //처음과 끝이 연결되어있는 구조
+//    //좌우로 움직여 A가 아닌 곳을 모두 A로 만드는 최소한의 움직임
+//    //앞 뒤 노드와 불값을 가지고있는 방식으로 만들자
+//    //list로 만들까?
+//
+//    std::list<char> StrToCirList = std::list<char>();
+//
+//    return answer;
+//}
+
 int main()
 {
-    int a = solution("ASJLDKAJSDLKASJKDLASKLDJGHVBN");
+    int a = solution0("AAAKJABJKAAAAAHAIKLKHAILAAAAAANANKLAN");
+    //int b = solution1("ASJLDKAAAAAAAAAAAAAAHVBN");
 
     return 0;
 }
