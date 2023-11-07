@@ -39,6 +39,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DFS와 BFS", "DFS와 BFS\DF
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "사과 담기 게임", "사과 담기 게임\사과 담기 게임.vcxproj", "{21D1228A-2854-475F-8988-D3E91650F866}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "빈도 정렬", "빈도 정렬\빈도 정렬.vcxproj", "{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -191,6 +193,14 @@ Global
 		{21D1228A-2854-475F-8988-D3E91650F866}.Release|x64.Build.0 = Release|x64
 		{21D1228A-2854-475F-8988-D3E91650F866}.Release|x86.ActiveCfg = Release|Win32
 		{21D1228A-2854-475F-8988-D3E91650F866}.Release|x86.Build.0 = Release|Win32
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Debug|x64.ActiveCfg = Debug|x64
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Debug|x64.Build.0 = Debug|x64
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Debug|x86.ActiveCfg = Debug|Win32
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Debug|x86.Build.0 = Debug|Win32
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Release|x64.ActiveCfg = Release|x64
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Release|x64.Build.0 = Release|x64
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Release|x86.ActiveCfg = Release|Win32
+		{6378BFAE-77CA-461D-B39F-BB4ECBFCA67C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
