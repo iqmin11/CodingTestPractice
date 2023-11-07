@@ -4,6 +4,10 @@
 
 using namespace std;
 
+//정렬이 필수
+//문제를 잘읽자
+//인덱스와 실제 개수를 헷갈리지 말자
+
 enum class StudentState
 {
     Normal,
