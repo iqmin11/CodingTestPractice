@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 
+//다음부턴 맵을 쓸때 []오퍼레이터를 잘 써보도록 하자
+
 int main()
 {
 	int N, C;
@@ -12,7 +14,6 @@ int main()
 	std::map<int, int> C_frequency = std::map<int, int>(); //C의 빈도를 저장 (어떤 숫자가, 몇번)
 	std::map<int, int> C_Order = std::map<int, int>(); //C의 순서를 저장
 	int Order = 0; //순서 입력용
-	std::vector<std::pair<int, int>> C_frequency_Vec = std::vector<std::pair<int, int>>(); //복사 후 정렬용
 
 	for (size_t i = 0; i < N; i++)
 	{
@@ -28,13 +29,14 @@ int main()
 			C_Order.insert(std::make_pair(CurKey, ++Order)); // 삽입 성공시 오더를 저장
 		}
 	}
+	
+	std::vector<std::pair<int, int>> C_frequency_Vec(C_frequency.begin(), C_frequency.end()); //복사 후 정렬용인데
+	//이렇게 초기화가 가능하다고????? 개쩐다
 
-	C_frequency_Vec.reserve(C_frequency.size());
-
-	for (auto& i : C_frequency)
-	{
-		C_frequency_Vec.emplace_back(std::make_pair(i.first, i.second)); //맵을 벡터로 복사
-	}
+	//for (auto& i : C_frequency)
+	//{
+	//	C_frequency_Vec.emplace_back(std::make_pair(i.first, i.second)); //맵을 벡터로 복사
+	//}
 
 	std::sort(C_frequency_Vec.begin(), C_frequency_Vec.end(), [=](std::pair<int, int> _left, std::pair<int, int> _right)
 		{
