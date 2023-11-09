@@ -43,6 +43,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "빈도 정렬", "빈도 정
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "영역 구하기", "영역 구하기\영역 구하기.vcxproj", "{E8DFBF48-B63B-46A5-BE60-063B5780A1CE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "미로 탐색", "미로 탐색\미로 탐색.vcxproj", "{C520B6F6-9D49-4822-8ED1-C029FDA57375}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -211,6 +213,14 @@ Global
 		{E8DFBF48-B63B-46A5-BE60-063B5780A1CE}.Release|x64.Build.0 = Release|x64
 		{E8DFBF48-B63B-46A5-BE60-063B5780A1CE}.Release|x86.ActiveCfg = Release|Win32
 		{E8DFBF48-B63B-46A5-BE60-063B5780A1CE}.Release|x86.Build.0 = Release|Win32
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Debug|x64.ActiveCfg = Debug|x64
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Debug|x64.Build.0 = Debug|x64
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Debug|x86.ActiveCfg = Debug|Win32
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Debug|x86.Build.0 = Debug|Win32
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Release|x64.ActiveCfg = Release|x64
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Release|x64.Build.0 = Release|x64
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Release|x86.ActiveCfg = Release|Win32
+		{C520B6F6-9D49-4822-8ED1-C029FDA57375}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
