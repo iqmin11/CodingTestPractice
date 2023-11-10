@@ -33,26 +33,26 @@ bool IsAllLightOn(int _mid)
 				return IsAllLightOnCheck &= false;
 			}
 		}
-
-		if (i == 0)
+		else
 		{
-			if (0 != minIndex)
+			if (i == 0)
+			{
+				if (0 != minIndex)
+				{
+					return IsAllLightOnCheck &= false;
+				}
+			}
+			else if (i == Pos.size() - 1)
+			{
+				if (N - 1 != MAXIndex)
+				{
+					return IsAllLightOnCheck &= false;
+				}
+			}
+			else if (prevMAX + 1 < minIndex)
 			{
 				return IsAllLightOnCheck &= false;
 			}
-		}
-
-		if (i == Pos.size() - 1)
-		{
-			if (N - 1 != MAXIndex)
-			{
-				return IsAllLightOnCheck &= false;
-			}
-		}
-
-		if (prevMAX + 1 < minIndex)
-		{
-			return IsAllLightOnCheck &= false;
 		}
 
 		prevMAX = MAXIndex;
@@ -62,7 +62,6 @@ bool IsAllLightOn(int _mid)
 
 int main()
 {
-	
 	std::cin >> N >> M;
 	Pos.reserve(M);
 	for (int i = 0; i < Pos.capacity(); i++)
