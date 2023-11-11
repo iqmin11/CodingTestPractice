@@ -2,78 +2,63 @@
 #include <algorithm>
 #include <vector>
 
-//최대값 : 제일적은 보석의 개수
-//최소값 : 1
-//mod가 가장 큰거 + 나누기값 = 질투심
-
 int N, M;
+std::vector<int> JemCount;
+int envy = INT32_MAX;
+
+bool Check(int _mid)
+{
+	int People = 0;
+	for (size_t i = 0; i < JemCount.size(); i++)
+	{
+		int tempQuo = JemCount[i] / _mid;
+		int tempMod = JemCount[i] % _mid;
+		People += tempQuo;
+		if (tempMod != 0)
+		{
+			People++;
+		}
+	}
+
+	return People <= N && _mid < envy;
+}
 
 int main()
 {
 	std::cin >> N >> M;
+	
+	JemCount.reserve(M);
 
 	int lt = 1;
 	int rt = INT32_MIN;
-	std::vector<int> JemTypes;
-	JemTypes.reserve(M);
 
 	for (size_t i = 0; i < M; i++)
 	{
-		int temp;
-		std::cin >> temp;
-		if (rt < temp)
-		{
-			rt = temp;
-		}
-		JemTypes.emplace_back(temp);
-	}
+		int tempCount;
+		std::cin >> tempCount;
+		JemCount.push_back(tempCount);
 
-	int Envy = INT32_MAX;
+		if (rt < tempCount)
+		{
+			rt = tempCount;
+		}
+	}
 
 	while (lt <= rt)
 	{
-		int mid = (rt + lt) / 2;
-		int People = 0;
-
-		int MAXMod = INT32_MIN;
-		for (size_t i = 0; i < JemTypes.size(); i++)
+		int mid = (lt + rt) / 2;
+		if (Check(mid))
 		{
-			int Quo = JemTypes[i] / mid;
-			People += Quo;
-			int Mod = JemTypes[i] % mid;
-
-			if (Mod != 0)
-			{
-				//여기가 어케해야대지
-			}
-
-			if (Mod > MAXMod)
-			{
-				MAXMod = Mod;
-			}
-		}
-
-		if (People <= N)
-		{
-			int tempEnvy = MAXMod + mid;
-			if (tempEnvy < Envy)
-			{
-				Envy = tempEnvy;
-				rt = mid - 1;
-			}
-			else
-			{
-				lt = mid + 1;
-			}
+			envy = mid;
+			rt = mid - 1;
 		}
 		else
 		{
 			lt = mid + 1;
 		}
-
 	}
-
-	std::cout << Envy;
-
+	
+	std::cout << envy;
+	
 	return 0;
 }
