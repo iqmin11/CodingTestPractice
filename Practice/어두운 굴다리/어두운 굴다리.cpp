@@ -72,12 +72,12 @@ int main()
 	}
 	int lt = 0;
 	int rt = static_cast<int>(N);
-	int mid = ((rt - lt) / 2) + lt;
+	int mid = (rt + lt) / 2;
 	int LightSize = 0;
 
 	while (lt <= rt)
 	{
-		mid = ((rt - lt) / 2) + lt;
+		mid = (rt - lt) / 2;
 
 		if (IsAllLightOn(mid))
 		{
