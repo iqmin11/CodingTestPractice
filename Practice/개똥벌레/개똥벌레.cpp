@@ -6,8 +6,17 @@ int N, H; //길이와 높이(동굴)
 std::vector<int> UpObs; //석순
 std::vector<long long> DownObs; //종유석
 
+void Init()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+}
+
 int main()
 {
+	Init();
+
 	std::cin >> N >> H;
 	UpObs.reserve(N);
 	DownObs.reserve(N);

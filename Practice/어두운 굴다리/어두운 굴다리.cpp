@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 int N, M;
 std::vector<int> Pos;
@@ -70,27 +71,47 @@ int main()
 		std::cin >> temp;
 		Pos.emplace_back(temp);
 	}
-	int lt = 0;
-	int rt = static_cast<int>(N);
-	int mid = (rt + lt) / 2;
-	int LightSize = 0;
 
-	while (lt <= rt)
+	int Max = INT32_MIN;
+
+	Max = Pos[0] - 0;
+	int Last = N - Pos[M-1];
+	if (Max < Last)
 	{
-		mid = (rt - lt) / 2;
+		Max = Last;
+	}
 
-		if (IsAllLightOn(mid))
+	for (size_t i = 0; i < Pos.size() - 1; i++)
+	{
+		float temp = ceil((static_cast<float>(Pos[i + 1]) - static_cast<float>(Pos[i])) / 2.f);
+		if (Max < temp)
 		{
-			rt = mid - 1;
-			LightSize = mid;
-		}
-		else
-		{
-			lt = mid + 1;
+			Max = temp;
 		}
 	}
 
-	std::cout << LightSize;
+
+	//int lt = 0;
+	//int rt = static_cast<int>(N);
+	//int mid = (rt + lt) / 2;
+	//int LightSize = 0;
+
+	//while (lt <= rt)
+	//{
+	//	mid = (rt - lt) / 2;
+
+	//	if (IsAllLightOn(mid))
+	//	{
+	//		rt = mid - 1;
+	//		LightSize = mid;
+	//	}
+	//	else
+	//	{
+	//		lt = mid + 1;
+	//	}
+	//}
+
+	std::cout << Max;
 
 	return 0;
 }
