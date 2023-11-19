@@ -59,7 +59,7 @@ int Bottom_Up1(int _X)
 	}
 
 	std::vector<std::set<int>> SaveResult;
-	SaveResult.resize(18);
+	SaveResult.resize(100);
 	SaveResult[0].insert(_X);
 	int y = 0;
 
