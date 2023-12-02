@@ -242,6 +242,57 @@ std::vector<std::vector<int>> Floyd_Warshall()
 	return Dist;
 }
 
+//위상 정렬(Topology sort)
+//사이클이 발생하지 않는 그래프에서 사용
+
+//얻을 수 있는것
+//1. 사이클이 발생 여부
+//2. 위상정렬 결과
+
+//필요 정보
+//1. 노드의 진입 차수(해당 노드로 올 수 있는 진입 경로의 수)
+//2. 링크 노드 정보
+
+//0~6이라고 합시다
+std::vector<int> InDgree = {0, 1, 1, 1, 1, 2, 1}; //진입차수
+std::vector<std::set<int>> TopologyLinkNodes; //연결 노드
+
+bool TopologySort(std::vector<int>& _result)
+{
+	std::vector<int>& result = _result;
+
+	std::queue<int> q; //큐를 만들고
+	
+	for (size_t i = 0; i < InDgree.size(); i++)
+	{
+		if (InDgree[i] == 0) //진입차수가 0인 애들을 q에 넣어
+		{
+			q.push(i);
+		}
+	}
+	
+	for (size_t i = 0; i < InDgree.size(); i++)
+	{
+		if (q.empty()) //반복문이 끝나기 전에 q가 비었다면
+		{
+			return false; //위상정렬 실패 (사이클이 존재)
+		}
+
+		int CheckIndex = q.front(); //프론트를 체크
+		q.pop(); // 팝하고
+		result.push_back(CheckIndex); //결과에 정렬값 넣기
+
+		for (auto& LinkNode : TopologyLinkNodes[CheckIndex]) //체크노드의 연결노드 돌면서
+		{
+			if (--InDgree[LinkNode] == 0) //노드 연결 끊고(정확히는 진입차수를 깎고)
+			{
+				q.push(LinkNode); //진입차수가 0인 애들 q에 넣기
+			}
+		}
+	}
+
+	return true;
+}
 
 int main()
 {
@@ -265,4 +316,18 @@ int main()
 	std::vector<int> c = DijkstraPQ(4);
 	std::vector<std::vector<int>> d = Floyd_Warshall();
 
+	TopologyLinkNodes.resize(7);
+	
+	TopologyLinkNodes[0].insert(1);
+	TopologyLinkNodes[0].insert(4);
+	TopologyLinkNodes[1].insert(2);
+	TopologyLinkNodes[2].insert(3);
+	TopologyLinkNodes[3].insert(5);
+	TopologyLinkNodes[4].insert(5);
+	TopologyLinkNodes[5].insert(6);
+
+	std::vector<int> Result;
+	bool AAA = TopologySort(Result);
+
+	int k = 0;
 }

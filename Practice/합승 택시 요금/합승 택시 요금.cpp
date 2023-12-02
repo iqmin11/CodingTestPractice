@@ -109,7 +109,7 @@ std::vector<int> Dijkstra(int _Start, int _n)
             if (via_cost < dist[i.second])
             {
                 dist[i.second] = via_cost;
-                pq.push({ -via_cost, i.second });
+                pq.push({ -dist[i.second], i.second });
             }
         }
     }
@@ -146,10 +146,52 @@ int solutionDijkstra(int n, int s, int a, int b, vector<vector<int>> fares)
 }
 
 
+int solutionFW(int n, int s, int a, int b, vector<vector<int>> fares)
+{
+    std::vector<std::vector<int>> Dist;
+    Dist.resize(n);
+    for (size_t i = 0; i < Dist.size(); i++)
+    {
+        Dist[i].resize(n, 100001 * n);
+    }
+
+    for (size_t i = 0; i < n; i++)
+    {
+        for (size_t i = 0; i < n; i++)
+        {
+            Dist[i][i] = 0;
+        }
+    }
+
+    for (size_t i = 0; i < fares.size(); i++)
+    {
+        Dist[fares[i][0] - 1][fares[i][1] - 1] = fares[i][2];
+        Dist[fares[i][1] - 1][fares[i][0] - 1] = fares[i][2];
+    }
+
+    for (size_t k = 0; k < n; k++)
+    {
+        for (size_t i = 0; i < n; i++)
+        {
+            for (size_t j = 0; j < n; j++)
+            {
+                Dist[i][j] = std::min(Dist[i][j], Dist[i][k] + Dist[k][j]);
+            }
+        }
+    }
+
+    int answer = INT32_MAX;
+    for (size_t i = 0; i < n; i++)
+    {
+        answer = std::min(answer, Dist[s - 1][i] + Dist[i][a - 1] + Dist[i][b - 1]);
+    }
+    return answer;
+}
 
 int main()
 {
     std::vector<std::vector<int>> Fa = { {4, 1, 10}, {3, 5, 24}, {5, 6, 2}, {3, 1, 41}, {5, 1, 24}, {4, 6, 50}, {2, 4, 66}, {2, 3, 22}, {1, 6, 25} };
 
     int a = solutionDijkstra(6,4,6,2, Fa);
+    int b = solutionFW(6,4,6,2, Fa);
 }
