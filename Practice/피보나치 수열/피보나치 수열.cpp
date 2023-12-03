@@ -19,15 +19,36 @@ public:
 	{
 		int a = 0;
 	}
+
+	virtual void AA()
+	{
+
+	}
+};
+
+class ChildChild : public Child
+{
+public:
+	void Test() override
+	{
+		int a = 0;
+	}
+
+	void AA() override
+	{
+		int a = 0;
+	}
 };
 
 int main()
 {
 
 	Parent P;
-	Child C;
+	ChildChild C;
 
 	Parent* A = &C;
 	Child* B = dynamic_cast<Child*>(A);
+
+	
 	return 0;
 }
