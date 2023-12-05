@@ -4,62 +4,44 @@
 #include <queue>
 #include <map>
 
-std::vector<std::pair<int, int>> InDegree;
+std::vector<int> InDegree;
+std::vector<int> Costs;
 std::vector<std::set<int>> LinkNodes;
+std::vector<std::set<int>> InDgreeNodes;
 
 int TopologySort()
 {
-	std::queue<int> q;
-	int result = 0;
-	std::vector<int> Depth;
-	Depth.resize(InDegree.size(), INT32_MAX);
+	std::priority_queue<std::pair<int, int>> pq;
+	int result = INT32_MIN;
+	std::vector<int> DPCost = Costs;
 
 	for (int i = 0; i < InDegree.size(); i++)
 	{
-		if (InDegree[i].second == 0)
+		if (InDegree[i] == 0)
 		{
-			q.push(i);
-			Depth[i] = 0;
+			pq.push({ -Costs[i], i });
 		}
 	}
 
 	for (int i = 0; i < InDegree.size(); i++)
 	{
-		if (q.empty())
+		if (pq.empty())
 		{
 			return -1;
 		}
 
-		int CheckIndex = q.front();
-		q.pop();
+		int CheckCost = -pq.top().first;
+		int CheckIndex = pq.top().second;
+		pq.pop();
+		result = std::max(result, CheckCost);
 
 		for (auto& LinkNode : LinkNodes[CheckIndex])
 		{
-			if (--InDegree[LinkNode].second == 0)
+			if (--InDegree[LinkNode] == 0)
 			{
-				Depth[LinkNode] = Depth[CheckIndex] + 1;
-				q.push(LinkNode);
+				pq.push({ -(Costs[LinkNode] + result), LinkNode });
 			}
 		}
-	}
-
-	std::map<int, int> DP;
-
-	for (size_t i = 0; i < Depth.size(); i++)
-	{
-		if (DP.find(Depth[i]) == DP.end())
-		{
-			DP[Depth[i]] = InDegree[i].first;
-		}
-		else
-		{
-			DP[Depth[i]] = std::max(InDegree[i].first, DP[Depth[i]]);
-		}
-	}
-
-	for (auto& i : DP)
-	{
-		result += i.second;
 	}
 
 	return result;
@@ -72,19 +54,23 @@ int main()
 
 	InDegree.resize(N);
 	LinkNodes.resize(N);
+	Costs.resize(N);
+	InDgreeNodes.resize(N);
 
 	for (int To = 0; To < N; To++)
 	{
 		int Cost, Deg;
 		std::cin >> Cost;
 		std::cin >> Deg;
-		InDegree[To] = { Cost , Deg };
+		InDegree[To] = Deg;
+		Costs[To] = Cost;
 
 		for (int j = 0;  j < Deg;  j++)
 		{
 			int from;
 			std::cin >> from;
 			LinkNodes[from-1].insert(To);
+			InDgreeNodes[To].insert(from - 1);
 		}
 	}
 	
