@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <set>
+#include <iterator>
 
 int main()
 {
@@ -37,10 +38,11 @@ int main()
 
 	for (auto& i: Answer)
 	{
-		for (auto& j : i)
-		{
-			std::cout << j << ' ';
-		}
+		std::copy(i.begin(), i.end(), std::ostream_iterator<int>(std::cout, " "));
+		//for (auto& j : i)
+		//{
+		//	//std::cout << j << ' ';
+		//}
 		std::cout << '\n';
 	}
 

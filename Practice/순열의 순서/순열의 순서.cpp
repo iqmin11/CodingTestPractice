@@ -2,8 +2,18 @@
 #include <vector>
 #include <algorithm>
 
+unsigned long long DP[21];
+
 int main()
 {
+	DP[0] = 1;
+	DP[1] = 1;
+
+	for (size_t i = 2; i <= 20; i++)
+	{
+		DP[i] = i * DP[i - 1];
+	}
+
 	int N, S;
 	std::cin >> N >> S;
 	std::vector<int> Fac;
@@ -13,55 +23,39 @@ int main()
 		Fac[i] = i + 1;
 	}
 
-	std::vector<int> FacRev;
-	FacRev.resize(N, N + 1);
-
-	unsigned long long countMax = 1;
-
-	for (size_t i = 1; i <= N; i++)
-	{
-		countMax *= i;
-	}
-
 	if (S == 1)
 	{
-		int Comp;
+		unsigned long long Comp;
 		std::cin >> Comp;
-		int count = 0;
+		std::vector<int> Rank; // Rank[i] = i ·©Å·ÀÇ ¼ýÀÚ
+		std::vector<int> Answer;
+		Rank.resize(N + 1, 0);
 
-		do
+		for (int i = 0; i < N; i++)
 		{
-			count++;
-			if (count == Comp)
-			{
-				for (int i = 0; i < Fac.size(); i++)
-				{
-					std::cout << Fac[i] << " ";
-				}
-				break;
-			}
+			Rank[i + 1] = i + 1;
+		}
 
-			if (count == (countMax - Comp) + 1)
-			{
-				for (int i = 0; i < Fac.size(); i++)
-				{
-					std::cout << FacRev[i] - Fac[i] << " ";
-				}
-				break;
-			}
+		for (int i = 1; i <= N-1; i++)
+		{
+			unsigned long long Quo = Comp / DP[N - i];
+			Comp = Comp % DP[N - i];
 
-		} while (std::next_permutation(Fac.begin(), Fac.end()));
+			Answer.push_back(Rank[Quo] + 1);
 
-
+			//for (int j = Quo; j < Rank.size(); j++)
+			//{
+			//}
+		}
 	}
 	else
 	{
 		unsigned long long count = 0;
 		std::vector<int> Comp;
-		std::vector<int> CompMax;
+		std::vector<int> Rank; // Rank[i] = i ¼ýÀÚÀÇ ·©Å·
 
 		Comp.reserve(N);
-		CompMax.resize(N, N + 1);
+		Rank.resize(N+1, 0);
 
 		for (int i = 0; i < N; i++)
 		{
@@ -69,34 +63,139 @@ int main()
 			std::cin >> temp;
 
 			Comp.push_back(temp);
+			Rank[i + 1] = i + 1;
 		}
 
-		do
+		// 1 2 3 4 5
+
+		for (int i = 1; i <= N - 1; i++)
 		{
-			count++;
-
-			FacRev = CompMax;
-		
-			for (size_t i = 0; i < FacRev.size(); i++)
+			count += DP[N - i] * (Rank[Comp[i - 1]] - 1);
+			Rank[Comp[i - 1]] = -1;
+			for (int j = Comp[i - 1] + 1; j < Rank.size(); j++)
 			{
-				FacRev[i] = FacRev[i] - Fac[i];
+				--Rank[j];
 			}
+		}
 
-			if (Comp == Fac)
-			{
-				break;
-			}
-
-			if (Comp == FacRev)
-			{
-				count = (countMax - count) + 1;
-				break;
-			}
-
-		} while (std::next_permutation(Fac.begin(), Fac.end()));
+		count++;
 
 		std::cout << count;
+		//	DP[N - 1] * (Comp[0].Rank - 1) + 
+		//	DP[N - 2] * (Comp[1].Rank - 1) + 
+		//	DP[N - 3] * (Comp[2].Rank - 1) + 
+		//	DP[N - 4] * (Comp[3].Rank - 1) +
+		//  ... DP[N - (N-1)] * (Comp[N - (N-1)] - 1);
+
+		
 	}
 
 	return 0;
 }
+
+//int main()
+//{
+//	DP[0] = 1;
+//	DP[1] = 1;
+//
+//	for (size_t i = 2; i <= 20; i++)
+//	{
+//		DP[i] = i * DP[i - 1];
+//	}
+//
+//	int N, S;
+//	std::cin >> N >> S;
+//	std::vector<int> Fac;
+//	Fac.resize(N);
+//	for (int i = 0; i < N; i++)
+//	{
+//		Fac[i] = i + 1;
+//	}
+//
+//	std::vector<int> FacRev;
+//	FacRev.resize(N, N + 1);
+//
+//	unsigned long long countMax = 1;
+//
+//	for (size_t i = 1; i <= N; i++)
+//	{
+//		countMax *= i;
+//	}
+//
+//	if (S == 1)
+//	{
+//		int Comp;
+//		std::cin >> Comp;
+//		int count = 0;
+//
+//		do
+//		{
+//			count++;
+//			if (count == Comp)
+//			{
+//				for (int i = 0; i < Fac.size(); i++)
+//				{
+//					std::cout << Fac[i] << " ";
+//				}
+//				break;
+//			}
+//
+//			if (count == (countMax - Comp) + 1)
+//			{
+//				for (int i = 0; i < Fac.size(); i++)
+//				{
+//					std::cout << FacRev[i] - Fac[i] << " ";
+//				}
+//				break;
+//			}
+//
+//		} while (std::next_permutation(Fac.begin(), Fac.end()));
+//
+//
+//	}
+//	else
+//	{
+//		unsigned long long count = 0;
+//		std::vector<int> Comp;
+//		std::vector<int> CompMax;
+//
+//		Comp.reserve(N);
+//		CompMax.resize(N, N + 1);
+//
+//		for (int i = 0; i < N; i++)
+//		{
+//			int temp;
+//			std::cin >> temp;
+//
+//			Comp.push_back(temp);
+//		}
+//
+//		do
+//		{
+//			count++;
+//
+//			FacRev = CompMax;
+//
+//			for (size_t i = 0; i < FacRev.size(); i++)
+//			{
+//				FacRev[i] = FacRev[i] - Fac[i];
+//			}
+//
+//			if (Comp == Fac)
+//			{
+//				break;
+//			}
+//
+//			if (Comp == FacRev)
+//			{
+//				count = (countMax - count) + 1;
+//				break;
+//			}
+//
+//		} while (std::next_permutation(Fac.begin(), Fac.end()));
+//
+//		std::cout << count;
+//	}
+//
+//	return 0;
+//}

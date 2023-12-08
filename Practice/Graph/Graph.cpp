@@ -294,6 +294,86 @@ bool TopologySort(std::vector<int>& _result)
 	return true;
 }
 
+std::vector<std::set<int>> CaseLinkNodes = { {1,2,3}, {0,2,3}, {0,1,3}, {0,1,2} };
+std::vector<bool> CaseIsVisit = { false, false, false, false };
+std::vector<int> CasePrintStack;
+
+void DFS_Combination(int _Start, int _r) // 순열
+{
+	CaseIsVisit[_Start] = true;
+	CasePrintStack.push_back(_Start);
+
+	if (CasePrintStack.size() == _r)
+	{
+		for (size_t i = 0; i < CasePrintStack.size(); i++)
+		{
+			std::cout << CasePrintStack[i] << ' ';
+		}
+		std::cout << std::endl;
+
+		CasePrintStack.pop_back();
+		CaseIsVisit[_Start] = false;
+		return;
+	}
+
+	for (auto& LinkNode : CaseLinkNodes[_Start])
+	{
+		if (!CaseIsVisit[LinkNode] && LinkNode > CasePrintStack.back())
+		{
+			DFS_Combination(LinkNode, _r);
+		}
+	}
+
+	CasePrintStack.pop_back();
+	CaseIsVisit[_Start] = false;
+}
+
+void Combination(int _n, int _r)
+{
+	for (size_t i = 0; i < _n; i++)
+	{
+		DFS_Combination(i, _r);
+	}
+}
+
+void DFS_Permutation(int _Start, int _r) // 순열
+{
+	CaseIsVisit[_Start] = true;
+	CasePrintStack.push_back(_Start);
+
+	if (CasePrintStack.size() == _r)
+	{
+		for (size_t i = 0; i < CasePrintStack.size(); i++)
+		{
+			std::cout << CasePrintStack[i] << ' ';
+		}
+		std::cout << std::endl;
+
+		CasePrintStack.pop_back();
+		CaseIsVisit[_Start] = false;
+		return;
+	}
+
+	for (auto& LinkNode : CaseLinkNodes[_Start])
+	{
+		if (!CaseIsVisit[LinkNode])
+		{
+			DFS_Combination(LinkNode, _r);
+		}
+	}
+
+	CasePrintStack.pop_back();
+	CaseIsVisit[_Start] = false;
+}
+
+void Permutation(int _n, int _r)
+{
+	for (size_t i = 0; i < _n; i++)
+	{
+		DFS_Permutation(i, _r);
+	}
+}
+
 int main()
 {
 	Graph.resize(5);

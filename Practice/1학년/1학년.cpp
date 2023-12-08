@@ -2,7 +2,8 @@
 #include <vector>
 #include <map>
 
-std::map<int, unsigned long long> DP[101]; // <어떤숫자, 어떤숫자까지 오는데 걸리는 경로의 개수>
+std::map<int, unsigned long long> DP[101]; // DP[a] = {a,b,c,d,e,f,g} 계산번째의 결과로 나올 수 있는 모든 숫자
+//<어떤숫자, 어떤숫자까지 오는데 걸리는 경로의 개수>
 
 int main()
 {
