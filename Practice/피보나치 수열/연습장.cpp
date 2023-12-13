@@ -2,13 +2,24 @@
 #include <vector>
 #include <set>
 #include <list>
+#include <functional>
 
 int DP[100001];
 
 class Parent
 {
 public:
-	virtual void Test()
+	Parent()
+	{
+
+	}
+
+	virtual ~Parent()
+	{
+		std::cout << "ºÎ¸ð ¼Ò¸êÀÚ" << "\n";
+	} 
+
+	static void Test()
 	{
 		int a = 0;
 	}
@@ -18,10 +29,20 @@ public:
 class Child : public Parent
 {
 public:
-	void Test() override
+	Child()
 	{
-		int a = 0;
+
 	}
+
+	~Child() override
+	{ 
+		std::cout << "ÀÚ½Ä ¼Ò¸êÀÚ" << "\n";
+	} 
+
+	//void Test() override
+	//{
+	//	int a = 0;
+	//}
 
 	virtual void AA()
 	{
@@ -29,19 +50,19 @@ public:
 	}
 };
 
-class ChildChild : public Child
-{
-public:
-	void Test() override
-	{
-		int a = 0;
-	}
-
-	void AA() override
-	{
-		int a = 0;
-	}
-};
+//class ChildChild : public Child
+//{
+//public:
+//	void Test() override
+//	{
+//		int a = 0;
+//	}
+//
+//	void AA() override
+//	{
+//		int a = 0;
+//	}
+//};
 
 std::vector<std::set<int>> LinkNodes = { {1,2,3}, {0,2,3}, {0,1,3}, {0,1,2} };
 std::vector<bool> IsVisit = {false, false, false, false};
@@ -126,13 +147,14 @@ void Permutation(int _n, int _r)
 int main()
 {
 
-	Parent P;
-	ChildChild C;
+	Parent P = Child();
+	//Child C;
 
-	Parent* A = &C;
-	Child* B = dynamic_cast<Child*>(A);
+	std::function<void()> l = P.Test;
 
-	Permutation(4, 2);
+
+	//Parent* A = &C;
+	//Child* B = dynamic_cast<Child*>(A);
 
 	return 0;
 }

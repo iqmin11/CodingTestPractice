@@ -1,23 +1,20 @@
-#include <string>
 #include <vector>
 #include <set>
-#include <list>
 
 using namespace std;
-
+std::vector<std::set<int>> LinkNodes;
 std::vector<bool> IsVisit;
-std::vector<std::set<int>> Links;
 
 int DFS(int _Start)
 {
-    int Count = 0;
-    if (IsVisit[_Start] == false)
+    IsVisit[_Start] = true;
+    int Count = 1;
+
+    for (auto& LinkNode : LinkNodes[_Start])
     {
-        IsVisit[_Start] = true;
-        Count++;
-        for (auto& i : Links[_Start])
+        if (!IsVisit[LinkNode])
         {
-            Count += DFS(i);
+            Count += DFS(LinkNode);
         }
     }
     return Count;
@@ -25,69 +22,42 @@ int DFS(int _Start)
 
 int solution(int n, vector<vector<int>> wires)
 {
-    IsVisit.resize(n, false);
-    Links.resize(n);
-    std::vector<std::list<int>> DFS_Result;
-    DFS_Result.resize(n);
-    int MinDiffer = INT32_MAX;
-    int exeption = 0;
+    int m = n - 1; //간선 개수
+    LinkNodes.resize(n);
+    IsVisit.resize(n);
 
-    while (exeption < n) // 전선을 다 끊어볼때까지 돌거야
+    int MinDiffer = INT32_MAX;
+
+    for (int Cut = 0; Cut < m; Cut++) //간선을 한번씩 잘라 보겠다
     {
-        for (int i = 0; i < wires.size(); i++)
+        int CutFirstValue = wires[Cut][0]; // 간선 자르고 양쪽중 하나 저장
+        for (int i = 0; i < m; i++)
         {
-            //전선 끊기
-            if (i == exeption)
+            if (Cut == i) // 선 자르기
             {
                 continue;
             }
-            //전선 끊은 채로 길연결
-            Links[wires[i][0] - 1].insert(wires[i][1] - 1);
-            Links[wires[i][1] - 1].insert(wires[i][0] - 1);
+            LinkNodes[wires[i][0] - 1].insert(wires[i][1] - 1);
+            LinkNodes[wires[i][1] - 1].insert(wires[i][0] - 1);
         }
 
-        for (int i = 0; i < n; i++)
+        int Left = DFS(CutFirstValue);
+        int Right = abs(n - Left);
+
+        MinDiffer = std::min(abs(Left - Right), MinDiffer);
+        if (MinDiffer == 0)
         {
-            int Count = DFS(i);
-            if (Count != 0) //영역이 있으면 Count가 0은 아닐것 결과가 있는 값만 저장
-            {
-                DFS_Result[exeption].emplace_back(Count); //모든 시작점에서의 결과 저장. 길을 하나만 끊었으니 1~2개영역으로 나뉨
-            }
+            return MinDiffer;
         }
 
-        for (auto i : IsVisit) //DFS다끝나면 다음 DFS를 위해 IsVisit 초기화
+        for (int i = 0; i < n; i++) //초기화
         {
-            i = false;
+            IsVisit[i] = false;
+            LinkNodes[i].clear();
         }
-
-        int first = *(DFS_Result[exeption].begin()); //첫번째 영역값
-        int second = 0;
-        if (++DFS_Result[exeption].begin() != DFS_Result[exeption].end()) //영역이 1개인 경우 예외처리
-        {
-            second = *(++DFS_Result[exeption].begin());
-        }
-
-        int CurDiffer = abs(first - second);
-
-        if (CurDiffer == 0) //0이 모든 경우에서 최선
-        {
-            return CurDiffer;
-        }
-
-        if (MinDiffer > CurDiffer)
-        {
-            MinDiffer = CurDiffer;
-        }
-
-        for (size_t i = 0; i < Links.size(); i++)
-        {
-            Links[i].clear(); //줄연결 초기화
-        }
-        
-        exeption++; //다음번 줄 끊기 준비
     }
 
-    return MinDiffer; // 최소값 리턴
+    return MinDiffer;
 }
 
 int main()
