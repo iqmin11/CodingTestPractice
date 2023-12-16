@@ -157,10 +157,7 @@ int solutionFW(int n, int s, int a, int b, vector<vector<int>> fares)
 
     for (size_t i = 0; i < n; i++)
     {
-        for (size_t i = 0; i < n; i++)
-        {
-            Dist[i][i] = 0;
-        }
+        Dist[i][i] = 0;
     }
 
     for (size_t i = 0; i < fares.size(); i++)

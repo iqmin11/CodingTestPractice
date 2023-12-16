@@ -6,6 +6,26 @@
 
 int DP[100001];
 
+class AAA
+{
+public:
+	AAA()
+	{
+
+	}
+
+	virtual ~AAA()
+	{
+
+	}
+
+	static void Test()
+	{
+		int a = 0;
+	}
+
+};
+
 class Parent
 {
 public:
@@ -147,14 +167,6 @@ void Permutation(int _n, int _r)
 int main()
 {
 
-	Parent P = Child();
-	//Child C;
-
-	std::function<void()> l = P.Test;
-
-
-	//Parent* A = &C;
-	//Child* B = dynamic_cast<Child*>(A);
 
 	return 0;
 }
