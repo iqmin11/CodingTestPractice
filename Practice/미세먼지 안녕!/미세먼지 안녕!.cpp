@@ -24,7 +24,7 @@ int dy[] = { 0,1,0,-1 };
 std::vector<std::vector<int>> DoubleBuffer;
 int R, C, T;
 
-void DebugScreen()
+void DebugScreen() //디버깅 용
 {
 	std::cout << "/////////////////////////////////////////////" << std::endl;
 	
@@ -125,9 +125,9 @@ int main()
 		}
 	}
 
-	while (T-- != 0)
+	while (T-- != 0) //몇프레임 돌아야 하니
 	{
-		for (auto& Dust : Dusts)
+		for (auto& Dust : Dusts) //먼지 위치 돌면서
 		{
 			int CurPosX = Dust.first.first;
 			int CurPosY = Dust.first.second;
@@ -138,17 +138,17 @@ int main()
 				int CheckX = CurPosX + dx[i];
 				int CheckY = CurPosY + dy[i];
 
-				if (CheckX < 0 || CheckY < 0 || CheckX >= C || CheckY >= R || DustMap[CheckY][CheckX] == -1)
+				if (CheckX < 0 || CheckY < 0 || CheckX >= C || CheckY >= R || DustMap[CheckY][CheckX] == -1) //확산 위치 확인
 				{
 					continue;
 				}
 				++Count;
-				DoubleBuffer[CheckY][CheckX] += Dust.second / 5;
+				DoubleBuffer[CheckY][CheckX] += Dust.second / 5; //확산 되면 기록(더블버퍼에)
 			}
-			DustMap[CurPosY][CurPosX] -= ((Dust.second / 5) * Count);
+			DustMap[CurPosY][CurPosX] -= ((Dust.second / 5) * Count); //확산 후 원래위치 감소(본래 맵에)
 		}
 
-		for (size_t i = 0; i < R; i++)
+		for (size_t i = 0; i < R; i++) //더블버퍼 + 본래 맵 하고 더블버퍼 0으로 초기화 (바람 영향 기록 준비)
 		{
 			for (size_t j = 0; j < C; j++)
 			{
@@ -157,11 +157,11 @@ int main()
 			}
 		}
 
-		for (auto& WindInfo : Wind)
+		for (auto& WindInfo : Wind) //바람 돌면서
 		{
 			std::pair<int, int> WindPos = WindInfo.first;
 			std::pair<int, int> NextPos = std::pair<int, int>();
-			switch (WindInfo.second)
+			switch (WindInfo.second) //바람영향받은 NextPos 기록
 			{
 			case Wind::E:
 				NextPos = { WindPos.first + 1 , WindPos.second };
@@ -179,22 +179,22 @@ int main()
 				break;
 			}
 
-			if (AirUp == NextPos || AirDown == NextPos)
+			if (AirUp == NextPos || AirDown == NextPos) //거기가 청정기이면 작업 안함
 			{
 				continue;
 			}
 
-			DoubleBuffer[NextPos.second][NextPos.first] = DustMap[WindPos.second][WindPos.first];
+			DoubleBuffer[NextPos.second][NextPos.first] = DustMap[WindPos.second][WindPos.first]; //본맵의 먼지들, 바람영향 받은 버전으로 더블버퍼에 기록
 		}
 
 		for (auto& WindInfo : Wind)
 		{
 			std::pair<int, int> WindPos = WindInfo.first;
-			DustMap[WindPos.second][WindPos.first] = DoubleBuffer[WindPos.second][WindPos.first];
-			DoubleBuffer[WindPos.second][WindPos.first] = 0;
+			DustMap[WindPos.second][WindPos.first] = DoubleBuffer[WindPos.second][WindPos.first]; //그걸 다시 본 맵에 기록하고
+			DoubleBuffer[WindPos.second][WindPos.first] = 0; //더블버퍼 초기화
 		}
 
-		Dusts.clear();
+		Dusts.clear(); //먼지 기록 초기화
 
 		for (size_t i = 0; i < R; i++)
 		{
@@ -202,7 +202,7 @@ int main()
 			{
 				if (DustMap[i][j] != 0 && DustMap[i][j] != -1)
 				{
-					Dusts.insert(std::make_pair(std::make_pair(j, i), DustMap[i][j]));
+					Dusts.insert(std::make_pair(std::make_pair(j, i), DustMap[i][j])); //본맵 돌면서 먼지 기록
 				}
 			}
 		}
@@ -212,7 +212,7 @@ int main()
 
 	for (auto& i : Dusts)
 	{
-		Answer += i.second;
+		Answer += i.second; 
 	}
 
 	std::cout << Answer;
