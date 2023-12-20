@@ -16,7 +16,7 @@ public:
 			: Iter(_Value.Iter)
 		{}
 
-		iterator operator++()
+		iterator& operator++()
 		{
 			++Iter;
 			return *this;
@@ -29,13 +29,13 @@ public:
 			return temp;
 		}
 
-		iterator operator--()
+		iterator& operator--()
 		{
 			--Iter;
 			return *this;
 		}
 
-		iterator operator--(int)
+		iterator& operator--(int)
 		{
 			iterator temp = *this;
 			--Iter;
@@ -63,6 +63,7 @@ public:
 		{
 
 		}
+
 		T* Iter = nullptr;
 	};
 
@@ -162,7 +163,6 @@ int main()
 	{
 		int* Leak = new int;
 		std::vector<int> A(10, 2);
-		A.push_back(1);
 		int count = 0;
 
 		MyVector B(10);
