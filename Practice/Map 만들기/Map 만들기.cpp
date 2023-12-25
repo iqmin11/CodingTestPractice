@@ -13,6 +13,16 @@ private:
 	class Tree_Node
 	{
 	public:
+		~Tree_Node()
+		{
+			delete Value;
+		}
+
+		bool Ishead()
+		{
+			return Value == nullptr;
+		}
+
 		Tree_Node* find(const T1& _SearchKey)
 		{
 			if (Value == nullptr)// 검사 노드가 헤드 노드일 경우
@@ -37,6 +47,7 @@ private:
 				{
 					return Left->find(_SearchKey);
 				}
+
 				return Left;
 			}
 
@@ -174,6 +185,19 @@ private:
 			_Event();
 		}
 
+		void Release()
+		{
+			if (Left->Value != nullptr)
+			{
+				Left->Release();
+			}
+			if (Right->Value != nullptr)
+			{
+				Right->Release();
+			}
+			delete this;
+		}
+
 		std::pair<T1, T2>* Value = nullptr;
 		Tree_Node* Left = nullptr;
 		Tree_Node* Parent = nullptr;
@@ -185,6 +209,48 @@ public:
 	{
 		friend MyMap;
 	public:
+
+		
+
+		iterator operator++()
+		{
+			if (Iter->Right->Ishead() == false)
+			{
+				Iter = Iter->Right;
+				if (Iter->Left->Ishead() == false)
+				{
+					Iter = Iter->Left;
+				}
+				return iterator(Iter);
+			}
+			else
+			{
+				Tree_Node* Myhead = Iter->Right;
+				if (Myhead->Right == Iter)
+				{
+					Iter = Myhead;
+					return iterator(Iter);
+				}
+
+				Iter = Iter->Parent;
+				return iterator(Iter);
+			}
+		}
+
+		bool operator==(const iterator& _Value)
+		{
+			return _Value.Iter == Iter;
+		}
+
+		bool operator!=(const iterator& _Value)
+		{
+			return _Value.Iter != Iter;
+		}
+
+		std::pair<T1, T2>& operator*()
+		{
+			return *(Iter->Value);
+		}
 
 	private:
 		iterator(Tree_Node* _ptr)
@@ -205,9 +271,7 @@ public:
 
 	~MyMap()
 	{
-		Myhead.Parent->postorder([]()
-			{
-			});
+		Myhead.Parent->Release();
 	}
 
 	iterator find(const T1& _Value)
@@ -242,41 +306,44 @@ private:
 
 int main()
 {
-	std::map<int, int> Ex;
-
-	Ex.insert(std::make_pair(1, 1));
-	Ex.insert(std::make_pair(2, 1));
-	Ex.insert(std::make_pair(3, 1));
-	Ex.insert(std::make_pair(4, 1));
-	Ex.insert(std::make_pair(5, 1));
-	std::pair<std::map<int, int>::iterator, bool> Test1 = Ex.insert(std::make_pair(6, 1));
-	std::pair<std::map<int, int>::iterator, bool> Test2 = Ex.insert(std::make_pair(6, 10));
-
-	std::map<int, int>::iterator Enditer = Ex.end();
-	//Ex.find(2);
-
-	for (std::map<int, int>::iterator Curiter = Ex.begin(); Curiter != Enditer; Curiter++)
 	{
-		std::cout << Curiter->first << " ";
+		std::map<int, int> Ex;
+
+		Ex.insert(std::make_pair(1, 1));
+		Ex.insert(std::make_pair(2, 1));
+		Ex.insert(std::make_pair(3, 1));
+		Ex.insert(std::make_pair(4, 1));
+		Ex.insert(std::make_pair(5, 1));
+		std::pair<std::map<int, int>::iterator, bool> Test1 = Ex.insert(std::make_pair(6, 1));
+		std::pair<std::map<int, int>::iterator, bool> Test2 = Ex.insert(std::make_pair(6, 10));
+
+		std::map<int, int>::iterator Enditer = Ex.end();
+
+		for (std::map<int, int>::iterator Curiter = Ex.begin(); Curiter != Enditer; Curiter++)
+		{
+			std::cout << Curiter->first << " ";
+		}
+
+		MyMap My;
+		My.insert(std::make_pair(2, 1));
+		My.insert(std::make_pair(1, 1));
+		My.insert(std::make_pair(4, 1));
+		My.insert(std::make_pair(3, 1));
+		My.insert(std::make_pair(5, 1));
+		My.insert(std::make_pair(6, 1));
+		My.insert(std::make_pair(6, 10));
+
+		MyMap::iterator SIter = My.begin();
+		MyMap::iterator EIter = My.end();
+		MyMap::iterator FindIter = My.find(0);
+
+		for (; SIter != EIter; ++SIter)
+		{
+			std::cout << (*SIter).first << " ";
+		}
+
+		int a = 0;
 	}
+	_CrtDumpMemoryLeaks();
 
-	MyMap My;
-	My.insert(std::make_pair(2, 1));
-	My.insert(std::make_pair(1, 1));
-	My.insert(std::make_pair(4, 1));
-	My.insert(std::make_pair(3, 1));
-	My.insert(std::make_pair(5, 1));
-	My.insert(std::make_pair(6, 1));
-	My.insert(std::make_pair(6, 10));
-
-	MyMap::iterator SIter = My.begin();
-	MyMap::iterator EIter = My.end();
-
-	MyMap::iterator FindIter = My.find(0);
-
-	/*for (size_t i = 0; i < length; i++)
-	{
-
-	}*/
-	int a = 0;
 }
