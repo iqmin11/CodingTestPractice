@@ -2,9 +2,10 @@
 #include <list>
 #include <crtdbg.h>
 #include <assert.h>
+#include <string>
 
-typedef int T;
-//template <typename T>
+//typedef int T;
+template <typename T>
 class MyList
 {
 private:
@@ -13,7 +14,6 @@ private:
 	public:
 		~Node()
 		{
-			prev->next = nullptr;
 			if (next == nullptr)
 			{
 				return;
@@ -28,7 +28,6 @@ private:
 	};
 
 public:
-
 	class iterator
 	{
 		friend MyList;
@@ -85,6 +84,11 @@ public:
 		Myhead.IsHead = true;
 	}
 
+	~MyList()
+	{
+		Myhead.prev->next = nullptr;
+	}
+
 	void push_back(const T& _Value)
 	{
 		Node* tempNode = new Node;
@@ -106,6 +110,24 @@ public:
 		Myhead.next = tempNode;
 	}
 
+	void pop_back()
+	{
+		Node* tempNode = Myhead.prev;
+		tempNode->prev->next = &Myhead;
+		Myhead.prev = tempNode->prev;
+		tempNode->next = nullptr;
+		delete tempNode;
+	}
+
+	void pop_front()
+	{
+		Node* tempNode = Myhead.next;
+		tempNode->next->prev = &Myhead;
+		Myhead.next = tempNode->next;
+		tempNode->next = nullptr;
+		delete tempNode;
+	}
+
 	iterator begin()
 	{
 		return iterator(Myhead.next);
@@ -123,6 +145,8 @@ private:
 int main()
 {
 	{
+		new int; //leak check
+
 		std::list<int> A;
 
 		A.push_back(10);
@@ -130,19 +154,20 @@ int main()
 		A.push_back(30);
 		A.push_back(40);
 
-		MyList B;
-		B.push_back(10);
-		B.push_back(20);
-		B.push_back(30);
-		B.push_back(40);
-		B.push_back(50);
-		B.push_front(11);
-		B.push_front(21);
-		B.push_front(31);
-		B.push_front(41);
+		MyList<int> B;
+		B.push_back(0);
+		B.push_back(0);
+		B.push_back(0);
+		B.push_front(0);
+		B.push_front(0);
 
-		for (MyList::iterator CurIter = B.begin(); CurIter != B.end(); ++CurIter)
+		//B.pop_back();
+		//B.pop_front();
+		
+		int count = 0;
+		for (MyList<int>::iterator CurIter = B.begin(); CurIter != B.end(); ++CurIter)
 		{
+			*CurIter = count++;
 			std::cout << *CurIter << " ";
 		}
 		std::cout << std:: endl;

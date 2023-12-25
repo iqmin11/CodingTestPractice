@@ -52,7 +52,7 @@ public:
 			return Iter == _Value.Iter;
 		}
 
-		T operator*()
+		T& operator*()
 		{
 			return *Iter;
 		}
@@ -165,6 +165,9 @@ int main()
 		std::vector<int> A(10, 2);
 		int count = 0;
 
+		auto Iter = A.begin();
+		A.erase(Iter + 10);
+
 		MyVector B(10);
 
 		for (size_t i = 0; i < B.size(); i++)
@@ -178,9 +181,10 @@ int main()
 		AAA++;
 		AAA++;
 		B.erase(AAA);
-
+		count = 0;
 		for (MyVector::iterator CurIter = B.begin(); CurIter != B.end(); CurIter++)
 		{
+			*CurIter = count++;
 			std::cout << *CurIter << " ";
 		}
 		std::cout << std::endl;
