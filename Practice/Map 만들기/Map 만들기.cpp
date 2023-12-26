@@ -210,9 +210,7 @@ public:
 		friend MyMap;
 	public:
 
-		
-
-		iterator operator++()
+		/*iterator operator++()
 		{
 			if (Iter->Right->Ishead() == false)
 			{
@@ -232,10 +230,14 @@ public:
 					return iterator(Iter);
 				}
 
-				Iter = Iter->Parent;
-				return iterator(Iter);
+				if (*(Iter->Value) < *(Iter->Parent->Value))
+				{
+					Iter = Iter->Parent;
+					return iterator(Iter);
+				}
+				
 			}
-		}
+		}*/
 
 		bool operator==(const iterator& _Value)
 		{
@@ -325,22 +327,22 @@ int main()
 		}
 
 		MyMap My;
+		My.insert(std::make_pair(5, 1));
 		My.insert(std::make_pair(2, 1));
+		My.insert(std::make_pair(3, 1));
+		My.insert(std::make_pair(7, 1));
+		My.insert(std::make_pair(6, 1));
 		My.insert(std::make_pair(1, 1));
 		My.insert(std::make_pair(4, 1));
-		My.insert(std::make_pair(3, 1));
-		My.insert(std::make_pair(5, 1));
-		My.insert(std::make_pair(6, 1));
-		My.insert(std::make_pair(6, 10));
 
 		MyMap::iterator SIter = My.begin();
 		MyMap::iterator EIter = My.end();
 		MyMap::iterator FindIter = My.find(0);
 
-		for (; SIter != EIter; ++SIter)
+		/*for (; SIter != EIter; ++SIter)
 		{
 			std::cout << (*SIter).first << " ";
-		}
+		}*/
 
 		int a = 0;
 	}
