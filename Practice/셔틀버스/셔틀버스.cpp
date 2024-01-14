@@ -12,7 +12,6 @@ int LastBusTime;
 
 size_t TimeToInt(std::string _Time)
 {
-    _Time[2] = ' ';
     std::stringstream Time(_Time);
     int HH, MM;
     Time >> HH;

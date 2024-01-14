@@ -56,39 +56,10 @@ void DebugingFunc()
 	}
 }
 
-uint64_t Check(const uint64_t& _Value)
-{
-}
-
 int main()
 {
 	std::cin >> N >> k;
 	DebugingFunc();
 	
-	uint64_t Left = 0;
-	uint64_t Right = N * N - 1;
-	uint64_t Mid = 0;
-
-	while (Left >= Right)
-	{
-		Mid = (Right + Left) / 2;
-
-		if (k == Mid)
-		{
-
-		}
-
-		if (k < Mid)
-		{
-			Left = Mid + 1;
-		}
-
-		if (k > Mid)
-		{
-			Right = Mid - 1;
-		}
-	}
-
-
 	return 0;
 }
