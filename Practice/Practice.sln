@@ -173,6 +173,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N개의 최소공배수", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "혼자 놀기의 달인", "혼자 놀기의 달인\혼자 놀기의 달인.vcxproj", "{4AAA3AA4-6A4A-4C57-9F32-5E464CD458E4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "파일명 정렬", "파일명 정렬\파일명 정렬.vcxproj", "{08CBA2DE-01F0-49E6-8E50-014374F00E82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -829,6 +831,14 @@ Global
 		{4AAA3AA4-6A4A-4C57-9F32-5E464CD458E4}.Release|x64.Build.0 = Release|x64
 		{4AAA3AA4-6A4A-4C57-9F32-5E464CD458E4}.Release|x86.ActiveCfg = Release|Win32
 		{4AAA3AA4-6A4A-4C57-9F32-5E464CD458E4}.Release|x86.Build.0 = Release|Win32
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Debug|x64.ActiveCfg = Debug|x64
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Debug|x64.Build.0 = Debug|x64
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Debug|x86.ActiveCfg = Debug|Win32
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Debug|x86.Build.0 = Debug|Win32
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Release|x64.ActiveCfg = Release|x64
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Release|x64.Build.0 = Release|x64
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Release|x86.ActiveCfg = Release|Win32
+		{08CBA2DE-01F0-49E6-8E50-014374F00E82}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
