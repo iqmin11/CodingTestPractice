@@ -6,45 +6,40 @@ using namespace std;
 
 std::vector<std::string> Division(std::string _FileName)
 {
-    std::vector<std::string> result;
-    result.reserve(3);
-    int Check = 0;
-    for (int i = 0; i < _FileName.size(); ++i)
-    {
-        if (result.empty())
-        {
-            if (_FileName[i] >= '0' && _FileName[i] <= '9')
-            {
-                Check = i;
-                result.push_back(_FileName.substr(0, Check));
-            }
-        }
-        else if (!(_FileName[i] >= '0' && _FileName[i] <= '9'))
-        {
-            result.push_back(_FileName.substr(Check, i - Check));
-            result.push_back(_FileName.substr(i, _FileName.size() - 1));
-            break;
-        }
-        else if(i == _FileName.size() - 1 && result.size() != 3)
-        {
-            result.push_back(_FileName.substr(Check, i - Check + 1));
-            result.push_back("\0");
-        }
-    }
+	std::vector<std::string> result;
+	result.reserve(3);
+	int Check = 0;
+	for (int i = 0; i < _FileName.size(); ++i)
+	{
+		if (result.empty())
+		{
+			if (_FileName[i] >= '0' && _FileName[i] <= '9')
+			{
+				Check = i;
+				result.push_back(_FileName.substr(0, Check));
+			}
+		}
+		else if (!(_FileName[i] >= '0' && _FileName[i] <= '9'))
+		{
+			result.push_back(_FileName.substr(Check, i - Check));
+			result.push_back(_FileName.substr(i, _FileName.size() - 1));
+			break;
+		}
 
-    for (size_t i = 0; i < result.size(); i++)
-    {
-        if (i == 1)
-        {
-            continue;
-        }
+	}
 
-        for (size_t j = 0; j < result[i].size(); j++)
-        {
-            result[i][j] = toupper(result[i][j]);
-        }
-    }
-    return result;
+	if (result.size() != 3)
+	{
+		result.push_back(_FileName.substr(Check, result.size() - Check));
+		result.push_back("\0");
+	}
+
+	for (size_t i = 0; i < result[0].size(); i++)
+	{
+		result[0][i] = toupper(result[0][i]);
+	}
+
+	return result;
 }
 
 vector<string> solution(vector<string> files)
@@ -74,6 +69,6 @@ vector<string> solution(vector<string> files)
 
 int main()
 {
-    solution({ "A500001", "A50000" });
+    solution({ "img01", "img1" });
 
 }
