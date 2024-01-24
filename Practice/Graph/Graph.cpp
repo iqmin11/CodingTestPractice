@@ -298,7 +298,7 @@ std::vector<std::set<int>> CaseLinkNodes = { {1,2,3}, {0,2,3}, {0,1,3}, {0,1,2} 
 std::vector<bool> CaseIsVisit = { false, false, false, false };
 std::vector<int> CasePrintStack;
 
-void DFS_Combination(int _Start, int _r) // 순열
+void DFS_Combination(int _Start, int _r) // 조합
 {
 	CaseIsVisit[_Start] = true;
 	CasePrintStack.push_back(_Start);
