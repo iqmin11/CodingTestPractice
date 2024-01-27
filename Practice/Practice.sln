@@ -185,6 +185,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "감소하는 수", "감소�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "나의 인생에는 수학과 함께", "나의 인생에는 수학과 함께\나의 인생에는 수학과 함께.vcxproj", "{332B9472-0533-4D75-98FB-7B91773C7A20}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "거북이", "거북이\거북이.vcxproj", "{58576632-C00B-43C9-A231-971EA09D6523}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -889,6 +891,14 @@ Global
 		{332B9472-0533-4D75-98FB-7B91773C7A20}.Release|x64.Build.0 = Release|x64
 		{332B9472-0533-4D75-98FB-7B91773C7A20}.Release|x86.ActiveCfg = Release|Win32
 		{332B9472-0533-4D75-98FB-7B91773C7A20}.Release|x86.Build.0 = Release|Win32
+		{58576632-C00B-43C9-A231-971EA09D6523}.Debug|x64.ActiveCfg = Debug|x64
+		{58576632-C00B-43C9-A231-971EA09D6523}.Debug|x64.Build.0 = Debug|x64
+		{58576632-C00B-43C9-A231-971EA09D6523}.Debug|x86.ActiveCfg = Debug|Win32
+		{58576632-C00B-43C9-A231-971EA09D6523}.Debug|x86.Build.0 = Debug|Win32
+		{58576632-C00B-43C9-A231-971EA09D6523}.Release|x64.ActiveCfg = Release|x64
+		{58576632-C00B-43C9-A231-971EA09D6523}.Release|x64.Build.0 = Release|x64
+		{58576632-C00B-43C9-A231-971EA09D6523}.Release|x86.ActiveCfg = Release|Win32
+		{58576632-C00B-43C9-A231-971EA09D6523}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
