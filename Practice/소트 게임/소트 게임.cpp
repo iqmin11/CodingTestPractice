@@ -1,9 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <stack>
-#include <algorithm>
 #include <queue>
-#include <set>
 #include <unordered_map>
 
 //뒤집는게 가능한지 알려주는 함수
