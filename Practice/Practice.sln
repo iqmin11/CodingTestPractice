@@ -205,6 +205,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "소문난 칠공주", "소�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "욕심쟁이 판다", "욕심쟁이 판다\욕심쟁이 판다.vcxproj", "{E8CABE17-1B28-487D-9ED3-09C639803F6A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "최솟값과 최댓값", "최솟값과 최댓값\최솟값과 최댓값.vcxproj", "{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "가운데를 말해요", "가운데를 말해요\가운데를 말해요.vcxproj", "{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "내리막 길", "내리막 길\내리막 길.vcxproj", "{E3068780-9654-40C2-954D-BE6A2775865A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "음악프로그램", "음악프로그램\음악프로그램.vcxproj", "{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -989,6 +997,38 @@ Global
 		{E8CABE17-1B28-487D-9ED3-09C639803F6A}.Release|x64.Build.0 = Release|x64
 		{E8CABE17-1B28-487D-9ED3-09C639803F6A}.Release|x86.ActiveCfg = Release|Win32
 		{E8CABE17-1B28-487D-9ED3-09C639803F6A}.Release|x86.Build.0 = Release|Win32
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Debug|x64.ActiveCfg = Debug|x64
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Debug|x64.Build.0 = Debug|x64
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Debug|x86.ActiveCfg = Debug|Win32
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Debug|x86.Build.0 = Debug|Win32
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Release|x64.ActiveCfg = Release|x64
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Release|x64.Build.0 = Release|x64
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Release|x86.ActiveCfg = Release|Win32
+		{028ACC6E-A8C2-4286-8EC0-7C4AF943FCB6}.Release|x86.Build.0 = Release|Win32
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Debug|x64.ActiveCfg = Debug|x64
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Debug|x64.Build.0 = Debug|x64
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Debug|x86.ActiveCfg = Debug|Win32
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Debug|x86.Build.0 = Debug|Win32
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Release|x64.ActiveCfg = Release|x64
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Release|x64.Build.0 = Release|x64
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Release|x86.ActiveCfg = Release|Win32
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74}.Release|x86.Build.0 = Release|Win32
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Debug|x64.ActiveCfg = Debug|x64
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Debug|x64.Build.0 = Debug|x64
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Debug|x86.ActiveCfg = Debug|Win32
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Debug|x86.Build.0 = Debug|Win32
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Release|x64.ActiveCfg = Release|x64
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Release|x64.Build.0 = Release|x64
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Release|x86.ActiveCfg = Release|Win32
+		{E3068780-9654-40C2-954D-BE6A2775865A}.Release|x86.Build.0 = Release|Win32
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Debug|x64.ActiveCfg = Debug|x64
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Debug|x64.Build.0 = Debug|x64
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Debug|x86.ActiveCfg = Debug|Win32
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Debug|x86.Build.0 = Debug|Win32
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Release|x64.ActiveCfg = Release|x64
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Release|x64.Build.0 = Release|x64
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Release|x86.ActiveCfg = Release|Win32
+		{314F73E1-FBE5-4CAC-93D9-1C82DD80E648}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1077,6 +1117,7 @@ Global
 		{6C5F86B1-6121-4BAF-AED6-AAEAF211B5FA} = {B3A674F3-0B33-4494-A9FF-08C7D3A3B7E6}
 		{69C9C47C-61AD-4D20-B9A9-658397FBCDC8} = {B3A674F3-0B33-4494-A9FF-08C7D3A3B7E6}
 		{212D3096-B578-4750-8B18-6155DC707F71} = {B3A674F3-0B33-4494-A9FF-08C7D3A3B7E6}
+		{2CD7661C-95E9-4231-B81C-C1A3FCAFED74} = {B3A674F3-0B33-4494-A9FF-08C7D3A3B7E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B152544-0CCF-4F5A-9FB9-B0E2FA2F1599}
