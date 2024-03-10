@@ -1,5 +1,6 @@
 #include <iostream>
 #include <functional>
+#include <queue>
 
 //전역함수
 //1. 매개변수와 반환값이 둘다 없는 형태의 함수
@@ -70,13 +71,13 @@ int main()
 
 	//멤버함수 테스트/////////////////////////////////
 	TestClass MyInstance;
-	void(TestClass::*FuncPtr5)() = &TestClass::TestClassFunction; //이렇게 쓰래.. 근데 이렇게 쓰면 어떤 객체가 쓸 함수일지 어떻게 알아?
+	void (TestClass::*FuncPtr5)() = &TestClass::TestClassFunction; //이렇게 쓰래.. 근데 이렇게 쓰면 어떤 객체가 쓸 함수일지 어떻게 알아?
 	(MyInstance.*FuncPtr5)(); //이렇게 하면 된다네, 어떤 객체의 어떤 함수를 쓴다
 	//그럼 뭐 자유 자제로 사용이 가능한건가? 굳이 functional을 써야 하는 이유가 뭘까 잘 모르겠네
 	//일단 보이는 첫번째 문제 가독성이 안좋아.
 
 	//전역함수 형태로는 당연히 사용 가능
-	void(*FuncPtr6)() = &TestClass::StaticMemberFunc;
+	void (*FuncPtr6)() = &TestClass::StaticMemberFunc;
 	FuncPtr6();
 
 	//functional
@@ -108,5 +109,4 @@ int main()
 		});
 	FuncPtr7();
 	//장점이 많네요 functional을 쓰는 이유를 알 것 같다.
-
 }
