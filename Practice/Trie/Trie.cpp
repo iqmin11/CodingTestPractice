@@ -99,7 +99,7 @@ public:
 			return;
 		}
 
-		RootNode->Insert(_Str.begin(), _Str.end()); //첫 글자부터 돌면서 재귀식으로 삽입
+		RootNode->Insert(_Str.begin(), _Str.end()); //첫 글자부터 돌면서 재귀로 삽입
 	}
 
 	bool Find(std::string_view _Str)
@@ -109,7 +109,7 @@ public:
 			return false;
 		}
 
-		return RootNode->Find(_Str.begin(), _Str.end()); //첫 글자부터 돌면서 재귀식으로 검색
+		return RootNode->Find(_Str.begin(), _Str.end()); //첫 글자부터 돌면서 재귀로 검색
 	}
 
 	TrieNode* RootNode = nullptr;
@@ -122,6 +122,8 @@ int main()
 		Trie Test;
 		Test.Insert("TEST");
 		Test.Insert("TEAA");
+		Test.Insert("FIGHTER");
+		Test.Insert("MONSTER");
 		
 		bool Result = false;
 		Result = Test.Find("TES");
