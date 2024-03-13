@@ -28,7 +28,7 @@ class SegmentTree
 		{
 			if (LeftNode != nullptr)
 			{
-				delete LeftNode;
+				delete LeftNode;	
 			}
 
 			if (RightNode != nullptr)
@@ -37,12 +37,41 @@ class SegmentTree
 			}
 		}
 
+		size_t FindRangeData(size_t _Start, size_t _End)
+		{
+			if (_End < LeftIndex || _Start > RightIndex)
+			{
+				return 0;
+			}
+
+			if (_Start == LeftIndex && _End == RightIndex)
+			{
+				return Data;
+			}
+
+			size_t Mid = (LeftIndex + RightIndex) / 2;
+
+			if (Mid < _Start)
+			{
+				Mid = _Start;
+				return LeftNode->FindRangeData(_Start, Mid) + RightNode->FindRangeData(Mid, _End);
+			}
+			else if (Mid > _End)
+			{
+				Mid = _End;
+				return LeftNode->FindRangeData(_Start, Mid) + RightNode->FindRangeData(Mid, _End);
+			}
+
+			return LeftNode->FindRangeData(_Start, Mid) + RightNode->FindRangeData(Mid + 1, _End);
+		}
+
 		size_t LeftIndex = -1;
 		size_t RightIndex = -1;
 		size_t Data = -1;
 		SegmentTreeNode* LeftNode = nullptr;
 		SegmentTreeNode* RightNode = nullptr;
 	};
+
 
 public:
 	SegmentTree(const std::vector<int>& _Data)
@@ -55,6 +84,12 @@ public:
 		delete RootNode;
 	}
 
+	size_t FindRangeData(size_t _Start, size_t _End)
+	{
+		return RootNode->FindRangeData(_Start, _End);
+	}
+
+
 private:
 
 	SegmentTreeNode* RootNode = nullptr;
@@ -63,8 +98,10 @@ private:
 int main()
 {
 	{
-		std::vector<int> Vec = { 1,2,3,4,5,6,7,8,9,10 };
+		std::vector<int> Vec = { 12,3,6,2,7,8,33,1 };
 		SegmentTree Test = SegmentTree(Vec);
+		size_t a = Test.FindRangeData(0, 2);
+		int b = 0;
 	}
 	_CrtDumpMemoryLeaks();
 	return 0;
