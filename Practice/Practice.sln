@@ -249,6 +249,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "히스토그램", "히스�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "전구와 스위치", "전구와 스위치\전구와 스위치.vcxproj", "{D004D9EC-97C9-4531-9627-1E2FA4497BAF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "하늘에서 별똥별이 빗발친다", "하늘에서 별똥별이 빗발친다\하늘에서 별똥별이 빗발친다.vcxproj", "{8B50A667-0B78-4ABB-80E2-344EB48F83FE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "미친 아두이노", "미친 아두이노\미친 아두이노.vcxproj", "{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1193,6 +1197,22 @@ Global
 		{D004D9EC-97C9-4531-9627-1E2FA4497BAF}.Release|x64.Build.0 = Release|x64
 		{D004D9EC-97C9-4531-9627-1E2FA4497BAF}.Release|x86.ActiveCfg = Release|Win32
 		{D004D9EC-97C9-4531-9627-1E2FA4497BAF}.Release|x86.Build.0 = Release|Win32
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Debug|x64.ActiveCfg = Debug|x64
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Debug|x64.Build.0 = Debug|x64
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Debug|x86.ActiveCfg = Debug|Win32
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Debug|x86.Build.0 = Debug|Win32
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Release|x64.ActiveCfg = Release|x64
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Release|x64.Build.0 = Release|x64
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Release|x86.ActiveCfg = Release|Win32
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE}.Release|x86.Build.0 = Release|Win32
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Debug|x64.ActiveCfg = Debug|x64
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Debug|x64.Build.0 = Debug|x64
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Debug|x86.ActiveCfg = Debug|Win32
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Debug|x86.Build.0 = Debug|Win32
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Release|x64.ActiveCfg = Release|x64
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Release|x64.Build.0 = Release|x64
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Release|x86.ActiveCfg = Release|Win32
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1316,6 +1336,8 @@ Global
 		{180238C2-DD9A-4E80-ACB6-AEE49A97B22C} = {E1D559D2-9D74-4CC4-9CB3-7B87F1021C82}
 		{265DEE7B-6724-4279-A256-3B1863FA424B} = {B3A674F3-0B33-4494-A9FF-08C7D3A3B7E6}
 		{D004D9EC-97C9-4531-9627-1E2FA4497BAF} = {887E9B32-75C4-4B53-92FE-4241E6FD2BE3}
+		{8B50A667-0B78-4ABB-80E2-344EB48F83FE} = {B3A674F3-0B33-4494-A9FF-08C7D3A3B7E6}
+		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9} = {B3A674F3-0B33-4494-A9FF-08C7D3A3B7E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B152544-0CCF-4F5A-9FB9-B0E2FA2F1599}
