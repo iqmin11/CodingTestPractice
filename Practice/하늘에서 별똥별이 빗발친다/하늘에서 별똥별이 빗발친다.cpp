@@ -1,97 +1,105 @@
 // https://www.acmicpc.net/problem/14658
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-int dx[] = { 1,1,-1,-1, 1, 0, -1, 0 };
-int dy[] = { 1,-1,1,-1, 0, 1, 0, -1 };
-std::vector<std::pair<int, int>> Attack;
+int N, M, L, K;
+std::vector<std::pair<int, int>> StarsPos;
 
-int DeffensCount(int StartX, int StartY, int EndX, int EndY)
+bool RectSizeCheck(int MinX, int MinY, int MaxX, int MaxY)
 {
-	int X[2] = {};
-	if (StartX < EndX)
-	{
-		X[0] = StartX;
-		X[1] = EndX;
-	}
-	else
-	{
-		X[1] = StartX;
-		X[0] = EndX;
-	}
+	return MaxX - MinX <= L && MaxY - MinY <= L;
+}
 
-	int Y[2] = {};
-	if (StartY < EndY)
+int StarCount(int MinX, int MinY, int MaxX, int MaxY)
+{
+	int Result = 0;
+	for (auto i : StarsPos)
 	{
-		Y[0] = StartY;
-		Y[1] = EndY;
-	}
-	else
-	{
-		Y[1] = StartY;
-		Y[0] = EndY;
-	}
-	
-	int DeffensCount = 0;
-
-	for (size_t i = 0; i < Attack.size(); i++)
-	{
-		if (X[0] <= Attack[i].first && Attack[i].first <= X[1]
-			&& Y[0] <= Attack[i].second && Attack[i].second <= Y[1])
+		if ((MinX <= i.first && i.first <= MaxX) && (MinY <= i.second && i.second <= MaxY))
 		{
-			++DeffensCount;
+			++Result;
 		}
 	}
-	
-	return DeffensCount;
+
+	return Result;
 }
 
 int main()
 {
-	int N, M, L, K;
-
 	std::cin >> N >> M >> L >> K;
 
-	Attack.resize(K);
+	StarsPos.resize(K);
 
 	for (size_t i = 0; i < K; i++)
 	{
-		std::cin >> Attack[i].first;
-		std::cin >> Attack[i].second;
+		std::cin >> StarsPos[i].first;
+		std::cin >> StarsPos[i].second;
 	}
 
-	int MaxCount = INT32_MIN;
-
-	for (size_t i = 0; i < K; i++)
+	std::vector<int> SelectStart;
+	SelectStart.resize(K,1);
+	for (size_t i = 0; i < 2; i++)
 	{
-		std::pair<int, int> CurPos = Attack[i];
-		for (size_t j = 0; j < 8; j++)
+		SelectStart[i] = 0;
+	}
+
+	int Answer = INT32_MIN;
+
+	do
+	{
+		std::pair<int, int> FindIndex = {-1, -1};
+
+		for (size_t i = 0; i < K; i++)
 		{
-			int CheckPosX = CurPos.first + (dx[j] * L);
-			int CheckPosY = CurPos.second + (dy[j] * L);
-			if (CheckPosX < 1)
+			if (SelectStart[i] == 0)
 			{
-				CheckPosX = 1;
+				if (FindIndex.first == -1)
+				{
+					FindIndex.first = i;
+				}
+				else
+				{
+					FindIndex.second = i;
+				}
 			}
-
-			if (CheckPosY < 1)
-			{
-				CheckPosY = 1;
-			}
-			
-			if (CheckPosX > N)
-			{
-				CheckPosX = N;
-			}
-
-			if (CheckPosY > M)
-			{
-				CheckPosY = M;
-			}
-
-			MaxCount = std::max(DeffensCount(CurPos.first, CurPos.second, CheckPosX, CheckPosY), MaxCount);
 		}
-	}
 
-	std::cout << K - MaxCount;
+		std::pair<int, int> FirstStar = StarsPos[FindIndex.first];
+		std::pair<int, int> SecondStar = StarsPos[FindIndex.second];
+
+		int MinX, MinY, MaxX, MaxY;
+		if (FirstStar.first < SecondStar.first)
+		{
+			MinX = FirstStar.first;
+			MaxX = SecondStar.first;
+		}
+		else
+		{
+			MinX = SecondStar.first;
+			MaxX = FirstStar.first;
+		}
+
+		if (FirstStar.second < SecondStar.second)
+		{
+			MinY = FirstStar.second;
+			MaxY = SecondStar.second;
+		}
+		else
+		{
+			MinY = SecondStar.second;
+			MaxY = FirstStar.second;
+		}
+
+		if (!RectSizeCheck(MinX, MinY, MaxX, MaxY))
+		{
+			continue;
+		}
+
+		Answer = std::max(StarCount(MinX, MinY, MaxX, MaxY), Answer);
+
+		
+	} while (std::next_permutation(SelectStart.begin(), SelectStart.end()));
+
+	std::cout << Answer;
 }
