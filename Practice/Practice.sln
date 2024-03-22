@@ -255,6 +255,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "미친 아두이노", "미�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "개구리 공주", "개구리 공주\개구리 공주.vcxproj", "{862526B1-9CBD-4B49-9686-397336F7DB8E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "케빈 베이컨의 6단계 법칙", "케빈 베이컨의 6단계 법칙\케빈 베이컨의 6단계 법칙.vcxproj", "{7BD44816-CE5F-4664-BC34-6FADED029598}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1223,6 +1225,14 @@ Global
 		{862526B1-9CBD-4B49-9686-397336F7DB8E}.Release|x64.Build.0 = Release|x64
 		{862526B1-9CBD-4B49-9686-397336F7DB8E}.Release|x86.ActiveCfg = Release|Win32
 		{862526B1-9CBD-4B49-9686-397336F7DB8E}.Release|x86.Build.0 = Release|Win32
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Debug|x64.ActiveCfg = Debug|x64
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Debug|x64.Build.0 = Debug|x64
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Debug|x86.ActiveCfg = Debug|Win32
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Debug|x86.Build.0 = Debug|Win32
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Release|x64.ActiveCfg = Release|x64
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Release|x64.Build.0 = Release|x64
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Release|x86.ActiveCfg = Release|Win32
+		{7BD44816-CE5F-4664-BC34-6FADED029598}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1349,6 +1359,7 @@ Global
 		{8B50A667-0B78-4ABB-80E2-344EB48F83FE} = {6E18702A-EDB1-4627-B7F9-B10A86D3CED8}
 		{4E5EA81F-E80D-49B1-A373-25DE1DB6D9D9} = {887E9B32-75C4-4B53-92FE-4241E6FD2BE3}
 		{862526B1-9CBD-4B49-9686-397336F7DB8E} = {6E18702A-EDB1-4627-B7F9-B10A86D3CED8}
+		{7BD44816-CE5F-4664-BC34-6FADED029598} = {887E9B32-75C4-4B53-92FE-4241E6FD2BE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B152544-0CCF-4F5A-9FB9-B0E2FA2F1599}
