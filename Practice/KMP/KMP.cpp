@@ -44,30 +44,52 @@ std::vector<std::string> GetSuffix(const std::string& Str)
 //주어진 문자열의 접두 부분문자열에서 Prefix == Suffix가 될 수 있는 부분 문자열 중 가장 긴것의 길이
 //https://bowbowbow.tistory.com/6
 
+//std::vector<int> GetPiArr(const std::string& Str)
+//{
+//	std::vector<int> PiArr;
+//	PiArr.resize(Str.size());
+//
+//	std::vector<std::string> PartialStr = GetPrefix(Str);
+//	for (size_t i = 0; i < PartialStr.size(); i++)
+//	{
+//		std::vector<std::string> Prefix = GetPrefix(PartialStr[i]);
+//		Prefix.pop_back();//자기자신은 포함하지 않기 때문에 빼줬음 ex) 문자열 AB에서 AB는 빼는것
+//		std::vector<std::string> Suffix = GetSuffix(PartialStr[i]);
+//		Suffix.pop_back();//마찬가지
+//
+//		int MaxLenth = 0;
+//
+//		for (size_t j = 0; j < Prefix.size(); j++)
+//		{
+//			if (Prefix[j] == Suffix[j])
+//			{
+//				MaxLenth = j + 1;
+//			}
+//		}
+//
+//		PiArr[i] = MaxLenth;
+//	}
+//
+//	return PiArr;
+//}
+
 std::vector<int> GetPiArr(const std::string& Str)
 {
-	std::vector<int> PiArr;
-	PiArr.resize(Str.size());
+	size_t Lenth = Str.size();
+	size_t j = 0;
+	std::vector<int> PiArr(Lenth, 0);
 
-	std::vector<std::string> PartialStr = GetPrefix(Str);
-	for (size_t i = 0; i < PartialStr.size(); i++)
+	for (int i = 1; i < Lenth; i++)
 	{
-		std::vector<std::string> Prefix = GetPrefix(PartialStr[i]);
-		Prefix.pop_back();//자기자신은 포함하지 않기 때문에 빼줬음 ex) 문자열 AB에서 AB는 빼는것
-		std::vector<std::string> Suffix = GetSuffix(PartialStr[i]);
-		Suffix.pop_back();//마찬가지
-
-		int MaxLenth = 0;
-
-		for (size_t j = 0; j < Prefix.size(); j++)
+		while (j > 0 && Str[i] != Str[j])
 		{
-			if (Prefix[j] == Suffix[j])
-			{
-				MaxLenth = j + 1;
-			}
+			j = PiArr[j - 1];
 		}
 
-		PiArr[i] = MaxLenth;
+		if (Str[i] == Str[j])
+		{
+			PiArr[i] = ++j;
+		}
 	}
 
 	return PiArr;

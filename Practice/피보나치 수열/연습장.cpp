@@ -56,13 +56,13 @@ int main()
     auto SSS = Hwang.find(4);
     auto RSSS = std::make_reverse_iterator(SSS);
 
-    for (auto CurIter = SSS; CurIter != Hwang.end(); ++CurIter)
+    for (auto& CurIter = SSS; CurIter != Hwang.end(); ++CurIter)
     {
         std::cout << *CurIter;
     }
     std::cout << std::endl;
 
-    for (auto CurRIter = RSSS; CurRIter != Hwang.rend(); ++CurRIter)
+    for (auto& CurRIter = RSSS; CurRIter != Hwang.rend(); ++CurRIter)
     {
         std::cout << *CurRIter;
     }
