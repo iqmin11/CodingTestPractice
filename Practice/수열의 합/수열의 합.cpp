@@ -1,3 +1,4 @@
+//https://www.acmicpc.net/problem/1024
 #include <iostream>
 
 long long N, L;

@@ -11,10 +11,8 @@ std::map<std::string, std::set<std::string>> LinkNodes; //연결 노드
 std::map<std::string, std::pair<std::string, std::string>> ParentInfo; //부모 노드
 std::map<std::string, double> BloodInfo;
 
-bool TopologySort(std::vector<std::string>& _result)
+bool TopologySort()
 {
-	std::vector<std::string>& result = _result;
-
 	std::queue<std::string> q;
 
 	for (auto i : InDgree)
@@ -34,7 +32,6 @@ bool TopologySort(std::vector<std::string>& _result)
 
 		std::string CheckIndex = q.front();
 		q.pop();
-		result.push_back(CheckIndex);
 
 		auto FindParnetIter = ParentInfo.find(CheckIndex);
 		if (FindParnetIter != ParentInfo.end())
@@ -100,10 +97,7 @@ int main()
 		LinkNodes[Parent1].insert(Child);
 	}
 
-	std::vector<std::string> result;
-	result.reserve(50);
-
-	TopologySort(result);
+	TopologySort();
 
 	std::priority_queue<std::string, std::vector<std::string>, Comp> NextKingOrder;
 
