@@ -32,7 +32,22 @@ int main()
 {
 	std::string Str;
 	std::cin >> Str;
-	std::cout << GetPiArr(Str);
+
+	std::string CheckStr;
+	int Max = INT32_MIN;
+	for (size_t i = 0; i < Str.size(); i++)
+	{
+		CheckStr += Str[i];
+		Max = std::max(Max, GetPiArr(CheckStr));
+	}
+
+	for (size_t i = 0; i < Str.size(); i++)
+	{
+		CheckStr.erase(CheckStr.begin());
+		Max = std::max(Max, GetPiArr(CheckStr));
+	}
+
+	std::cout << Max;
 
 	return 0;
 }
