@@ -39,7 +39,7 @@ int main()
 	long long Lenth = L;
 	long long FirstNum = -1;
 
-	while (Lenth <= 100) //적은 Lenth부터 체크 // 최악 100 * log 1000000000
+	while (Lenth <= 100) //적은 Lenth부터 체크 // 최악 100 * log2 1000000000 -> 100 * 30 -> 3000
 	{
 		FirstNum = BinarySearch(Lenth);
 		if (FirstNum != -1)

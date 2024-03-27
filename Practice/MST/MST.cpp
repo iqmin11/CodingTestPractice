@@ -2,7 +2,7 @@
 #include <vector>
 #include <queue>
 
-int Data[10][10] =
+int Cost[10][10] =
 {
 	{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
 	{ 1, 0, 2, 3, 4, 5, 6, 7, 8, 9 },
@@ -75,7 +75,7 @@ int main()
 		Parent[i] = i; //뿌리집합 설정
 		for (int j = 0; j < i; j++)
 		{
-			EdgeInfo.push(std::make_pair(-Data[i][j], std::make_pair(i, j))); //오름차순 정렬을 위해 코스트를 -Data로 입력
+			EdgeInfo.push(std::make_pair(-Cost[i][j], std::make_pair(i, j))); //오름차순 정렬을 위해 코스트를 -Data로 입력
 		}
 	}
 
