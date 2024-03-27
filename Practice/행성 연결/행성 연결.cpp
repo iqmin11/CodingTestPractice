@@ -7,6 +7,28 @@
 std::priority_queue<std::pair<long long, std::pair<int, int>>> EdgeInfo; //Cost, 연결 노드 정보
 std::vector<int> Parent;
 
+int FindParent(int Value)
+{
+	if (Parent[Value] == Value)
+	{
+		return Value;
+	}
+	Parent[Value] = FindParent(Parent[Value]);
+	return Parent[Value];
+}
+
+void Union(int FirstParent, int SecondParent)
+{
+	if (FirstParent < SecondParent)
+	{
+		Parent[SecondParent] = FirstParent;
+	}
+	else
+	{
+		Parent[FirstParent] = SecondParent;
+	}
+}
+
 int main()
 {
 	int N;
@@ -39,16 +61,11 @@ int main()
 		int SecondNode = EdgeInfo.top().second.second;
 		EdgeInfo.pop();
 
-		if (Parent[FirstNode] != Parent[SecondNode])
+		int FirstParent = FindParent(FirstNode);
+		int SecondParent = FindParent(SecondNode);
+		if (FirstParent != SecondParent)
 		{
-			int CheckParent = Parent[SecondNode];
-			for (auto& i : Parent)
-			{
-				if (i == CheckParent)
-				{
-					i = Parent[FirstNode];
-				}
-			}
+			Union(FirstParent, SecondParent);
 			Answer += CheckCost;
 			++EdgeCount;
 		}

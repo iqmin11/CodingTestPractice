@@ -67,7 +67,7 @@ int main()
 	std::cin >> N >> M;
 	std::string King;
 	std::cin >> King;
-	BloodInfo.insert({ King , 1.0});
+	BloodInfo.insert({ King , 1.0 });
 	InDgree.insert(std::make_pair(King, 0));
 
 	for (size_t i = 0; i < N; i++)
