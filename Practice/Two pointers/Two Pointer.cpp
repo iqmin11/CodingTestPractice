@@ -25,6 +25,32 @@ int main()
 
 		PartAdd -= Data[left];
 	}
+
+
+	//양끝을 기준으로 범위를 줄이는 투포인터
+	/*int left = 0;
+	int right = N - 1;
+	int count = 0;
+
+	while (left < right)
+	{
+		int CheckValue = Arr[left] + Arr[right];
+
+		if (CheckValue == X)
+		{
+			count++;
+			left++;
+			right--;
+		}
+		else if (CheckValue < X)
+		{
+			left++;
+		}
+		else if (CheckValue > X)
+		{
+			right--;
+		}
+	}*/
 	
 
 	return 0;
