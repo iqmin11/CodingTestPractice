@@ -5,118 +5,132 @@
 #include <queue>
 #include <sstream>
 
-void R(std::list<int>& _List)
-{
-	_List.reverse();
-}
+std::deque<int> dq;
+std::vector<std::string> Result;
 
-bool D(std::list<int>& _List)
+std::string Func(const std::string& Command)
 {
-	if (_List.empty())
+	bool CurState = false; //false : ¾Õ»©±â, true : µÚ»©±â
+
+	std::deque<char> Cmd;
+	for (size_t i = 0; i < Command.size(); i++)
 	{
-		return false;
+		char PushCmd = Command[i];
+		if (PushCmd == 'R')
+		{
+			if (Cmd.empty() || Cmd.back() != 'R')
+			{
+				Cmd.push_back(PushCmd);
+			}
+			else if (Cmd.back() == 'R')
+			{
+				Cmd.pop_back();
+			}
+		}
+		else
+		{
+			Cmd.push_back(PushCmd);
+		}
 	}
 
-	_List.pop_front();
-	return true;
-}
-
-std::string Command(const std::string& _Cmd, std::list<int>& _List)
-{
-	for (size_t i = 0; i < _Cmd.size(); i++)
+	while (!Cmd.empty())
 	{
-		if (_Cmd[i] == 'R')
+		char CurCmd = Cmd.front();
+		Cmd.pop_front();
+
+		if (CurCmd == 'R')
 		{
-			R(_List);
+			CurState = !CurState;
 		}
-		else if (_Cmd[i] == 'D')
+		else
 		{
-			if (!D(_List))
+			if (!dq.empty())
+			{
+				if (CurState)
+				{
+					dq.pop_back();
+				}
+				else
+				{
+					dq.pop_front();
+				}
+			}
+			else
 			{
 				return "error";
 			}
 		}
 	}
-	
-	std::string Answer;
-	auto BackIter = _List.end();
-	if (!_List.empty())
-	{
-		--BackIter;
-	}
 
-	Answer += '[';
-	for (auto CurIter = _List.begin(); CurIter != _List.end(); ++CurIter)
+	std::string PrintStr = "[";
+	while (!dq.empty())
 	{
-		if (CurIter == BackIter)
+		int PrintNum = -1;
+		if (CurState)
 		{
-			Answer += (*CurIter + '0');
-			
+			PrintNum = dq.back();
+			dq.pop_back();
 		}
 		else
 		{
-			Answer += (*CurIter + '0');
-			Answer += ',';
+			PrintNum = dq.front();
+			dq.pop_front();
 		}
-	}
-	Answer += ']';
 
-	return Answer;
+		PrintStr += std::to_string(PrintNum) + ",";
+	}
+
+	if (PrintStr.back() == ',')
+	{
+		PrintStr.back() = ']';
+	}
+	else
+	{
+		PrintStr += "]";
+	}
+
+	return PrintStr;
 }
 
 int main()
 {
 	int T;
 	std::cin >> T;
-	std::vector<std::string> Answers;
+	std::vector<std::string> Result;
+	Result.reserve(T);
 
 	for (size_t k = 0; k < T; k++)
 	{
-		char Input;
 		std::string Cmd;
-		std::cin >> Input;
-		while (Input == 'R' || Input == 'D')
+		std::cin >> Cmd;
+		int n;
+		std::cin >> n;
+
+		std::string Arr;
+		std::cin >> Arr;
+
+		for (size_t i = 0; i < Arr.size(); i++)
 		{
-			Cmd += Input;
-			std::cin >> Input;
-		}
-		int N = Input - '0';
-		std::cin >> Input;
-
-		std::list<int> List;
-		int CurNum = 0;
-
-		while (true)
-		{
-			if (Input == ',')
+			if (Arr[i] < '0' || '9' < Arr[i])
 			{
-				List.push_back(CurNum);
-				std::cin >> Input;
-				CurNum = 0;
-				continue;
+				Arr[i] = ' ';
 			}
-
-			if (Input == ']')
-			{
-				List.push_back(CurNum);
-				std::cin >> Input;
-				CurNum = 0;
-				break;
-			}
-
-			if (Input >= '0' && Input <= '9')
-			{
-				CurNum += CurNum * 10 + (Input - '0');
-			}
-
-			std::cin >> Input;
 		}
 
-		Answers.push_back(Command(Cmd, List));
+		std::stringstream Temp(Arr);
+
+		for (size_t i = 0; i < n; i++)
+		{
+			int PushNum;
+			Temp >> PushNum;
+			dq.push_back(PushNum);
+		}
+
+		Result.push_back(Func(Cmd));
 	}
 
-	for (size_t i = 0; i < T; i++)
+	for (size_t i = 0; i < Result.size(); i++)
 	{
-		std::cout << Answers[i] << '\n';
+		std::cout << Result[i] << std::endl;
 	}
 }
