@@ -3,6 +3,7 @@
 #include <queue>
 #include <set>
 #include <cmath>
+#include <vector>
 
 class Base {};
 class Derived : public Base {};
@@ -14,6 +15,10 @@ struct Comp
         return *_Left < *_Right;
     }
 };
+
+std::vector<bool> IsVisit;
+std::vector<std::set<int>> LinkNodes;
+std::vector<int> RecordPath;
 
 int main() 
 {
