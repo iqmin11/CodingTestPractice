@@ -1,3 +1,5 @@
+//https://school.programmers.co.kr/learn/courses/30/lessons/12900
+
 #include <string>
 #include <vector>
 
@@ -12,9 +14,8 @@ int solution(int n)
 
     for (int i = 3; i <= n; ++i)
     {
-        DP[i] = DP[i - 1] + DP[i - 2];
+        DP[i] = (DP[i - 1] + DP[i - 2]) % 1000000007;
     }
 
-    int answer = DP[n] % 1000000007;
-    return answer;
+    return DP[n];
 }

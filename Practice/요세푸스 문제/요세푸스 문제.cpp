@@ -16,7 +16,6 @@ std::list<int>::iterator MoveIter(std::list<int>::iterator CurIter, int K)
 		++CurIter;
 	}
 
-
 	if (CurIter == Data.end())
 	{
 		CurIter = Data.begin();

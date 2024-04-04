@@ -1,8 +1,9 @@
+//https://school.programmers.co.kr/learn/courses/30/lessons/42746
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <cmath>
 
 using namespace std;
 
@@ -10,28 +11,13 @@ string solution(vector<int> numbers)
 {
     std::sort(numbers.begin(), numbers.end(), [](int _left, int _right)
         {
-            int LeftLog = static_cast<int>(std::log10(_left));
-            int RightLog = static_cast<int>(std::log10(_right));
-            int Differ = std::abs(RightLog - LeftLog);
+            std::string Left = std::to_string(_left);
+            std::string Right = std::to_string(_right);
 
-            for (int i = 0; i < Differ; ++i)
-            {
-                if (LeftLog < RightLog)
-                {
-                    _left *= 10;
-                }
-                else
-                {
-                    _right *= 10;
-                }
-            }
+            std::string LeftRight = Left + Right;
+            std::string RightLeft = Right + Left;
 
-            if (_left == _right)
-            {
-                return LeftLog < RightLog;
-            }
-
-            return _left > _right;
+            return LeftRight > RightLeft;
         });
 
     string answer = "";
@@ -39,6 +25,11 @@ string solution(vector<int> numbers)
     for (int i = 0; i < numbers.size(); ++i)
     {
         answer += std::to_string(numbers[i]);
+    }
+
+    if (answer.front() == '0')
+    {
+        return "0";
     }
 
     return answer;

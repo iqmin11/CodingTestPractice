@@ -20,6 +20,5 @@ int main()
 		std::vector<std::vector<std::pair<int, int>>> Generation;
 		Generation[0].push_back({ 0, 0 });
 		Generation[0].push_back(std::make_pair(Dir.first, Dir.second));
-
 	}
 }
