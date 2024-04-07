@@ -1,7 +1,7 @@
 #include <iostream>
 
 //요약
-//BoolArr라는 boolean 배열에 N번쨰 인덱스에 대한 True False 조작 및 체크
+//BoolArr라는 boolean 배열(사실 그냥 숫자)에 N번째 인덱스에 대한 True False 조작 및 체크
 #define On(BoolArr, N) BoolArr |= (1 << N)
 #define Off(BoolArr, N) BoolArr &= ~(1 << N)
 #define Switch(BoolArr, N) BoolArr ^= (1 << N)
@@ -142,7 +142,7 @@ int main()
 	Switch(Answer, n);
 
 	//분석 : Answer = 10, n == 1일때
-	//Answer = 10 ^ 4; 임
+	//Answer = 10 ^ 2; 임
 	//1010 = 10
 	//0010 = 2
 	//====
@@ -151,6 +151,7 @@ int main()
 	//4. n번째 비트값이 1이면 1, 0이면 0을 리턴하는 연산//////////////////////////////////////////////
 	bool IsTrue = false;
 	Answer = 10;
+	//1010 = 10
 	IsTrue = IsOn(Answer, 0);//(Answer >> 0) & 1; // false
 	IsTrue = IsOn(Answer, 1);//(Answer >> 1) & 1; // true
 	IsTrue = IsOn(Answer, 2);//(Answer >> 2) & 1; // false
