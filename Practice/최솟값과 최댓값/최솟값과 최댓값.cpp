@@ -1,122 +1,86 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <map>
-#include <set>
+#include <cmath>
 
 int N, M;
-std::vector<int> Arr;
-std::map<std::pair<int, int>, std::pair<int, int>> SegmentTree; // Index Start, Index End /  Min, Max
+std::vector<int> Data;
+std::vector<std::pair<int, int>> SegmentTree; //ÃÖ¼Ú°ª, ÃÖ´ñ°ª
+int SegmentTreeHight, SegmentTreeSize;
 
-std::pair<int, int> Init(int Start, int End)
+std::pair<int, int> Init(int SegCurNode, int DataStart, int DataEnd)
 {
-	std::pair<int, int> StoE = std::make_pair(Start, End);
-	if (Start == End)
+	if (DataStart == DataEnd)
 	{
-		SegmentTree[StoE] = std::make_pair(Arr[Start], Arr[End]);
-		return SegmentTree[StoE];
+		SegmentTree[SegCurNode].first = Data[DataStart];
+		SegmentTree[SegCurNode].second = Data[DataStart];
+		return SegmentTree[SegCurNode];
 	}
-	int mid = (Start + End) / 2;
 
-	std::pair<int, int> FrontResult = Init(Start, mid);
-	std::pair<int, int> BackResult = Init(mid + 1, End);
-	SegmentTree[StoE] = std::make_pair
-	(
-		std::min(FrontResult.first, BackResult.first),
-		std::max(FrontResult.second, BackResult.second)
-	);
-	return SegmentTree[StoE];
+	int Mid = (DataStart + DataEnd) / 2;
+
+	int LeftNextIndex = SegCurNode << 1;
+	std::pair<int, int> LeftResult = Init(LeftNextIndex, DataStart, Mid);
+
+	int RightNextIndex = (SegCurNode << 1) + 1;
+	std::pair<int, int> RightResult = Init(RightNextIndex, Mid + 1, DataEnd);
+
+	SegmentTree[SegCurNode].first = std::min(LeftResult.first, RightResult.first);
+	SegmentTree[SegCurNode].second = std::max(LeftResult.second, RightResult.second);
+	return SegmentTree[SegCurNode];
 }
 
-std::pair<int, int> FindValue(int _FindStart, int _FindEnd, int _Left, int _Right)
+std::pair<int, int> FindData(int CurNode, int DataStart, int DataEnd, int Left, int Right)
 {
+	if (Left > DataEnd || Right < DataStart)
+	{
+		return std::make_pair(INT32_MAX, INT32_MIN);
+	}
 
+	if (Left <= DataStart && DataEnd <= Right)
+	{
+		return SegmentTree[CurNode];
+	}
+
+	int Mid = (DataStart + DataEnd) / 2;
+
+	int LeftNextIndex = CurNode << 1;
+	std::pair<int, int> LeftResult = FindData(LeftNextIndex, DataStart, Mid, Left, Right);
+
+	int RightNextIndex = (CurNode << 1) + 1;
+	std::pair<int, int> RightResult = FindData(RightNextIndex, Mid + 1, DataEnd, Left, Right);
+
+	return std::make_pair(std::min(LeftResult.first, RightResult.first), std::max(LeftResult.second, RightResult.second));
 }
 
 int main()
 {
-	std::ios_base::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
-
 	std::cin >> N >> M;
+	Data.resize(N);
 
-	Arr.resize(N);
+	SegmentTreeHight = static_cast<int>(std::ceil(std::log2(Data.size())));
+	SegmentTreeSize = (1 << (SegmentTreeHight + 1));
+	SegmentTree.resize(SegmentTreeSize, std::make_pair(INT32_MAX, INT32_MIN));
 
 	for (size_t i = 0; i < N; i++)
 	{
-		std::cin >> Arr[i];
+		std::cin >> Data[i];
 	}
 
-	Init(0, N - 1);
+	Init(1, 0, Data.size() - 1);
+	std::vector<std::pair<int, int>> Answers;
+	Answers.reserve(M);
+	for (size_t i = 0; i < M; i++)
+	{
+		int FindStart;
+		int FindEnd;
+		std::cin >> FindStart >> FindEnd;
+		Answers.push_back(FindData(1, 0, Data.size() - 1, FindStart - 1, FindEnd - 1));
+	}
 
-
+	for (size_t i = 0; i < M; i++)
+	{
+		std::cout << Answers[i].first << " " << Answers[i].second << "\n";
+	}
 
 	return 0;
 }
-
-
-//std::vector<std::pair<int, int>> Arr; //index, value
-//
-//std::pair<int, int> FindMinMax(std::pair<int, int> _StoE)
-//{
-//	int Min = -1;
-//	int Max = -1;
-//
-//	for (size_t i = 0; i < N; i++)
-//	{
-//		if (Min != -1 && Max != -1)
-//		{
-//			break;
-//		}
-//
-//		if (_StoE.first <= Arr[i].first && Arr[i].first <= _StoE.second && Min == -1)
-//		{
-//			Min = Arr[i].second;
-//		}
-//
-//		if (_StoE.first <= Arr[(N - 1) - i].first && Arr[(N - 1) - i].first <= _StoE.second && Max == -1)
-//		{
-//			Max = Arr[(N - 1) - i].second;
-//		}
-//	}
-//
-//	return std::make_pair(Min, Max);
-//}
-//
-//int main()
-//{
-//	std::ios_base::sync_with_stdio(false);
-//	std::cin.tie(NULL);
-//	std::cout.tie(NULL);
-//
-//	std::cin >> N >> M;
-//	
-//	Arr.resize(N);
-//
-//	for (size_t i = 0; i < N; i++)
-//	{
-//		Arr[i].first = i;
-//		std::cin >> Arr[i].second;
-//	}
-//
-//	std::sort(Arr.begin(), Arr.end(), [](std::pair<int, int> left, std::pair<int, int> right)
-//		{
-//			return left.second < right.second;
-//		});
-//
-//	std::vector<std::pair<int, int>> Answer;
-//	Answer.reserve(M);
-//
-//	for (size_t i = 0; i < M; i++)
-//	{
-//		int StartIndex, EndIndex;
-//		std::cin >> StartIndex >> EndIndex;
-//		Answer.push_back(FindMinMax(std::make_pair(StartIndex - 1, EndIndex - 1)));
-//	}
-//
-//	for (size_t i = 0; i < M; i++)
-//	{
-//		std::cout << Answer[i].first << " " << Answer[i].second << "\n";
-//	}
-//}

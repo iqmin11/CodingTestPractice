@@ -1,108 +1,70 @@
 #include <iostream>
 #include <vector>
-#include <set>
+#include <numeric>
+#include <cmath>
 
-class SegmentTree
+std::vector<int> Data = { 1,2,3,4,5 };
+std::vector<int> SegmentTree;
+int SegmentTreeHight, SegmentTreeSize;
+
+int Init(int SegCurNode, int DataStart, int DataEnd)
 {
-	class SegmentTreeNode
+	if (DataStart == DataEnd)
 	{
-
-	public:
-		SegmentTreeNode(size_t _Left, size_t _Right, const std::vector<int>& _Data)
-		{
-			LeftIndex = _Left;
-			RightIndex = _Right;
-			if (_Left == _Right)
-			{
-				Data = _Data[_Right];
-				return;
-			}
-
-			size_t Mid = (_Left + _Right) / 2;
-			LeftNode = new SegmentTreeNode(_Left, Mid, _Data);
-			RightNode = new SegmentTreeNode(Mid + 1, _Right, _Data);
-			Data = LeftNode->Data + RightNode->Data;
-		}
-
-		~SegmentTreeNode()
-		{
-			if (LeftNode != nullptr)
-			{
-				delete LeftNode;	
-			}
-
-			if (RightNode != nullptr)
-			{
-				delete RightNode;
-			}
-		}
-
-		size_t FindRangeData(size_t _Start, size_t _End)
-		{
-			if (_End < LeftIndex || _Start > RightIndex)
-			{
-				return 0;
-			}
-
-			if (_Start == LeftIndex && _End == RightIndex)
-			{
-				return Data;
-			}
-
-			size_t Mid = (LeftIndex + RightIndex) / 2;
-
-			if (Mid < _Start)
-			{
-				Mid = _Start;
-				return LeftNode->FindRangeData(_Start, Mid) + RightNode->FindRangeData(Mid, _End);
-			}
-			else if (Mid > _End)
-			{
-				Mid = _End;
-				return LeftNode->FindRangeData(_Start, Mid) + RightNode->FindRangeData(Mid, _End);
-			}
-
-			return LeftNode->FindRangeData(_Start, Mid) + RightNode->FindRangeData(Mid + 1, _End);
-		}
-
-		size_t LeftIndex = -1;
-		size_t RightIndex = -1;
-		size_t Data = -1;
-		SegmentTreeNode* LeftNode = nullptr;
-		SegmentTreeNode* RightNode = nullptr;
-	};
-
-
-public:
-	SegmentTree(const std::vector<int>& _Data)
-	{
-		RootNode = new SegmentTreeNode(0, _Data.size() - 1, _Data);
+		SegmentTree[SegCurNode] = Data[DataStart];
+		return SegmentTree[SegCurNode];
 	}
 
-	~SegmentTree()
+	int Mid = (DataStart + DataEnd) / 2;
+
+	//이 부분이 직관적이지 않았음. 해당 노드의 이름 자체가 어디서 어디까지라는 표기로되어있어야한다고 생각했었음
+	//첫노드. 그리고 데이터의 시작점과 끝점을 알려주고, 깊이가 커질수록 바이너리 트리의 특성상, 노드의 범위를 규칙적으로 알 수 있게 됨
+	int LeftNextIndex = SegCurNode << 1;
+	int LeftResult = Init(LeftNextIndex, DataStart, Mid);
+
+	int RightNextIndex = (SegCurNode << 1) + 1;
+	int RightResult = Init(RightNextIndex, Mid + 1, DataEnd);
+		
+	SegmentTree[SegCurNode] = LeftResult + RightResult;
+	return SegmentTree[SegCurNode];
+}
+
+//해당 세그먼트 트리의 특징 자체를 인자로 넣어줘야 하는 이유임. 존나이상하긴함
+//직관적이지 않음
+int FindData(int CurNode, int DataStart, int DataEnd, int Left, int Right) //현재 탐색하는 노드, 해당 노드의 범위 시작점 ~ 끝점, 내가 찾고자 하는 시작점 ~ 끝점
+{
+	if (Left > DataEnd || Right < DataStart)
 	{
-		delete RootNode;
+		return 0;
 	}
 
-	size_t FindRangeData(size_t _Start, size_t _End)
+	if (Left <= DataStart && DataEnd <= Right)
 	{
-		return RootNode->FindRangeData(_Start, _End);
+		return SegmentTree[CurNode];
 	}
 
+	int Mid = (DataStart + DataEnd) / 2;
 
-private:
+	int LeftNextIndex = CurNode << 1;
+	int LeftResult = FindData(LeftNextIndex, DataStart, Mid, Left, Right);
 
-	SegmentTreeNode* RootNode = nullptr;
-};
+	int RightNextIndex = (CurNode << 1) + 1;
+	int RightResult = FindData(RightNextIndex, Mid + 1, DataEnd, Left, Right);
+
+	return LeftResult + RightResult; //구간 합을 구하고 있기 때문에 찾는 데이터는 합의 형식으로 나타남
+}
 
 int main()
 {
-	{
-		std::vector<int> Vec = { 12,3,6,2,7,8,33,1 };
-		SegmentTree Test = SegmentTree(Vec);
-		size_t a = Test.FindRangeData(0, 2);
-		int b = 0;
-	}
-	_CrtDumpMemoryLeaks();
+	SegmentTreeHight = static_cast<int>(std::ceil(std::log2(Data.size()))); //트리의 높이
+	SegmentTreeSize = (1 << (SegmentTreeHight + 1)); //트리의 사이즈 (바이너리 트리 특성)
+	SegmentTree.resize(SegmentTreeSize, 0);
+	Init(1, 0, Data.size() - 1);
+
+	//코드 이해는 했으나, 마음에 들지 않는 방식이네요.
+	int Answer = FindData(1, 0, Data.size() - 1, 0, 2);
+
+	//이유. 세그먼트트리는 이미 만들어졌는데, 트리의 특징(시작인덱스, 끝인덱스)을 인자로 매번 넣어줘야하는게 마음에 안듬, 노드 자체가 가지고있으면 안되나?
+	//나중에 고쳐볼 수도...
 	return 0;
 }
