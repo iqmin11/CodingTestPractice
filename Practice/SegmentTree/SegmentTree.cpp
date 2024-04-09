@@ -54,6 +54,33 @@ int FindData(int CurNode, int DataStart, int DataEnd, int Left, int Right) //현�
 	return LeftResult + RightResult; //구간 합을 구하고 있기 때문에 찾는 데이터는 합의 형식으로 나타남
 }
 
+void UpdateData(int CurNode, int DataStart, int DataEnd, int ChangeDataIndex, int Differ)
+{
+	if (ChangeDataIndex > DataEnd || ChangeDataIndex < DataStart)
+	{
+		return;
+	}
+
+	SegmentTree[CurNode] += Differ;
+
+	if (DataStart != DataEnd)
+	{
+		int Mid = (DataStart + DataEnd) / 2;
+
+		int LeftNextIndex = CurNode << 1;
+		UpdateData(LeftNextIndex, DataStart, Mid, ChangeDataIndex, Differ);
+
+		int RightNextIndex = (CurNode << 1) + 1;
+		UpdateData(RightNextIndex, Mid + 1, DataEnd, ChangeDataIndex, Differ);
+	}
+	else
+	{
+		Data[ChangeDataIndex] += Differ;
+	}
+
+	return; 
+}
+
 int main()
 {
 	SegmentTreeHight = static_cast<int>(std::ceil(std::log2(Data.size()))); //트리의 높이
@@ -63,6 +90,9 @@ int main()
 
 	//코드 이해는 했으나, 마음에 들지 않는 방식이네요.
 	int Answer = FindData(1, 0, Data.size() - 1, 0, 2);
+	int Differ = 7 - Data[2];
+
+	UpdateData(1,0,Data.size()-1, 2, Differ);
 
 	//이유. 세그먼트트리는 이미 만들어졌는데, 트리의 특징(시작인덱스, 끝인덱스)을 인자로 매번 넣어줘야하는게 마음에 안듬, 노드 자체가 가지고있으면 안되나?
 	//나중에 고쳐볼 수도...
