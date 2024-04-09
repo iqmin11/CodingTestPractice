@@ -1,6 +1,6 @@
 //https://school.programmers.co.kr/learn/courses/30/lessons/12936
 
-##include <string>
+#include <string>
 #include <vector>
 
 using namespace std;

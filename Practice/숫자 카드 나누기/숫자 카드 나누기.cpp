@@ -65,3 +65,8 @@ int solution(vector<int> arrayA, vector<int> arrayB)
 
     return Answer;
 }
+
+int main()
+{
+    solution({ 10, 17 }, { 5, 20 });
+}
