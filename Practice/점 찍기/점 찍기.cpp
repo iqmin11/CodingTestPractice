@@ -14,7 +14,7 @@ long long solution(int k, int d)
     for (long long x = 0; x <= d; x += k)
     {
         long long xx = static_cast<long long>(std::pow(x, 2));
-        long long yMax = static_cast<long long>(std::sqrt(static_cast<double>(dd - xx)));
+        long long yMax = static_cast<long long>(std::sqrt(dd - xx));
         result += (yMax / k) + 1;
     }
 

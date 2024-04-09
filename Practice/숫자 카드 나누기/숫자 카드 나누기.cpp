@@ -5,9 +5,9 @@
 
 using namespace std;
 
-long long GCD(long long left, long long right)
+int GCD(int left, int right)
 {
-    long long Mod = left % right;
+    int Mod = left % right;
     if (Mod == 0)
     {
         return right;
@@ -15,7 +15,7 @@ long long GCD(long long left, long long right)
     return GCD(right, Mod);
 }
 
-bool Check(const vector<int>& _Arr, long long _GCDValue)
+bool Check(const vector<int>& _Arr, int _GCDValue)
 {
     for (auto& i : _Arr)
     {
@@ -29,48 +29,39 @@ bool Check(const vector<int>& _Arr, long long _GCDValue)
 
 int solution(vector<int> arrayA, vector<int> arrayB)
 {
-    long long A_GCDValue = arrayA[0];
+    int Answer = INT32_MIN;
+    int A_GCDValue = arrayA[0];
     for (int i = 1; i < arrayA.size(); ++i)
     {
-        A_GCDValue = GCD(A_GCDValue, arrayA[1]);
+        A_GCDValue = GCD(A_GCDValue, arrayA[i]);
     }
-
-    long long B_GCDValue = arrayB[0];
-    for (int i = 1; i < arrayB.size(); ++i)
-    {
-        B_GCDValue = GCD(B_GCDValue, arrayB[1]);
-    }
-
-    bool A = false;
-    bool B = false;
 
     if (A_GCDValue != 1)
     {
-        A = Check(arrayB, A_GCDValue);
+        if (Check(arrayB, A_GCDValue))
+        {
+            Answer = A_GCDValue;
+        }
+    }
+
+    int B_GCDValue = arrayB[0];
+    for (int i = 1; i < arrayB.size(); ++i)
+    {
+        B_GCDValue = GCD(B_GCDValue, arrayB[i]);
     }
 
     if (B_GCDValue != 1)
     {
-        B = Check(arrayA, B_GCDValue);
-    }
-
-    if (A && B)
-    {
-        if (A_GCDValue > B_GCDValue)
+        if (Check(arrayA, B_GCDValue))
         {
-            return A_GCDValue;
+            Answer = std::max(B_GCDValue, Answer);
         }
-        return B_GCDValue;
     }
 
-    if (A || B)
+    if (Answer == INT32_MIN)
     {
-        if (A)
-        {
-            return A_GCDValue;
-        }
-        return B_GCDValue;
+        Answer = 0;
     }
 
-    return 0;
+    return Answer;
 }

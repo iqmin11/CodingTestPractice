@@ -3,9 +3,9 @@
 //반시계 +, 시계 -, 직선 0
 int CCW(std::pair<int, int> Point1, std::pair<int, int> Point2, std::pair<int, int> Point3)
 {
-	int Scalar = (Point1.first * Point2.second + Point2.first * Point3.second + Point3.first * Point1.second)
+	int Vector = (Point1.first * Point2.second + Point2.first * Point3.second + Point3.first * Point1.second)
 		- (Point1.second * Point2.first + Point2.second * Point3.first + Point3.second * Point1.first);
-	return Scalar;
+	return Vector;
 }
 
 //선분 교차 검증
