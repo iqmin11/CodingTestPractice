@@ -3,7 +3,7 @@
 #include <numeric>
 #include <cmath>
 
-std::vector<int> Data = { 1,2,3,4,5 };
+std::vector<int> Data = { 1,2,3,4,5,6,7,8 };
 std::vector<int> SegmentTree;
 int SegmentTreeHight, SegmentTreeSize;
 
@@ -17,7 +17,6 @@ int Init(int SegCurNode, int DataStart, int DataEnd)
 
 	int Mid = (DataStart + DataEnd) / 2;
 
-	//이 부분이 직관적이지 않았음. 해당 노드의 이름 자체가 어디서 어디까지라는 표기로되어있어야한다고 생각했었음
 	//첫노드. 그리고 데이터의 시작점과 끝점을 알려주고, 깊이가 커질수록 바이너리 트리의 특성상, 노드의 범위를 규칙적으로 알 수 있게 됨
 	int LeftNextIndex = SegCurNode << 1;
 	int LeftResult = Init(LeftNextIndex, DataStart, Mid);
@@ -88,13 +87,10 @@ int main()
 	SegmentTree.resize(SegmentTreeSize, 0);
 	Init(1, 0, Data.size() - 1);
 
-	//코드 이해는 했으나, 마음에 들지 않는 방식이네요.
-	int Answer = FindData(1, 0, Data.size() - 1, 0, 2);
+	int Answer = FindData(1, 0, Data.size() - 1, 2, 4); //데이터의 인덱스를 기준으로 넣는겁니다! 펜윅트리랑 사용법이 다름
 	int Differ = 7 - Data[2];
 
 	UpdateData(1,0,Data.size()-1, 2, Differ);
 
-	//이유. 세그먼트트리는 이미 만들어졌는데, 트리의 특징(시작인덱스, 끝인덱스)을 인자로 매번 넣어줘야하는게 마음에 안듬, 노드 자체가 가지고있으면 안되나?
-	//나중에 고쳐볼 수도...
 	return 0;
 }
