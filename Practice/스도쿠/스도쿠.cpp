@@ -2,117 +2,108 @@
 
 #include <iostream>
 #include <vector>
-#include <map>
-#include <stack>
 
 std::string Board;
-std::vector<bool> IsVisit;
-int ZeroCount = 0;
-std::string Answer;
-int Start, End;
+int Dest = 0;
 
-bool IsPossible(int CurChangePos, char ToNum)
+int dx33[] = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
+int dy33[] = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
+
+bool IsPossible(int CurIndex, char CheckNum)
 {
-	int ChangeX = CurChangePos % 9;
-	int ChangeY = CurChangePos / 9;
-	int Start33X = (ChangeX / 3) * 3;
-	int Start33Y = (ChangeY / 3) * 3;
+	int CurX = CurIndex % 9;
+	int CurY = CurIndex / 9;
+
+	int Center33X = (CurX / 3) * 3 + 1; //33의 중앙점
+	int Center33Y = (CurY / 3) * 3 + 1; //33의 중앙점
 
 	for (int i = 0; i < 9; i++)
 	{
-		if (Board[9 * ChangeY + i] == ToNum)
+		if (Board[CurY * 9 + i] == CheckNum) // x체크
 		{
 			return false;
 		}
 
-		if (Board[9 * i + ChangeX] == ToNum)
+		if (Board[i * 9 + CurX] == CheckNum) // y체크
 		{
 			return false;
 		}
 
-		/*int y = i / 9;
-		int x = i % 9;
+		int CheckX = Center33X + dx33[i];
+		int CheckY = Center33Y + dy33[i];
 
-		if (Index[(Start33Y + y) * 9 + (Start33X + x)] == ToNum)
+		if (Board[CheckY * 9 + CheckX] == CheckNum) // 33체크
 		{
 			return false;
-		}*/
+		}
 	}
 
 	return true;
 }
 
-void DFS(int CurIndex, char InputNum)
-{
-	Board[CurIndex] = InputNum;
-	IsVisit[CurIndex] = true;
 
-	if (CurIndex == End)
+bool IsFindAnswer = false;
+std::string Answer;
+
+void BT(int CurIndex)
+{
+	if (!Answer.empty())
 	{
-		int a = 0;
+		return;
 	}
 
-	for (int CheckIndex = CurIndex + 1; CheckIndex <= 80; CheckIndex++)
+	if (CurIndex == Dest + 1)
 	{
-		if (Board[CheckIndex] != '0')
-		{
-			continue;
-		}
-
-		if (IsVisit[CheckIndex])
-		{
-			continue;
-		}
-
-		for (int j = 0; j < 9; j++)
-		{
-			char Input = '0' + j;
-			if (!IsPossible(CheckIndex, Input))
-			{
-				continue;
-			}
-
-			DFS(CheckIndex, Input);
-		}
-
-		IsVisit[CurIndex] = false;
-		Board[CurIndex] = '0';
+		Answer = Board;
 		return;
+	}
+
+	if (Board[CurIndex] != '0') // 0이 아니면 다음 재귀를 돌아야할듯
+	{
+		BT(CurIndex + 1);
+		return;
+	}
+
+	for (char i = '1'; i <= '9'; i++) //0이면 1부터 9까지 돌면서
+	{
+		if (!IsPossible(CurIndex, i)) //현재 인덱스에 i를 넣는게 가능한지 체크
+		{
+			continue;
+		}
+
+		Board[CurIndex] = i;
+		BT(CurIndex + 1);
+		Board[CurIndex] = '0';
 	}
 }
 
 int main()
 {
-	for (size_t i = 0; i < 9; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		std::string temp;
 		std::cin >> temp;
 		Board += temp;
 	}
 
-	IsVisit.resize(81, false);
-
 	for (int i = 0; i < 81; i++)
 	{
-		if (Board[i] != '0')
+		if (Board[i] == '0')
 		{
-			continue;
+			Dest = std::max(Dest, i);
 		}
-
-		Start = std::min(Start, i);
-		End = std::max(Start, i);
 	}
 
-	DFS(Start, 4);
+	BT(0);
 
-	for (size_t y = 0; y < 9; y++)
+	for (int y = 0; y < 9; y++)
 	{
-		for (size_t x = 0; x < 9; x++)
+		for (int x = 0; x < 9; x++)
 		{
-			std::cout << Answer[9 * y + x];
+			std::cout << Answer[y * 9 + x];
 		}
 		std::cout << '\n';
 	}
 
-	int a = 0;
+	return 0;
 }
