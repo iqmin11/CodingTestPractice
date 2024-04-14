@@ -1,14 +1,17 @@
 //https://www.acmicpc.net/problem/2239
 
 #include <iostream>
+#include <vector>
 #include <map>
 #include <stack>
 
-std::map<std::string, bool> IsVisit;
+std::string Board;
+std::vector<bool> IsVisit;
 int ZeroCount = 0;
 std::string Answer;
+int Start, End;
 
-bool IsPossible(const std::string& Index, int CurChangePos, char ToNum)
+bool IsPossible(int CurChangePos, char ToNum)
 {
 	int ChangeX = CurChangePos % 9;
 	int ChangeY = CurChangePos / 9;
@@ -17,12 +20,12 @@ bool IsPossible(const std::string& Index, int CurChangePos, char ToNum)
 
 	for (int i = 0; i < 9; i++)
 	{
-		if (Index[9 * ChangeY + i] == ToNum)
+		if (Board[9 * ChangeY + i] == ToNum)
 		{
 			return false;
 		}
 
-		if (Index[9 * i + ChangeX] == ToNum)
+		if (Board[9 * i + ChangeX] == ToNum)
 		{
 			return false;
 		}
@@ -39,75 +42,68 @@ bool IsPossible(const std::string& Index, int CurChangePos, char ToNum)
 	return true;
 }
 
-bool IsAllZero(const std::string& Index)
+void DFS(int CurIndex, char InputNum)
 {
-	for (size_t i = 0; i < Index.size(); i++)
+	Board[CurIndex] = InputNum;
+	IsVisit[CurIndex] = true;
+
+	if (CurIndex == End)
 	{
-		if (Index[i] == '0')
-		{
-			return false;
-		}
+		int a = 0;
 	}
 
-	return true;
-}
-
-void DFS(const std::string& CurBoard, int PrevFirstZeroPos)
-{
-	IsVisit[CurBoard] = true;
-	int CurFirstZeroPos = PrevFirstZeroPos;
-	while (CurFirstZeroPos < 81)
+	for (int CheckIndex = CurIndex + 1; CheckIndex <= 80; CheckIndex++)
 	{
-		if (CurBoard[CurFirstZeroPos] == '0')
+		if (Board[CheckIndex] != '0')
 		{
-			break;
+			continue;
 		}
-		CurFirstZeroPos++;
-	}
 
-	if (CurFirstZeroPos == 81)
-	{
+		if (IsVisit[CheckIndex])
+		{
+			continue;
+		}
+
+		for (int j = 0; j < 9; j++)
+		{
+			char Input = '0' + j;
+			if (!IsPossible(CheckIndex, Input))
+			{
+				continue;
+			}
+
+			DFS(CheckIndex, Input);
+		}
+
+		IsVisit[CurIndex] = false;
+		Board[CurIndex] = '0';
 		return;
-	}
-	
-	for (size_t i = 1; i <= 9; i++)
-	{
-		if (!IsPossible(CurBoard, CurFirstZeroPos, '0' + i))
-		{
-			continue;
-		}
-
-		std::string CheckBoard = CurBoard;
-		CheckBoard[CurFirstZeroPos] = '0' + i;
-		
-		if (IsVisit[CheckBoard])
-		{
-			continue;
-		}
-
-		DFS(CheckBoard, CurFirstZeroPos);
 	}
 }
 
 int main()
 {
-	std::string Start;
 	for (size_t i = 0; i < 9; i++)
 	{
 		std::string temp;
 		std::cin >> temp;
-		Start += temp;
+		Board += temp;
 	}
 
-	for (size_t i = 0; i < 81; i++)
+	IsVisit.resize(81, false);
+
+	for (int i = 0; i < 81; i++)
 	{
-		if (Start[i] == '0')
+		if (Board[i] != '0')
 		{
-			++ZeroCount;
+			continue;
 		}
+
+		Start = std::min(Start, i);
+		End = std::max(Start, i);
 	}
 
-	DFS(Start, 0);
+	DFS(Start, 4);
 
 	for (size_t y = 0; y < 9; y++)
 	{
