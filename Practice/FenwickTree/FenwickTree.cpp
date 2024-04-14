@@ -5,10 +5,10 @@
 int N = 8; //데이터의 갯수
 int TreeHight;
 int TreeSize;
-std::vector<long long> Data = { 0,1,2,3,4,5,6,7,8 }; //0번 인덱스를 사용하지 않음 1~5에서
+std::vector<long long> Data = { 0,1,2,3,4,5,6,7,8 }; //0번 인덱스를 사용하지 않음 1~8에서
 std::vector<long long> FenwickTree;
 
-void UpdateData(int Index, int Value)
+void Update(int Index, long long Value) //시작 초기화부터 많이 데이터 업데이트 까지 많이쓰임, 업데이트시 차이값을 넣어야 함
 {
 	while (Index < FenwickTree.size())
 	{
@@ -21,13 +21,13 @@ void Init()
 {	
 	for (int i = 1; i <= N; i++)
 	{
-		UpdateData(i, Data[i]);
+		Update(i, Data[i]);
 	}
 }
 
-int Sum(int Index)
+long long Sum(int Index)
 {
-	int Result = 0;
+	long long Result = 0;
 	while (Index > 0)
 	{
 		Result = Result + FenwickTree[Index];
@@ -42,7 +42,7 @@ int main()
 	TreeSize = (1 << (TreeHight + 1)); //트리의 사이즈
 	FenwickTree.resize(TreeSize);
 	Init();
-	int Answer = Sum(5) - Sum(2); // 3,4,5 
+	long long Answer = Sum(5) - Sum(2); // 3,4,5 
 
 	return 0;
 }
