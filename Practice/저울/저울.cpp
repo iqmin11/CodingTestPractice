@@ -2,56 +2,38 @@
 
 #include <iostream>
 #include <vector>
-#include <set>
 #include <algorithm>
 
-int N;
-std::vector<int> IsVisit;
-std::vector<int> Nums;
-
-std::set<int> SumResult;
-
-int Answer = -1;
-
-
-void BT(int CurSum)
-{
-	if (Answer != -1)
-	{
-		return;
-	}
-
-	SumResult.insert(CurSum);
-
-	for (int i = 0; i < N; i++)
-	{
-		if (IsVisit[i])
-		{
-			continue;
-		}
-
-		IsVisit[i] = true;
-		BT(CurSum + Nums[i]);
-		IsVisit[i] = false;
-	}
-}
+//이 문제는 규칙을 찾는게 너무 어렵네
 
 int main()
 {
-	//std::cin >> N;
-	N = 1000;
+	int N;
 
-	IsVisit.resize(N, false);
-	Nums.resize(N);
+	std::cin >> N;
+
+	std::vector<long long> Arr;
+	Arr.resize(N);
 
 	for (int i = 0; i < N; i++)
 	{
-		Nums[i] = i + 1;
+		std::cin >> Arr[i];
 	}
 
-	std::sort(Nums.begin(), Nums.end());
-	
-	BT(0);
+	std::sort(Arr.begin(), Arr.end());
+
+	long long Sum = 1;
+
+	for (int i = 0; i < N; i++)
+	{
+		if (Sum < Arr[i]) //다음에 올릴 추의 무게가 여태 올린 추의 무게의 합보다 크면, 연속된 무게를 못만듦
+		{
+			break;
+		}
+		Sum += Arr[i]; //가벼운것 부터 저울에 올리면서
+	}
+
+	std::cout << Sum;
 
 	return 0;
 }
