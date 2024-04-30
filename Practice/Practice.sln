@@ -449,6 +449,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "합이 0인 네 정수", "�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "카드 게임", "카드 게임\카드 게임.vcxproj", "{086F5B32-E08E-47F6-9996-9987F45E340A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MiniMax", "MiniMax\MiniMax.vcxproj", "{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -2169,6 +2171,14 @@ Global
 		{086F5B32-E08E-47F6-9996-9987F45E340A}.Release|x64.Build.0 = Release|x64
 		{086F5B32-E08E-47F6-9996-9987F45E340A}.Release|x86.ActiveCfg = Release|Win32
 		{086F5B32-E08E-47F6-9996-9987F45E340A}.Release|x86.Build.0 = Release|Win32
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Debug|x64.ActiveCfg = Debug|x64
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Debug|x64.Build.0 = Debug|x64
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Debug|x86.ActiveCfg = Debug|Win32
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Debug|x86.Build.0 = Debug|Win32
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Release|x64.ActiveCfg = Release|x64
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Release|x64.Build.0 = Release|x64
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Release|x86.ActiveCfg = Release|Win32
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2392,6 +2402,7 @@ Global
 		{0C5EBFB2-CE94-460A-A868-326C9717EC79} = {B520BCD1-B6A7-476B-8BED-B03FC639F396}
 		{1398322F-5340-48E8-B262-B17DEF334B1E} = {B520BCD1-B6A7-476B-8BED-B03FC639F396}
 		{086F5B32-E08E-47F6-9996-9987F45E340A} = {B520BCD1-B6A7-476B-8BED-B03FC639F396}
+		{A04BE5BA-115D-44D4-A3B9-2EA55A833CBB} = {80CEE51C-9E2A-4126-8D7E-357E5EA26008}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B152544-0CCF-4F5A-9FB9-B0E2FA2F1599}
