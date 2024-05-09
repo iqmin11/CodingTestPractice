@@ -3,8 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <queue>
-
+#include <numeric>
 
 int main()
 {
@@ -13,48 +12,56 @@ int main()
 	std::cout.tie(NULL);
 
 	int N;
-
 	std::cin >> N;
-
-	std::vector<std::pair<int, int>> Data;
-	Data.resize(N);
-
-	int MaxDeadline = INT32_MIN;
-	for (int i = 0; i < N; i++)
+	
+	std::vector<std::pair<int, int>> HomeWork;
+	HomeWork.reserve(N);
+	int MaxDate = INT32_MIN;
+	for (size_t i = 0; i < N; i++)
 	{
-		std::cin >> Data[i].second;
-		std::cin >> Data[i].first;
-
-		MaxDeadline = std::max(MaxDeadline, Data[i].first);
+		std::pair<int, int> DW;
+		std::cin >> DW.first >> DW.second;
+		HomeWork.push_back(DW);
+		MaxDate = std::max(DW.first, MaxDate);
 	}
 
-	std::priority_queue<std::pair<int, int>> pq;
-
-	for (int i = 0; i < N; i++)
-	{
-		pq.push(Data[i]);
-	}
-
-	std::vector<int> DateScore;
-	DateScore.resize(MaxDeadline + 1, -1);
-
-	while (!pq.empty())
-	{
-		int CurDate = pq.top().second;
-		int CurScore = pq.top().first;
-
-		while (DateScore[CurDate] != -1 || CurDate > 0)
+	std::sort(HomeWork.begin(), HomeWork.end(), [](std::pair<int, int> Left, std::pair<int, int> Right)
 		{
-			CurDate--;
+			return Left.second > Right.second;
+		});
+
+	std::vector<int> Schedule;
+	Schedule.resize(MaxDate + 1, 0);
+
+	for (int i = 0; i < N; i++)
+	{
+		int MinValue = INT32_MAX;
+		int MinIndex = -1;
+		int IsPush = false;
+		for (int j = HomeWork[i].first; j > 0; --j)
+		{
+			if (MinValue > Schedule[j])
+			{
+				MinValue = Schedule[j];
+				MinIndex = j;
+			}
+
+			if (Schedule[j] == 0)
+			{
+				IsPush = true;
+				Schedule[j] = HomeWork[i].second;
+				break;
+			}
 		}
 
+		if (!IsPush && MinValue < HomeWork[i].second)
+		{
+			Schedule[MinIndex] = HomeWork[i].second;
+		}
 	}
 
-	int Answer = 0;
-
-	
+	int Answer = std::accumulate(Schedule.begin(), Schedule.end(), 0);
 
 	std::cout << Answer;
-
 	return 0;
 }
