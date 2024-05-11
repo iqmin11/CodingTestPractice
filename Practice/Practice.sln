@@ -521,6 +521,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "오픈채팅방", "오픈�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "프렌즈4블록", "프렌즈4블록\프렌즈4블록.vcxproj", "{A13F40EB-F908-4D89-92B7-E604986B2E86}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "두 큐 합 같게 만들기", "두 큐 합 같게 만들기\두 큐 합 같게 만들기.vcxproj", "{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -2529,6 +2531,14 @@ Global
 		{A13F40EB-F908-4D89-92B7-E604986B2E86}.Release|x64.Build.0 = Release|x64
 		{A13F40EB-F908-4D89-92B7-E604986B2E86}.Release|x86.ActiveCfg = Release|Win32
 		{A13F40EB-F908-4D89-92B7-E604986B2E86}.Release|x86.Build.0 = Release|Win32
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Debug|x64.ActiveCfg = Debug|x64
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Debug|x64.Build.0 = Debug|x64
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Debug|x86.ActiveCfg = Debug|Win32
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Debug|x86.Build.0 = Debug|Win32
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Release|x64.ActiveCfg = Release|x64
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Release|x64.Build.0 = Release|x64
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Release|x86.ActiveCfg = Release|Win32
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2788,6 +2798,7 @@ Global
 		{7A2CF602-5485-42DF-ACBA-369612EB2ABF} = {040D37C6-0A81-4D13-895E-12AB711B2C53}
 		{9E9A0FD2-592D-41AB-B77A-714ACED79D07} = {040D37C6-0A81-4D13-895E-12AB711B2C53}
 		{A13F40EB-F908-4D89-92B7-E604986B2E86} = {040D37C6-0A81-4D13-895E-12AB711B2C53}
+		{5AC2132E-70D5-489F-ADB2-F973F21ADC9B} = {040D37C6-0A81-4D13-895E-12AB711B2C53}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B152544-0CCF-4F5A-9FB9-B0E2FA2F1599}
