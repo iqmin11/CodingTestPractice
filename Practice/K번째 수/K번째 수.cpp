@@ -1,65 +1,38 @@
-#include <iostream>
+#include <string>
 #include <vector>
 #include <algorithm>
 
-std::vector<std::vector<std::pair<int, int>>> DebugGrid; //x,y로 합시다
-int N, k;
+using namespace std;
 
-void DebugingFunc()
+std::vector<int> Arr;
+
+int Func(int _Start, int _End, int _Index)
 {
-	//while (true)
-	{
-		DebugGrid.resize(N);
-		std::vector<std::pair<int, int>> OneDimension;
-		OneDimension.reserve(N * N);
-		for (size_t y = 0; y < N; y++)
-		{
-			DebugGrid[y].reserve(N);
-			for (size_t x = 0; x < N; x++)
-			{
-				std::pair<int, int> push = std::make_pair(x + 1, y + 1);
-				DebugGrid[y].emplace_back(push);
-				OneDimension.emplace_back(push);
-			}
-		}
+    std::vector<int> v;
+    v.reserve(_End - _Start + 1);
+    int StartIndex = _Start - 1;
+    int EndIndex = _End - 1;
+    for (int i = StartIndex; i <= EndIndex; i++)
+    {
+        v.push_back(Arr[i]);
+    }
 
-		std::sort(OneDimension.begin(), OneDimension.end(), [](std::pair<int, int> _Left, std::pair<int, int> _Right)
-			{
-				int LeftMulValue = _Left.first * _Left.second;
-				int RightMulValue = _Right.first * _Right.second;
-				return LeftMulValue < RightMulValue;
-			});
-
-		std::vector<int> MulValue;
-		MulValue.reserve(N * N);
-		for (size_t i = 0; i < OneDimension.size(); i++)
-		{
-			MulValue.emplace_back(OneDimension[i].first * OneDimension[i].second);
-			std::cout << "(" << OneDimension[i].first << "," << OneDimension[i].second << ")";
-		}
-
-		std::cout << std::endl;
-
-		for (size_t i = 0; i < MulValue.size(); i++)
-		{
-			std::cout << "(" << MulValue[i] << ")";
-		}
-
-		std::cout << std::endl;
-
-		for (size_t i = 0; i < MulValue.size(); i++)
-		{
-			std::cout << "(" << i + 1 << ")";
-		}
-
-		std::cout << std::endl;
-	}
+    std::sort(v.begin(), v.end());
+    return v[_Index - 1];
 }
 
-int main()
+vector<int> solution(vector<int> array, vector<vector<int>> commands)
 {
-	std::cin >> N >> k;
-	DebugingFunc();
-	
-	return 0;
+    Arr = array;
+    vector<int> answer;
+    answer.reserve(commands.size());
+
+    for (int i = 0; i < commands.size(); i++)
+    {
+        int Start = commands[i][0];
+        int End = commands[i][1];
+        int Index = commands[i][2];
+        answer.push_back(Func(Start, End, Index));
+    }
+    return answer;
 }

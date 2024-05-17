@@ -6,11 +6,12 @@
 std::vector<int> NumSelect(int _r)
 {
 	std::vector<int> Select;
-	Select.resize(10, 1);
+	Select.resize(10, 0);
 	for (size_t i = 0; i < _r; i++)
 	{
-		Select[i] = 0;
+		Select[i] = 1;
 	}
+	std::sort(Select.begin(), Select.end());
 	return Select;
 }
 
@@ -30,7 +31,7 @@ int main()
 			std::string CurNum;
 			for (size_t i = 0; i < Combination.size(); i++)
 			{
-				if (Combination[i] == 0)
+				if (Combination[i] == 1)
 				{
 					CurNum += NumList[i]; //인덱스를 활용하여 숫자 선택
 				}
@@ -40,7 +41,7 @@ int main()
 				{
 					return _left > _right;
 				});
-			
+
 			long long Temp = 0;
 			int Count = 0;
 			Temp = std::stoll(CurNum);
