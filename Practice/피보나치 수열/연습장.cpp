@@ -5,23 +5,62 @@
 #include <cmath>
 #include <vector>
 
-class Base {};
-class Derived : public Base {};
-
-struct Comp
+class Base
 {
-    bool operator()(int* _Left, int* _Right)
+public:
+    Base()
     {
-        return *_Left < *_Right;
+        std::cout << "BaseConstructor" << std::endl;
+    }
+    
+    virtual ~Base() {};
+
+    virtual void Func()
+    {
+        std::cout << "BaseFunc" << std::endl;
+        return;
     }
 };
 
-std::vector<bool> IsVisit;
-std::vector<std::set<int>> LinkNodes;
-std::vector<int> RecordPath;
+class Derived : public Base
+{
+public:
+    Derived()
+    {
+        std::cout << "DerivedConstructor" << std::endl;
+    }
+
+    ~Derived() override {};
+
+    void Func() override
+    {
+        std::cout << "DerivedFunc" << std::endl;
+        return;
+    }
+
+};
+
+class A
+{
+    A(const char* str)
+    {
+        m_size = strlen(str) + 1;
+        strcpy(m_str, str);
+    }
+
+    size_t m_size;
+    char* m_str;
+};
 
 int main() 
 {
+
+    Base* basePtr = new Derived();
+    Derived* DownCasts = dynamic_cast<Derived*>(basePtr);
+
+    //basePtr->Func();
+    //delete basePtr;
+
     //Base* basePtr = new Derived();
 
     //// typeid 연산자를 사용하여 객체의 형식을 얻음
@@ -36,44 +75,6 @@ int main()
     //}
 
     //delete basePtr;
-    int a = std::log10(10);
-
-    std::vector<int> numbers = {6,10,2};
-    std::sort(numbers.begin(), numbers.end(), [&](int _left, int _right)
-        {
-            for (int i = 0; i < numbers.size(); i++)
-            {
-                std::cout << numbers[i] << ",";
-            }
-            std::cout << std::endl;
-
-            int LeftLog = static_cast<int>(std::log10(_left));
-            int RightLog = static_cast<int>(std::log10(_right));
-            int Differ = RightLog - LeftLog;
-
-            for (int i = 0; i < Differ; ++i)
-            {
-                if (_left < _right)
-                {
-                    _left *= 10;
-                }
-                else
-                {
-                    _right *= 10;
-                }
-            }
-
-            if (_left == _right)
-            {
-                return LeftLog > RightLog;
-            }
-
-            return _left > _right;
-        });
-
-    //if (RSSS == Hwang.rend())
-    //{
-    //    int a = 0;
-    //}
+    
     return 0;
 }

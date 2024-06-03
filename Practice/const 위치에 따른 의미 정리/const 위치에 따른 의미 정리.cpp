@@ -1,4 +1,15 @@
 
+class A
+{
+public:
+	void Test() const //해당 함수로 객체의 속성을 바꿀 수 없음
+	{
+		return;
+	}
+
+	int a = 0;
+};
+
 int main()
 {
 	int* Test = new int;
