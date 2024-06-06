@@ -5,7 +5,6 @@
 #include <algorithm>
 
 int N;
-std::vector<bool> IsVisit;
 std::vector<bool> IsRoot;
 std::vector<std::vector<int>> LinkedNode;
 std::vector<std::vector<int>> Tree; //Tree[level]은 해당 Level 노드의 Column을 정렬하여 저장
@@ -13,7 +12,6 @@ std::vector<std::vector<int>> Tree; //Tree[level]은 해당 Level 노드의 Column을 �
 int CurColumn = 0;
 void DFS(int CurIndex, int CurLevel)
 {
-	IsVisit[CurIndex] = true;
 	if (Tree.size() <= CurLevel)
 	{
 		Tree.resize(CurLevel + 1);
@@ -34,11 +32,6 @@ void DFS(int CurIndex, int CurLevel)
 			continue;
 		}
 
-		if (IsVisit[NextNode])
-		{
-			continue;
-		}
-
 		DFS(NextNode, CurLevel + 1);
 	}
 }
@@ -50,7 +43,6 @@ int main()
 	std::cout.tie(NULL);
 
 	std::cin >> N;
-	IsVisit.resize(N + 1, false);
 	LinkedNode.resize(N + 1, std::vector<int>(2));
 	Tree.reserve(N + 1); //최대 노드 갯수의 레벨이 생길 수 있음
 	IsRoot.resize(N + 1, true);
