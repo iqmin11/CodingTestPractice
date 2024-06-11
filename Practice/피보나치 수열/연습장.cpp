@@ -1,80 +1,34 @@
 #include <iostream>
-#include <typeinfo>
-#include <queue>
-#include <set>
-#include <cmath>
-#include <vector>
 
-class Base
+static int a = 1;
+
+int main()
 {
-public:
-    Base()
-    {
-        std::cout << "BaseConstructor" << std::endl;
-    }
-    
-    virtual ~Base() {};
+    int* GlobalStaticPtr = &a;
+    std::cout << (__int64)(GlobalStaticPtr) << std::endl;
+    //140697527173120
 
-    virtual void Func()
-    {
-        std::cout << "BaseFunc" << std::endl;
-        return;
-    }
-};
+    int& g_a = a;
 
-class Derived : public Base
-{
-public:
-    Derived()
+    static int a = 2; 
+    int* MainLocalStaticPtr = &a;
+    std::cout << (__int64)(MainLocalStaticPtr) << std::endl;
+    //140697527173124
+
     {
-        std::cout << "DerivedConstructor" << std::endl;
+        static int a = 0;
+        int* InnerLocalStaticPtr = &a;
+        std::cout << (__int64)(InnerLocalStaticPtr) << std::endl;
+        //140697527173632
     }
 
-    ~Derived() override {};
+    MainLocalStaticPtr = &a;
+    std::cout << (__int64)(MainLocalStaticPtr) << std::endl;
+    //140697527173124
 
-    void Func() override
-    {
-        std::cout << "DerivedFunc" << std::endl;
-        return;
-    }
+    GlobalStaticPtr = &g_a;
+    std::cout << (__int64)(GlobalStaticPtr) << std::endl;
+    //140697527173120
 
-};
-
-class A
-{
-    A(const char* str)
-    {
-        m_size = strlen(str) + 1;
-        strcpy(m_str, str);
-    }
-
-    size_t m_size;
-    char* m_str;
-};
-
-int main() 
-{
-
-    Base* basePtr = new Derived();
-    Derived* DownCasts = dynamic_cast<Derived*>(basePtr);
-
-    //basePtr->Func();
-    //delete basePtr;
-
-    //Base* basePtr = new Derived();
-
-    //// typeid 연산자를 사용하여 객체의 형식을 얻음
-    //const std::type_info& typeInfo = typeid(*basePtr);
-    //if (typeInfo == typeid(Base)) 
-    //{
-    //    std::cout << "Object is of type Base." << std::endl;
-    //}
-    //else if (typeInfo == typeid(Derived)) 
-    //{
-    //    std::cout << "Object is of type Derived." << std::endl;
-    //}
-
-    //delete basePtr;
-    
     return 0;
 }
