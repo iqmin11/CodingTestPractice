@@ -1,34 +1,47 @@
 #include <iostream>
+#include <string>
 
-static int a = 1;
+class Base
+{
+public:
+    
+    operator int()
+    {
+        std::cout << "intOper" << std::endl;
+        return 10;
+    }
+
+    virtual void Func()
+    {
+        std::cout << "Base" << std::endl;
+    }
+
+    int Value;
+};
+
+class Derived : public Base
+{
+public:
+    void Func() override
+    {
+        std::cout << "Derived" << std::endl;
+    }
+};
+
+void F(Base _AAA)
+{
+    std::cout << _AAA.Value << std::endl;
+}
 
 int main()
 {
-    int* GlobalStaticPtr = &a;
-    std::cout << (__int64)(GlobalStaticPtr) << std::endl;
-    //140697527173120
+    Base testmp();
+    Derived temp;
+    F(temp);
+    
 
-    int& g_a = a;
-
-    static int a = 2; 
-    int* MainLocalStaticPtr = &a;
-    std::cout << (__int64)(MainLocalStaticPtr) << std::endl;
-    //140697527173124
-
-    {
-        static int a = 0;
-        int* InnerLocalStaticPtr = &a;
-        std::cout << (__int64)(InnerLocalStaticPtr) << std::endl;
-        //140697527173632
-    }
-
-    MainLocalStaticPtr = &a;
-    std::cout << (__int64)(MainLocalStaticPtr) << std::endl;
-    //140697527173124
-
-    GlobalStaticPtr = &g_a;
-    std::cout << (__int64)(GlobalStaticPtr) << std::endl;
-    //140697527173120
+    //int a = Func1();
+    
 
     return 0;
 }

@@ -66,6 +66,7 @@ void Push(int Value)
 int main()
 {
 	CBTArr.reserve(1025);
+	CBTArr.push_back(nullptr); // 계산하기 편하도록 1부터 시작
 
 	//걍 push_back하면 그만임
 	Push(10);
