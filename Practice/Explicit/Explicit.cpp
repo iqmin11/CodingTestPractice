@@ -37,7 +37,6 @@ void ImplicitFunc(ImplicitInt Param)
 class ExplicitInt
 {
 public:
-	//기본 생성자
 	ExplicitInt()
 		: iValue(-1)
 	{
@@ -80,5 +79,4 @@ int main()
 	ExplicitInt TestExPlicit(12LL);
 	//TestCasting = TestExPlicit; //불가능
 	TestCasting = static_cast<long long>(TestExPlicit); //명시적으로 캐스팅을 해줘야 함
-
 }

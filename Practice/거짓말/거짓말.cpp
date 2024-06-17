@@ -2,12 +2,66 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <set>
+#include <queue>
 
-int N, M;
-std::vector<bool> KnowTrue;
+//각 파티 있는 사람들을 모두 연결한다.
+//진실을 아는사람으로부터 DFS 또는 BFS를 돌아 탐색하고, 진실을 아는자를 추가한다.
+//파티별로 진실을 아는 자가 있다면 그 파티는 진실만을 말해야 한다
+
+int PeopleCount, PartyCount;
+
+std::vector<int> FirstTruePeople;
+std::vector<bool> IsKnowTruth;
 std::vector<std::vector<int>> Partys;
+std::vector<std::set<int>> MeetLink;
+
+void MathPeople(const std::vector<int>& CurParty)
+{
+	size_t CurPartySize = CurParty.size();
+
+	for (size_t i = 0; i < CurPartySize - 1; i++)
+	{
+		for (size_t j = i + 1; j < CurPartySize; j++)
+		{
+			MeetLink[CurParty[i]].insert(CurParty[j]);
+			MeetLink[CurParty[j]].insert(CurParty[i]);
+		}
+	}
+}
+
+void BFS()
+{
+	for (size_t T = 0; T < FirstTruePeople.size(); T++)
+	{
+		int StartIndex = FirstTruePeople[T];
+		if (IsKnowTruth[StartIndex])
+		{
+			continue;
+		}
+
+		std::queue<int> q;
+		IsKnowTruth[StartIndex] = true;
+		q.push(StartIndex);
+		
+		while (!q.empty())
+		{
+			int CurIndex = q.front();
+			q.pop();
+
+			for (auto LinkNode : MeetLink[CurIndex])
+			{
+				if (IsKnowTruth[LinkNode])
+				{
+					continue;
+				}
+
+				q.push(LinkNode);
+				IsKnowTruth[LinkNode] = true;
+			}
+		}
+	}
+}
 
 int main()
 {
@@ -15,40 +69,46 @@ int main()
 	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	std::cin >> N >> M;
+	std::cin >> PeopleCount >> PartyCount;
+	
+	IsKnowTruth.resize(PeopleCount, false);
+	MeetLink.resize(PeopleCount);
+	Partys.resize(PartyCount);
 
-	int TruePeopleCount;
-	std::cin >> TruePeopleCount;
-	KnowTrue.resize(51, false);
+	int FirstTrueCount;
+	std::cin >> FirstTrueCount;
+	FirstTruePeople.resize(FirstTrueCount);
 
-	for (size_t i = 0; i < TruePeopleCount; i++)
+	for (int i = 0; i < FirstTrueCount; i++)
 	{
 		int temp;
 		std::cin >> temp;
-		KnowTrue[temp] = true;
+		FirstTruePeople[i] = temp - 1;
 	}
 
-	Partys.resize(M);
-	for (size_t i = 0; i < M; i++)
+	for (int i = 0; i < PartyCount; i++)
 	{
-		int PartyPeopleCount;
-		std::cin >> PartyPeopleCount;
-		Partys[i].resize(PartyPeopleCount);
-		for (size_t j = 0; j < PartyPeopleCount; j++)
+		int CurPartyPeopleCount;
+		std::cin >> CurPartyPeopleCount; 
+		Partys[i].resize(CurPartyPeopleCount);
+		for (int j = 0; j < CurPartyPeopleCount; j++)
 		{
-			std::cin >> Partys[i][j];
+			int temp;
+			std::cin >> temp;
+			Partys[i][j] = temp - 1;
 		}
-		std::sort(Partys[i].begin(), Partys[i].end());
+
+		MathPeople(Partys[i]);
 	}
 
-	int Answer = M;
+	BFS();
 
-	for (int Party = 0; Party < M; Party++)
+	int Answer = PartyCount;
+	for (int i = 0; i < PartyCount; i++)
 	{
-		for (auto j : KnowTrue)
+		for (int j = 0; j < Partys[i].size(); j++)
 		{
-			bool IsFind = std::binary_search(Partys[Party].begin(), Partys[Party].end(), j);
-			if (IsFind)
+			if (IsKnowTruth[Partys[i][j]])
 			{
 				--Answer;
 				break;
