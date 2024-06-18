@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <DirectXMath.h>
 
 class Base
 {
@@ -38,6 +39,8 @@ int main()
     Base testmp();
     Derived temp;
     F(temp);
+
+
     
 
     //int a = Func1();
