@@ -1,50 +1,43 @@
 #include <iostream>
-#include <string>
-#include <DirectXMath.h>
+#include <stack>
 
-class Base
+std::stack<int> St1;
+std::stack<int> St2;
+
+void Push(int Value)
 {
-public:
-    
-    operator int()
+    St1.push(Value);
+}
+
+void Pop()
+{
+    while (!St1.empty())
     {
-        std::cout << "intOper" << std::endl;
-        return 10;
+        St2.push(St1.top());
+        St1.pop();
     }
 
-    virtual void Func()
+    St2.pop();
+
+    while (!St2.empty())
     {
-        std::cout << "Base" << std::endl;
+        St1.push(St2.top());
+        St2.pop();
     }
-
-    int Value;
-};
-
-class Derived : public Base
-{
-public:
-    void Func() override
-    {
-        std::cout << "Derived" << std::endl;
-    }
-};
-
-void F(Base _AAA)
-{
-    std::cout << _AAA.Value << std::endl;
 }
 
 int main()
 {
-    Base testmp();
-    Derived temp;
-    F(temp);
-
-
-    
-
-    //int a = Func1();
-    
-
+    //1 2 3 4 5
+    Push(1);
+    Push(2);
+    Pop();
+    Push(3);
+    Push(4);
+    Pop();
+    Push(5);
+    Pop();
+    Pop();
+    Pop();
     return 0;
 }

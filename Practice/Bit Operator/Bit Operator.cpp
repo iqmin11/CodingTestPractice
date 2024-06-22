@@ -5,7 +5,7 @@
 #define On(BoolArr, N) BoolArr |= (1 << N)
 #define Off(BoolArr, N) BoolArr &= ~(1 << N)
 #define Switch(BoolArr, N) BoolArr ^= (1 << N)
-#define IsOn(BoolArr, N) (BoolArr>> N) & 1
+#define IsOn(BoolArr, N) (BoolArr >> N) & 1
 
 int main()
 {

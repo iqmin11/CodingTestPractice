@@ -143,9 +143,9 @@ int main()
 		int CountGroup = 0;
 		IsVisitGroup = Init;
 
-		for (int y = 0; y < N; y++)
+		for (int y = 1; y < N - 1; y++)
 		{
-			for (int x = 0; x < M; x++)
+			for (int x = 1; x < M - 1; x++)
 			{
 				if (IsVisitGroup[y][x])
 				{
