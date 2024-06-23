@@ -679,6 +679,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "순열장난", "순열장�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "상어 초등학교", "상어 초등학교\상어 초등학교.vcxproj", "{36C67E69-0A38-4379-A40C-92A42B442553}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "공통 부분 문자열", "공통 부분 문자열\공통 부분 문자열.vcxproj", "{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -3311,6 +3313,14 @@ Global
 		{36C67E69-0A38-4379-A40C-92A42B442553}.Release|x64.Build.0 = Release|x64
 		{36C67E69-0A38-4379-A40C-92A42B442553}.Release|x86.ActiveCfg = Release|Win32
 		{36C67E69-0A38-4379-A40C-92A42B442553}.Release|x86.Build.0 = Release|Win32
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Debug|x64.ActiveCfg = Debug|x64
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Debug|x64.Build.0 = Debug|x64
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Debug|x86.ActiveCfg = Debug|Win32
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Debug|x86.Build.0 = Debug|Win32
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Release|x64.ActiveCfg = Release|x64
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Release|x64.Build.0 = Release|x64
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Release|x86.ActiveCfg = Release|Win32
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3649,6 +3659,7 @@ Global
 		{AF510266-9444-4B5F-B233-8F4E4D33E0DF} = {B520BCD1-B6A7-476B-8BED-B03FC639F396}
 		{FCE341FE-2235-4FC8-A065-DA073BB61F45} = {B520BCD1-B6A7-476B-8BED-B03FC639F396}
 		{36C67E69-0A38-4379-A40C-92A42B442553} = {040D37C6-0A81-4D13-895E-12AB711B2C53}
+		{7AE56645-D7DC-4FBE-AF5A-CC2A267B2083} = {040D37C6-0A81-4D13-895E-12AB711B2C53}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B152544-0CCF-4F5A-9FB9-B0E2FA2F1599}
