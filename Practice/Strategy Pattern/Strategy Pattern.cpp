@@ -1,12 +1,15 @@
 #include <iostream>
-#include <stack>
 
+//Strategy
 class Monster
 {
 public:
+    virtual ~Monster() {}
     virtual void Attack() = 0;
 };
 
+
+//Concrete Strategies
 class MeleeMonster : public Monster
 {
 public:
@@ -25,6 +28,7 @@ public:
     }
 };
 
+//Context
 int main()
 {
     Monster* A = new MeleeMonster();
@@ -32,6 +36,9 @@ int main()
 
     A->Attack();
     B->Attack();
+
+    delete A;
+    delete B;
 
     return 0;
 }

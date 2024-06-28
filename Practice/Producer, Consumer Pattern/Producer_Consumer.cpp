@@ -15,6 +15,7 @@ public:
 	{
 		{
 			std::lock_guard<std::mutex> Lock(MTX);
+			std::cout << Str;
 			SharedQueue.push(std::move(Str));
 		}
 		
