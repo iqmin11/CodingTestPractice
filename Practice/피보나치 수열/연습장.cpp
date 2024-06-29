@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <list>
 
 class Monster
 {
