@@ -4,7 +4,6 @@
 #include <vector>
 #include <deque>
 #include <functional>
-#include <memory>
 #include <algorithm>
 
 int Y, X, D;
@@ -23,7 +22,7 @@ struct EnemyStruct
 };
 
 std::deque<int> ArcherXPos;
-std::vector<std::unique_ptr<EnemyStruct>> Enemy;
+std::vector<EnemyStruct> Enemy;
 std::vector<std::pair<int, int>> EnemyInit;
 
 void BT(int CurXIndex, std::function<void()> Simulation)
@@ -52,22 +51,22 @@ int Attack()
 		int CurArcherY = Y;
 
 		//아쳐와의 거리 우선순위 정렬. 거리, 왼쪽
-		std::sort(Enemy.begin(), Enemy.end(), [=](const std::unique_ptr<EnemyStruct>& Left, const std::unique_ptr<EnemyStruct>& Right)
+		std::sort(Enemy.begin(), Enemy.end(), [=](const EnemyStruct& Left, const EnemyStruct& Right)
 			{
-				int LeftDist = std::abs(CurArcherX - Left->Pos.first) + std::abs(CurArcherY - Left->Pos.second);
-				int RightDist = std::abs(CurArcherX - Right->Pos.first) + std::abs(CurArcherY - Right->Pos.second);
+				int LeftDist = std::abs(CurArcherX - Left.Pos.first) + std::abs(CurArcherY - Left.Pos.second);
+				int RightDist = std::abs(CurArcherX - Right.Pos.first) + std::abs(CurArcherY - Right.Pos.second);
 
 				if (LeftDist == RightDist)
 				{
-					return Left->Pos.first < Right->Pos.first;
+					return Left.Pos.first < Right.Pos.first;
 				}
 
 				return LeftDist < RightDist;
 			});
 		
 		//우선순위가 가장 높은 적
-		int CurEnemyX = Enemy.front()->Pos.first;
-		int CurEnemyY = Enemy.front()->Pos.second;
+		int CurEnemyX = Enemy.front().Pos.first;
+		int CurEnemyY = Enemy.front().Pos.second;
 		int Dist = std::abs(CurArcherX - CurEnemyX) + std::abs(CurArcherY - CurEnemyY);
 
 		if (Dist > D)
@@ -75,16 +74,16 @@ int Attack()
 			continue;
 		}
 
-		if (!Enemy.front()->IsDeath)
+		if (!Enemy.front().IsDeath)
 		{
-			Enemy.front()->IsDeath = true;
+			Enemy.front().IsDeath = true;
 			Kill++;
 		}
 	}
 
-	for (std::vector<std::unique_ptr<EnemyStruct>>::iterator CurEnemy = Enemy.begin(); CurEnemy != Enemy.end(); )
+	for (std::vector<EnemyStruct>::iterator CurEnemy = Enemy.begin(); CurEnemy != Enemy.end(); )
 	{
-		if (CurEnemy->get()->IsDeath)
+		if (CurEnemy->IsDeath)
 		{
 			CurEnemy = Enemy.erase(CurEnemy);
 		}
@@ -99,9 +98,9 @@ int Attack()
 
 void EnemyMove()
 {
-	for (std::vector<std::unique_ptr<EnemyStruct>>::iterator CurEnemy = Enemy.begin(); CurEnemy != Enemy.end(); )
+	for (std::vector<EnemyStruct>::iterator CurEnemy = Enemy.begin(); CurEnemy != Enemy.end(); )
 	{
-		int& YRef = CurEnemy->get()->Pos.second;
+		int& YRef = CurEnemy->Pos.second;
 		if (++YRef >= Y)
 		{
 			CurEnemy = Enemy.erase(CurEnemy);
@@ -143,7 +142,7 @@ int main()
 
 			for (int i = 0; i < EnemyInit.size(); i++)
 			{
-				Enemy.push_back(std::make_unique<EnemyStruct>(EnemyInit[i]));
+				Enemy.push_back(EnemyStruct(EnemyInit[i]));
 			}
 
 			int Score = 0;
