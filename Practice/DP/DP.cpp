@@ -135,12 +135,40 @@ int LCPS()
 	return Answer;
 }
 
-//동전 문제
+//동전 문제 // 느낌은 알겠지만 정확한 이해는 하지 못했다. 걍 외우자
+//동전문제는 사용할 수 있는 동전의 종류와 만들어야 하는 금액이 주어진다
+//만들 수 있는 경우의 수를 출력한다
+
+std::vector<int> CoinCase = { 1,2,5 };
+int MakeMoney = 10;
+//Answer = 10;
+
+int CoinProblem()
+{
+	std::vector<int> DP;
+	DP.resize(MakeMoney + 1, 0); //해당 금액까지 DP
+	DP[0] = 1; //DP[0]은 1이어야 한다
+
+	//동전 종류를 돌면서
+	for (int i = 0; i < CoinCase.size(); i++)
+	{
+		//동전 금액부터 최종 금액까지 돌면서
+		for (int j = CoinCase[i]; j <= MakeMoney; j++)
+		{
+			//현재 금액까지 도달하는 경우의 수는
+			//현재 금액에서 지금 체크하는 Coin을 뺀 금액의 경우의 수를 모두 더하는것이다;
+			DP[j] += DP[j - CoinCase[i]];
+		}
+	}
+
+	return DP[MakeMoney];
+}
 
 int main()
 {
 	std::cout << BackpackProblem() << std::endl;
 	std::cout << LIS() << std::endl;
 	std::cout << LCPS() << std::endl;
+	std::cout << CoinProblem() << std::endl;
 	return 0;
 }
