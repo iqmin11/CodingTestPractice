@@ -1,18 +1,25 @@
 #include <iostream>
-#include <string>
-#include <algorithm>
 
-int Reverse(int Value)
+class Base
 {
-    std::string StrNum = std::to_string(Value);
-    std::reverse(StrNum.begin(), StrNum.end());
-    int Result = std::stoi(StrNum);
-    return Result;
-}
+public:
+    int a = 0;
+};
 
+class Derived : public Base
+{
+public:
+    int b = 0;
+};
 
 int main()
 {
-    std::cout << Reverse(12975837) << std::endl;
+    Base* B = new Derived();
+    Derived* Test = static_cast<Derived*>(B);
+    
+    int a = 10;
+    int* aPtr = &a;
+    char* Test = reinterpret_cast<char*>(aPtr);
+
     return 0;
 }
