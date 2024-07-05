@@ -164,11 +164,91 @@ int CoinProblem()
 	return DP[MakeMoney];
 }
 
+//외판원 순회
+//외판원이 중복 없이 모든 노드를 방문하고 가장 처음 노드로 돌아갈 때, 최소비용 구하기
+//비용 배열이 주어진다 Cost[a][b] -> a에서 b로 가는 비용
+//DP[i][Visited] //i 노드에 있으며, 방문 상태가 Visited일때의 최소비용을 저장합니다.
+//DFS를 통해 노드를 순회하며, Visited가 AllVisited일때 i에서 처음 노드로 돌아갈 수 있으면 된다
+
+int NodeCount = 4;
+std::vector<std::vector<int>> Cost = 
+{
+	{0,10,15,20},
+	{5, 0, 9, 10},
+	{6, 13, 0, 12},
+	{8, 8, 9, 0}
+};
+
+std::vector<std::vector<int>> DP;
+const int INF = 987654321; //가는것이 불가능하다는 의미의 INF
+int AllVisit = 1; //모든 노드 방문 표시
+
+void CirculInit()
+{
+	DP.resize(NodeCount);
+	unsigned int Pow = 1 << NodeCount;
+	for (int i = 0; i < NodeCount; i++)
+	{
+		DP[i].resize(Pow, -1);
+	}
+
+	AllVisit = (AllVisit << NodeCount) - 1;
+}
+
+int DFS(int CurNode, int Visited)
+{
+	if (AllVisit == Visited) //방문이 끝났다면
+	{
+		if (Cost[CurNode][0] == 0) //근데 순회가 불가능 하다면
+		{
+			return INF;
+		}
+		else
+		{
+			return Cost[CurNode][0]; //순회가 가능하다면 비용을 반환
+		}
+	}
+
+	//DP를 갱신한 적이 있다면
+	if (DP[CurNode][Visited] != -1)
+	{
+		return DP[CurNode][Visited]; //최소비용 반환
+	}
+
+	DP[CurNode][Visited] = INF; //아니라면 min을 하기위해 INF로 초기화
+
+	for (int CheckNode = 0; CheckNode < NodeCount; CheckNode++) //CurNode로 부터 갈 수 있는 곳을 체크하며
+	{
+		if (Cost[CurNode][CheckNode] == 0) //단순히 연결이 안되어있다면
+		{
+			continue;
+		}
+
+		if (Visited >> CheckNode & 1) //이미 방문한 곳이라면
+		{
+			continue;
+		}
+
+		//현재 상태에서의 최소값은 결국 ...?
+		DP[CurNode][Visited] = std::min(DP[CurNode][Visited], Cost[CurNode][CheckNode] + DFS(CheckNode, Visited | (1 << CheckNode)));
+	}
+
+	//최소값 반환
+	return DP[CurNode][Visited];
+}
+
+int CirculSol()
+{
+	CirculInit();
+	return DFS(0, 1);
+}
+
 int main()
 {
 	std::cout << BackpackProblem() << std::endl;
 	std::cout << LIS() << std::endl;
 	std::cout << LCPS() << std::endl;
 	std::cout << CoinProblem() << std::endl;
+	std::cout << CirculSol() << std::endl;
 	return 0;
 }

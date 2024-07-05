@@ -4,83 +4,170 @@
 #include <vector>
 
 int N;
-std::vector<bool> IsVisit0; //ÁÂ»ó ¿ìÇÏ
-std::vector<bool> IsVisit1; //¿ì»ó ÁÂÇÏ
-std::vector<int> Grid;
-int MaxBishopCount = INT32_MIN;
-int BishopCount = 0;
 
-void DebugRender()
+std::vector<std::vector<int>> Grid;
+std::vector<std::vector<int>> IsVisit;
+
+void DebugRender(const std::vector<std::vector<int>>& Grid)
 {
-	std::cout << "//////////////////////////////\n";
-	for (size_t i = 0; i < N; i++)
+	std::cout << "////////////////////////" << std::endl;
+	for (size_t y = 0; y < Grid.size(); y++)
 	{
-		for (size_t j = 0; j < N; j++)
+		for (size_t x = 0; x < Grid[y].size(); x++)
 		{
-			std::cout << Grid[i * N + j];
+			std::cout << Grid[y][x] << " ";
 		}
-		std::cout << '\n';
+		std::cout << std::endl;
 	}
-	std::cout << "//////////////////////////////\n";
+
+	std::cout << "////////////////////////" << std::endl;
 }
 
+void SetBishop(int PutX, int PutY, bool IsPut)
+{
+	int Weight = 1;
+
+	if (!IsPut)
+	{
+		Weight = -1;
+	}
+
+	for (int x = 0; x < N; x++)
+	{
+		if (x == PutX)
+		{
+			IsVisit[PutY][PutX] += Weight;
+			continue;
+		}
+
+		int CheckY1 = PutY - std::abs(x - PutX);
+		int CheckY2 = PutY + std::abs(x - PutX);
+
+		if (CheckY1 >= 0 && CheckY1 < N)
+		{
+			IsVisit[CheckY1][x] += Weight;
+		}
+
+		if (CheckY2 >= 0 && CheckY2 < N)
+		{
+			IsVisit[CheckY2][x] += Weight;
+		}
+	}
+}
+
+int MaxCount = INT32_MIN;
+int Count = 0;
 void BT(int CurIndex)
 {
-	if (CurIndex == N * N)
+	if (CurIndex == N * N - 1)
 	{
-		MaxBishopCount = std::max(MaxBishopCount, BishopCount);
+		MaxCount = std::max(MaxCount, Count);
 		return;
 	}
 
-	if (Grid[CurIndex] != 1)
+	int Mod = CurIndex % 2;
+
+	if (Mod == 1)
 	{
-		BT(CurIndex + 1);
-		return;
+		for (int y = 0; y < N; y += 2)
+		{
+			for (int x = 0; x < N; x += 2)
+			{
+
+				if (Grid[y][x] == 0)
+				{
+					continue;
+				}
+
+				if (IsVisit[y][x] != 0)
+				{
+					continue;
+				}
+
+				int CheckIndex = y * N + x;
+
+				SetBishop(x, y, true);
+				Count++;
+				BT(CheckIndex);
+				Count--;
+				SetBishop(x, y, false);
+			}
+		}
 	}
-
-	int CurX = CurIndex % N;
-	int CurY = CurIndex / N;
-
-	if (IsVisit0[(N - 1) - CurX + CurY] || IsVisit1[CurX + CurY])
+	else if (Mod == 0)
 	{
-		BT(CurIndex + 1);
-		return;
+		for (int y = 0; y < N; y += 2)
+		{
+			for (int x = 1; x < N; x += 2)
+			{
+
+				if (Grid[y][x] == 0)
+				{
+					continue;
+				}
+
+				if (IsVisit[y][x] != 0)
+				{
+					continue;
+				}
+
+				int CheckIndex = y * N + x;
+
+				SetBishop(x, y, true);
+				Count++;
+				BT(CheckIndex);
+				Count--;
+				SetBishop(x, y, false);
+			}
+		}
 	}
+	else
+	{
+		for (int y = 0; y < N; y++)
+		{
+			for (int x = 1; x < N; x++)
+			{
 
-	IsVisit0[(N - 1) - CurX + CurY] = true;
-	IsVisit1[CurX + CurY] = true;
-	++BishopCount;
-	Grid[CurX + CurY * N] = 9;
+				if (Grid[y][x] == 0)
+				{
+					continue;
+				}
 
-	BT(CurIndex + 1);
+				if (IsVisit[y][x] != 0)
+				{
+					continue;
+				}
 
-	IsVisit0[(N - 1) - CurX + CurY] = false;
-	IsVisit1[CurX + CurY] = false;
-	--BishopCount;
-	Grid[CurX + CurY * N] = 1;
+				int CheckIndex = y * N + x;
 
-	BT(CurIndex + 1);
+				SetBishop(x, y, true);
+				Count++;
+				BT(CheckIndex);
+				Count--;
+				SetBishop(x, y, false);
+			}
+		}
+	}
 }
 
 int main()	
 {
 	std::cin >> N;
-
-	IsVisit0.resize(2 * N);
-	IsVisit1.resize(2 * N);
-	Grid.resize(N * N);
-	
-	for (int i = 0; i < N; i++)
+	Grid.resize(N);
+	IsVisit.resize(N);
+	for (int y = 0; y < N; y++)
 	{
-		for (int j = 0; j < N; j++)
+		Grid[y].resize(N);
+		IsVisit[y].resize(N, 0);
+		for (int x = 0; x < N; x++)
 		{
-			std::cin >> Grid[i * N + j];
+			std::cin >> Grid[y][x];
 		}
 	}
 
-	BT(0);
+	BT(-1);
 
-	std::cout << MaxBishopCount;
-	
+	std::cout << MaxCount;
 	return 0;
 }
+
