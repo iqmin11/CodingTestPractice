@@ -50,7 +50,7 @@ void InsertionSort(std::vector<int>& Arr)
 
 		for (j = i - 1; j >= 0; --j)
 		{
-			if (Temp <= Arr[j])
+			if (Temp >= Arr[j])
 			{
 				break;
 			}
