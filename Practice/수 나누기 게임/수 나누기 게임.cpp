@@ -8,14 +8,13 @@
 int N;
 std::unordered_map<int, int> Scores;
 std::vector<int> NumOrder;
+int MaxNum = INT32_MIN;
 
 int main()
 {
 	std::ios_base::sync_with_stdio(false);
 	std::cin.tie(NULL);
 	std::cout.tie(NULL);
-
-	//약수를 구하고, 그 약수가 존재하면 -1점 상대 +1점
 
 	std::cin >> N;
 
@@ -25,39 +24,22 @@ int main()
 		std::cin >> Num;
 		Scores.insert(std::make_pair(Num, 0));
 		NumOrder.push_back(Num);
+		MaxNum = std::max(MaxNum, Num);
 	}
 
 	for (auto& i : Scores)
 	{
 		int Num = i.first;
-		int Root = std::sqrt(Num);
+		int MulMax = MaxNum / Num;
 
-		for (int Div = 1; Div <= Root; Div++)
+		for (int Mul = 2; Mul <= MulMax; ++Mul)
 		{
-			int Mod = Num % Div;
+			int MulResult = Num * Mul;
 
-			if (Mod != 0)
+			if (Scores.find(MulResult) != Scores.end())
 			{
-				continue;
-			}
-
-			int Quo = Num / Div;
-
-			if (Scores.find(Div) != Scores.end())
-			{
-				Scores[Div]++;
-				Scores[Num]--;
-			}
-
-			if (Div == Quo)
-			{
-				continue;
-			}
-
-			if (Scores.find(Quo) != Scores.end())
-			{
-				Scores[Quo]++;
-				Scores[Num]--;
+				Scores[Num]++;
+				Scores[MulResult]--;
 			}
 		}
 	}
