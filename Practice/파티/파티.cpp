@@ -2,33 +2,56 @@
 
 #include <iostream>
 #include <vector>
+#include <queue>
 
-const int INF = 100001;
 int VertexCount, EdgeCount, Party;
-std::vector<std::vector<int>> Cost;
+std::vector<std::vector<std::pair<int, int>>> LinkNodeInfos; 
+std::vector<std::vector<std::pair<int, int>>> ReverseLinkNodeInfos; 
 
-int FW(int Start)
+std::vector<int> Dijk(int Party, bool IsReverse)
 {
-	std::vector<std::vector<int>>& Dist = Cost;
+	std::vector<std::vector<std::pair<int, int>>>* NodeInfos = &LinkNodeInfos;
 
-	for (int k = 0; k < VertexCount; k++)
+	if (IsReverse)
 	{
-		for (int i = 0; i < VertexCount; i++)
+		NodeInfos = &ReverseLinkNodeInfos;
+	}
+
+	std::vector<int> Dist;
+	Dist.resize(VertexCount, INT32_MAX);
+	Dist[Party] = 0;
+
+	std::priority_queue<std::pair<int, int>> pq;
+	pq.push(std::make_pair(-Dist[Party], Party));
+
+	while (!pq.empty())
+	{
+		int CurCost = -pq.top().first;
+		int CurNode = pq.top().second;
+
+		pq.pop();
+
+		if (CurCost > Dist[CurNode])
 		{
-			for (int j = 0; j < VertexCount; j++)
+			continue;
+		}
+
+		for (auto LinkInfo : (*NodeInfos)[CurNode])
+		{
+			int LinkCost = LinkInfo.first;
+			int LinkNode = LinkInfo.second;
+
+			int ViaCost = LinkCost + CurCost;
+
+			if (ViaCost < Dist[LinkNode])
 			{
-				Dist[i][j] = std::min(Dist[i][j], Dist[i][k] + Dist[k][j]);
+				Dist[LinkNode] = ViaCost;
+				pq.push(std::make_pair(-ViaCost, LinkNode));
 			}
 		}
 	}
 
-	int Answer = INT32_MIN;
-	for (int i = 0; i < VertexCount; i++)
-	{
-		Answer = std::max(Answer, Dist[i][Start] + Dist[Start][i]);
-	}
-
-	return Answer;
+	return Dist;
 }
 
 int main()
@@ -39,23 +62,30 @@ int main()
 
 	std::cin >> VertexCount >> EdgeCount >> Party;
 
-	Cost.resize(VertexCount);
-	for (int i = 0; i < VertexCount; i++)
-	{
-		Cost[i].resize(VertexCount, INF);
-		Cost[i][i] = 0;
-	}
+	LinkNodeInfos.resize(EdgeCount);
+	ReverseLinkNodeInfos.resize(EdgeCount);
 
 	for (int i = 0; i < EdgeCount; i++)
 	{
 		int From, To, Time;
 
 		std::cin >> From >> To >> Time;
-
-		Cost[From - 1][To - 1] = Time;
+		From--;
+		To--;
+		LinkNodeInfos[From].push_back(std::make_pair(Time, To));
+		ReverseLinkNodeInfos[To].push_back(std::make_pair(Time, From));
 	}
 
-	std::cout << FW(Party - 1);
+	std::vector<int> Dist = Dijk(Party - 1, false);
+	std::vector<int> ReverseDist = Dijk(Party - 1, true);
+
+	int Answer = INT32_MIN;
+	for (int i = 0; i < VertexCount; i++)
+	{
+		Answer = std::max(Answer, Dist[i] + ReverseDist[i]);
+	}
+
+	std::cout << Answer;
 
 	return 0;
 }
