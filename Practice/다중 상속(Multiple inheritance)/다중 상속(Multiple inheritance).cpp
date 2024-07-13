@@ -41,7 +41,7 @@ int main()
 
 	DerivedLeft* LeftPtr = MultipleDerivedPtr;
 	DerivedRight* RightPtr = MultipleDerivedPtr;
-	//Base* BasePtr = MultipleDerivedPtr; //Base클래스의 모호성이 생김(Diamond Problem)
+	//Base* BasePtr = MultipleDerivedPtr; //Upcasting하는 클래스가 DerivedLeft인지, DerivedRight인지 모호함(Diamond Problem)
 
 	return 0;
 }

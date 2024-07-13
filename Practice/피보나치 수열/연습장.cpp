@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#define ll long long
+
 std::vector<std::vector<int>> Image = 
 { 
 	{1,2,3},
@@ -49,5 +51,6 @@ int main()
 {
 	RotateRect(Image);
 	DebugRender();
+	
     return 0;
 }

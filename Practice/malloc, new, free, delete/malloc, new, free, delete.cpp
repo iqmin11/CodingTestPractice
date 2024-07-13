@@ -64,7 +64,7 @@ int main()
 	delete pNew;
 
 	//배열 해제
-	delete[] pNewArr;
+	delete[] pNewArr; //[] : 배열에 존재하는 모든 원소의 소멸자를 호출해주는 키워드
 
 	_CrtDumpMemoryLeaks();
 

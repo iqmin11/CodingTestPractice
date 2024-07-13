@@ -2,7 +2,7 @@
 class A
 {
 public:
-	void Test() const //해당 함수로 객체의 속성을 바꿀 수 없음
+	void Test() const //해당 함수로 인스턴스의 멤버변수를 바꿀 수 없음
 	{
 		return;
 	}
