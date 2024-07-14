@@ -114,7 +114,7 @@ int main()
 		// Ref Count가 0이 아니기 때문에 노드의 소멸자는 호출되지 않음, memory leak
 	}
 
-	//weak_ptr : 약한참조(참조를 통한 접근은 가능하나 Ref Count를 늘리는것은 아닌경우를 약한참조로 정의함), 순환참조 문제 방지
+	//weak_ptr : 약한참조(참조를 통한 접근은 가능, Ref Count를 늘리는 것이 아니라 Weak Ref Count를 늘립니다), 순환참조 문제 방지
 	{
 		{
 			std::shared_ptr<Node> node1 = std::make_shared<Node>(); //node1 Ref Count = 1
