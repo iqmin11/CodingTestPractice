@@ -797,6 +797,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "이친수", "이친수\이�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "극장 좌석", "극장 좌석\극장 좌석.vcxproj", "{A0B8B986-5268-48D9-B29F-50A5CD6E7170}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "암호코드", "암호코드\암호코드.vcxproj", "{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -3893,6 +3895,14 @@ Global
 		{A0B8B986-5268-48D9-B29F-50A5CD6E7170}.Release|x64.Build.0 = Release|x64
 		{A0B8B986-5268-48D9-B29F-50A5CD6E7170}.Release|x86.ActiveCfg = Release|Win32
 		{A0B8B986-5268-48D9-B29F-50A5CD6E7170}.Release|x86.Build.0 = Release|Win32
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Debug|x64.ActiveCfg = Debug|x64
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Debug|x64.Build.0 = Debug|x64
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Debug|x86.ActiveCfg = Debug|Win32
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Debug|x86.Build.0 = Debug|Win32
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Release|x64.ActiveCfg = Release|x64
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Release|x64.Build.0 = Release|x64
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Release|x86.ActiveCfg = Release|Win32
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4289,6 +4299,7 @@ Global
 		{D9BA7FB1-ABA5-438E-BD00-12DF3B540838} = {887E9B32-75C4-4B53-92FE-4241E6FD2BE3}
 		{776CF9D8-9BCA-4272-9EAD-D0013D713C43} = {887E9B32-75C4-4B53-92FE-4241E6FD2BE3}
 		{A0B8B986-5268-48D9-B29F-50A5CD6E7170} = {887E9B32-75C4-4B53-92FE-4241E6FD2BE3}
+		{B42E4E39-9415-4ECB-93E0-ED00666B5DDD} = {B520BCD1-B6A7-476B-8BED-B03FC639F396}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B152544-0CCF-4F5A-9FB9-B0E2FA2F1599}
