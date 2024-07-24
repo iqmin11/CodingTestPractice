@@ -1,4 +1,9 @@
 #include <iostream>
+#include <vector>
+#include "MyHeader.h"
+
+using namespace std;
+using namespace Test1;
 
 int main()
 {
