@@ -2,12 +2,38 @@
 #include <vector>
 #include "MyHeader.h"
 
-using namespace std;
-using namespace Test1;
+class AbstractBase
+{
+public:
+	AbstractBase()
+	{
+
+	}
+
+	virtual ~AbstractBase() = 0
+	{
+		std::cout << "Destructor AbstractBase" << std::endl;
+	}
+};
+
+class Derived : public AbstractBase
+{
+public:
+	Derived()
+	{
+
+	}
+
+	~Derived() override
+	{
+		std::cout << "Destructor Derived" << std::endl;
+	}
+};
 
 int main()
 {
-	std::cout << "Hello, World!";
+	AbstractBase* Test = new Derived();
+	delete Test;
 
     return 0;
 }
