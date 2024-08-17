@@ -34,6 +34,5 @@ int main()
 {
 	AbstractBase* Test = new Derived();
 	delete Test;
-
     return 0;
 }
