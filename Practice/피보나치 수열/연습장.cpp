@@ -2,37 +2,33 @@
 #include <vector>
 #include "MyHeader.h"
 
-class AbstractBase
+template <typename T>
+class Singleton
 {
 public:
-	AbstractBase()
+	virtual ~Singleton()
 	{
 
 	}
 
-	virtual ~AbstractBase() = 0
+	static T* GetInst()
 	{
-		std::cout << "Destructor AbstractBase" << std::endl;
-	}
-};
-
-class Derived : public AbstractBase
-{
-public:
-	Derived()
-	{
-
+		static T Inst;
+		return &Inst;
 	}
 
-	~Derived() override
+private:
+	Singleton()
 	{
-		std::cout << "Destructor Derived" << std::endl;
+
 	}
 };
 
 int main()
 {
-	AbstractBase* Test = new Derived();
-	delete Test;
-    return 0;
+	int* A = Singleton<int>::GetInst();
+	int* B = Singleton<int>::GetInst();
+	long long* C = Singleton<long long>::GetInst();
+	int a = 0;
+	return 0;
 }
