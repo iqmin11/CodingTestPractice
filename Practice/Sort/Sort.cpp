@@ -117,5 +117,7 @@ int main()
 	//BubbleSort(Target);
 
 	Shuffle();
+	Shuffle();
+	Shuffle();
 	QuickSort(Target, 0, Target.size() - 1);
 }
