@@ -24,12 +24,32 @@ void BubbleSort(std::vector<int>& Arr)
 	}
 }
 
+class MyClass 
+{
+public:
+	int x;
+	MyClass(int val) 
+		: x(val) 
+	{
+		std::cout << "MyClass »ý¼º: " << x << std::endl;
+	}
+	
+	~MyClass() 
+	{
+		std::cout << "MyClass ¼Ò¸ê: " << x << std::endl;
+	}
+};
+
 int main()
 {
-	std::vector<int> Arr = { 3,5,9,7,2,1 };
-	PrintArr(Arr);
-	BubbleSort(Arr);
-	PrintArr(Arr);
+	uint8_t StackMemoryPool[1024];
+
+	MyClass* UseInstance0 = new (StackMemoryPool) MyClass(1234567);
+	MyClass* UseInstance1 = new (StackMemoryPool + sizeof(MyClass)) MyClass(1234567);
+	UseInstance0->~MyClass();
+	UseInstance1->~MyClass();
+
+	int a = 0;
 
     return 0;
 }
