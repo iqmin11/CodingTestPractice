@@ -11,7 +11,7 @@ int main()
 
 	int M = 2;
 	int N = 10;
-	std::vector<int> DiceCase = { 2,5}; //주사위 눈의 합으로 N을 만드는 방법
+	std::vector<int> DiceCase = { 2,5 }; //주사위 눈의 합으로 N을 만드는 방법
 
 	std::vector<int> DP(N + 1);
 	DP[0] = 1;

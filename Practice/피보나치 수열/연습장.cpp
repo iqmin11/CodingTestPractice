@@ -51,5 +51,9 @@ int main()
 
 	int a = 0;
 
+	std::string TestStr = "aaaaabbb";
+	std::string TestStrCpy = TestStr;
+	std::string TestStrMov = std::move(TestStr);
+
     return 0;
 }
