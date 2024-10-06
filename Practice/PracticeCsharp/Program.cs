@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections;
+using System.Data;
 
 namespace PracticeCsharp
 {
@@ -128,12 +129,31 @@ namespace PracticeCsharp
         //3. 업데이트마다 Boss의 정보를 Find하는 함수를 호출함. //Awake나 Start에서 한번만 호출하고 멤버로 담자고 함
         //4. 보스를 Find하고 그걸 boss라는 변수에 담았는데 널체크를 !boss로 함
 
+        struct MyStruct
+        {
+            public int Value;
+
+            // 읽기 전용이 아닌 메서드
+            public void Increment()
+            {
+                Value++;
+            }
+        }
+
+        static void ModifyValue(in MyStruct data)
+        {
+            // 읽기 전용이 아닌 메서드를 호출하면 컴파일러가 자동으로 복사본을 생성합니다.
+            data.Increment();
+
+            Console.WriteLine($"함수 내부 값: {data.Value}");
+        }
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            MyStruct original = new MyStruct { Value = 10 };
+            ModifyValue(original);
 
-            Solution(31523);
+            Console.WriteLine($"원본 값: {original.Value}");
         }
     }
 }
