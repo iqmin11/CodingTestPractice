@@ -1,196 +1,161 @@
-//https://www.acmicpc.net/problem/18188
+//문제 주소 : https://www.acmicpc.net/problem/18188
+
 #include <iostream>
 #include <vector>
-#include <list>
+#include <string>
+#include <functional>
+#include <map>
+#include <queue>
 
-enum class Dir : char
-{
-	Non = -1,
-	D,
-	S,
-	A,
-	W
-};
-
-int Y, X;
+int xMax, yMax;
 std::vector<std::string> Grid;
-int N;
-std::vector<std::vector<Dir>> MaridCmd;
-std::pair<int, int> StartPos;
-std::pair<int, int> DestPos;
+std::vector<std::vector<std::pair<int, char>>> IsVisit; //Depth, InDepthCmd
+std::pair<int, int> S, E;
+int dx[] = { 1, 0, -1, 0 };
+int dy[] = { 0, 1, 0, -1 };
+std::map<char, int> Hashing;
 
-int dx[] = {1,0,-1,0};
-int dy[] = {0,1,0,-1};
+int MoveCount;
+std::vector<std::string> Cmds;
 
-void DebugRender()
+bool BFS()
 {
-	std::cout << "////////////////////" << std::endl;
+	std::queue<std::pair<int, int>> q;
+	IsVisit[S.second][S.first].first = 0;
+	q.push(S);
 
-	for (size_t y = 0; y < Y; y++)
+	while (!q.empty())
 	{
-		for (size_t x = 0; x < X; x++)
+		std::pair<int, int> CurPos = std::move(q.front());
+		q.pop();
+
+		if (E == CurPos)
 		{
-			std::cout << Grid[y][x];
+			return true;
 		}
-		std::cout << std::endl;
-	}
 
-	std::cout << "////////////////////" << std::endl;
-}
+		int CurX = CurPos.first;
+		int CurY = CurPos.second;
+		int CurDepth = IsVisit[CurY][CurX].first;
 
-std::list<Dir> RecordStack;
-bool IsGoal = false;
-
-void DFS(std::pair<int, int> CurPos, Dir CurDir = Dir::Non)
-{
-	Grid[CurPos.second][CurPos.first] = 'D';
-	int CurMoveCount = RecordStack.size();
-	RecordStack.push_back(CurDir);
-	DebugRender();
-
-	if (CurPos == DestPos)
-	{
-		IsGoal = true;
-		return;
-	}
-
-	if (CurMoveCount == N)
-	{
-		RecordStack.pop_back();
-		Grid[CurPos.second][CurPos.first] = '.';
-		return;
-	}
-
-	for (size_t i = 0; i < 4; i++)
-	{
-		const std::vector<Dir>& PossibleDir = MaridCmd[CurMoveCount];
-
-		if (PossibleDir[0] != static_cast<Dir>(i) && PossibleDir[1] != static_cast<Dir>(i))
+		if (CurDepth >= MoveCount)
 		{
 			continue;
 		}
 
-		int CheckX = CurPos.first + dx[i];
-		int CheckY = CurPos.second + dy[i];
+		std::string& CurCmd = Cmds[CurDepth];
 
-		if (CheckX < 0 || CheckY < 0 || CheckX >= X || CheckY >= Y)
-		{
-			continue;
-		}
 
-		if (Grid[CheckY][CheckX] == '@')
+		for (int i = 0; i < 2; i++)
 		{
-			continue;
-		}
+			
+			int CheckX = CurX + dx[Hashing[CurCmd[i]]];
+			int CheckY = CurY + dy[Hashing[CurCmd[i]]];
 
-		if (Grid[CheckY][CheckX] == 'D')
-		{
-			continue;
-		}
+			if (CheckX < 0 || CheckY < 0 || CheckX >= xMax || CheckY >= yMax)
+			{
+				continue;
+			}
 
-		DFS(std::make_pair(CheckX, CheckY), static_cast<Dir>(i));
-		if (IsGoal)
-		{
-			return;
+			if (IsVisit[CheckY][CheckX].first != -1)
+			{
+				continue;
+			}
+
+			if (Grid[CheckY][CheckX] == '@')
+			{
+				continue;
+			}
+
+			IsVisit[CheckY][CheckX].first = IsVisit[CurY][CurX].first + 1;
+			IsVisit[CheckY][CheckX].second = CurCmd[i];
+			q.push(std::make_pair(CheckX, CheckY));
 		}
 	}
 
-	RecordStack.pop_back();
-	Grid[CurPos.second][CurPos.first] = '.';
+	return false;
 }
 
 int main()
 {
-	std::cin >> Y >> X;
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
-	Grid.resize(Y);
-	
-	for (size_t y = 0; y < Y; y++)
+	Hashing.insert(std::make_pair('D', 0));
+	Hashing.insert(std::make_pair('S', 1));
+	Hashing.insert(std::make_pair('A', 2));
+	Hashing.insert(std::make_pair('W', 3));
+
+	std::cin >> yMax >> xMax;
+
+	Grid.resize(yMax);
+	IsVisit.resize(yMax);
+	for (int y = 0; y < yMax; y++)
 	{
-		Grid[y].resize(X);
-		std::string temp;
-		std::cin >> temp;
-		for (size_t x = 0; x < X; x++)
+		std::cin >> Grid[y];
+		IsVisit[y].resize(xMax, std::make_pair(-1, '\0'));
+		for (int x = 0; x < xMax; x++)
 		{
-			if (temp[x] == 'D')
+			if (Grid[y][x] == 'D')
 			{
-				StartPos = { x,y };
-				Grid[y][x] = '.';
+				S = std::make_pair(x, y);
 			}
-			else if(temp[x] == 'Z')
+			else if (Grid[y][x] == 'Z')
 			{
-				DestPos = { x,y };
-				Grid[y][x] = '.';
-			}
-			else if(temp[x] == '@')
-			{
-				Grid[y][x] = '@';
-			}
-			else
-			{
-				Grid[y][x] = '.';
+				E = std::make_pair(x, y);
 			}
 		}
 	}
 
-	std::cin >> N;
-	MaridCmd.resize(N);
-	for (size_t i = 0; i < N; i++)
+	std::cin >> MoveCount;
+	Cmds.resize(MoveCount);
+
+	for (int i = 0; i < MoveCount; i++)
 	{
-		MaridCmd[i].resize(2);
-		for (size_t j = 0; j < 2; j++)
+		for (int j = 0; j < 2; j++)
 		{
-			char temp;
-			std::cin >> temp;
-			if (temp == 'D')
-			{
-				MaridCmd[i][j] = Dir::D;
-			}
-			else if(temp == 'S')
-			{
-				MaridCmd[i][j] = Dir::S;
-			}
-			else if (temp == 'A')
-			{
-				MaridCmd[i][j] = Dir::A;
-			}
-			else if (temp == 'W')
-			{
-				MaridCmd[i][j] = Dir::W;
-			}
+			char tempChar;
+			std::cin >> tempChar;
+			Cmds[i].push_back(tempChar);
 		}
 	}
 
-	DFS(StartPos);
-	
-	if (RecordStack.empty())
+	bool IsSuccess = BFS();
+
+	std::cout << (IsSuccess ? "YES" : "NO") << '\n';
+	std::vector<char> Answer;
+	std::pair<int, int> CurCheckPos = E;
+
+	if (IsSuccess)
 	{
-		std::cout << "NO";
-	}
-	else
-	{
-		std::cout << "YES" << std::endl;
-		while (!RecordStack.empty())
+		while (IsVisit[CurCheckPos.second][CurCheckPos.first].second != '\0')
 		{
-			switch (RecordStack.front())
+			Answer.push_back(IsVisit[CurCheckPos.second][CurCheckPos.first].second);
+			switch (Answer.back())
 			{
-			case Dir::W :
-				std::cout << "W";
+			case 'W':
+				CurCheckPos.second += 1;
 				break;
-			case Dir::A :
-				std::cout << "A";
+			case 'A':
+				CurCheckPos.first += 1;
 				break;
-			case Dir::S :
-				std::cout << "S";
+			case 'S':
+				CurCheckPos.second -= 1;
 				break;
-			case Dir::D :
-				std::cout << "D";
+			case 'D':
+				CurCheckPos.first -= 1;
 				break;
 			default:
 				break;
 			}
+		}
 
-			RecordStack.pop_front();
+		for (auto CurRIter = Answer.rbegin(); CurRIter != Answer.rend(); ++CurRIter)
+		{
+			std::cout << *CurRIter;
 		}
 	}
+
+	return 0;
 }

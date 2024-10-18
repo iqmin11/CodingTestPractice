@@ -186,6 +186,8 @@ std::vector<int> DijkstraPQ(int _Start)
 	Dist.resize(Graph.size(), INT32_MAX); //모두 int_max로 초기화
 	Dist[_Start] = 0; //시작지점의 비용은 0이죠 당연히
 
+	//Path.resize(V, -1); // 직전 노드 저장
+
 	std::priority_queue<std::pair<int, int>> pq; //링크노드 형태인 <비용, 인덱스>를 우선순위 큐에 저장
 	pq.push({ -Dist[_Start] , _Start });//<비용 , 위치>로 넣는데, pq는 내림차순 정렬이기때문에 비용의 오름차순 정렬로 바꾸기 위해서
 										//-비용으로 저장하고, 꺼냈을때 다시 -를 곱해줘 양수로 사용
@@ -211,6 +213,7 @@ std::vector<int> DijkstraPQ(int _Start)
 			if (Dist[LinkNode.second] > ViaCost) //현재 체크한 최소비용이랑 비교
 			{
 				Dist[LinkNode.second] = ViaCost; //via가 더 작으면 갱신
+				//Path[LinkNode.second] = CurIndex; // 어디서 부터 왔는지 경로 저장
 				pq.push({ -Dist[LinkNode.second], LinkNode.second });//시작할때한거랑 같죵? <-비용 , 위치>푸시
 			}
 		}

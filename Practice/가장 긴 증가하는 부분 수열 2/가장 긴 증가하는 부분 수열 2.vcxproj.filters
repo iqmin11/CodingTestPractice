@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="미로 탈출(14923).cpp">
+    <ClCompile Include="가장 긴 증가하는 부분 수열 2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
