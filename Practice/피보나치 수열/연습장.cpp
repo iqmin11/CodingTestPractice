@@ -42,18 +42,17 @@ public:
 
 int main()
 {
-	uint8_t StackMemoryPool[1024];
+	//uint8_t StackMemoryPool[1024];
 
-	MyClass* UseInstance0 = new (StackMemoryPool) MyClass(1234567);
-	MyClass* UseInstance1 = new (StackMemoryPool + sizeof(MyClass)) MyClass(1234567);
-	UseInstance0->~MyClass();
-	UseInstance1->~MyClass();
+	//MyClass* UseInstance0 = new (StackMemoryPool) MyClass(1234567);
+	//MyClass* UseInstance1 = new (StackMemoryPool + sizeof(MyClass)) MyClass(1234567);
+	//UseInstance0->~MyClass();
+	//UseInstance1->~MyClass();
 
-	int a = 0;
+	//int a = 0;
 
-	std::string TestStr = "aaaaabbb";
-	std::string TestStrCpy = TestStr;
-	std::string TestStrMov = std::move(TestStr);
-
+	//std::string TestStr = "aaaaabbb";
+	//std::string TestStrCpy = TestStr;
+	//std::string TestStrMov = std::move(TestStr);
     return 0;
 }

@@ -115,6 +115,7 @@ int BFS(const vector<vector<int>>& Board)
 
                     IsVisit.insert(CheckRobot);
                     q.push(std::make_pair(CheckRobot, CurDepth + 1));
+                    DebugRender(Board, FrontBody, BackBody, std::make_pair(CheckFrontBodyX, CheckFrontBodyY), std::make_pair(CheckBackBodyX, CheckBackBodyY), CurDepth);
                 }
             }
             else if(i != 0) 
@@ -188,6 +189,7 @@ int BFS(const vector<vector<int>>& Board)
 
                     IsVisit.insert(CheckRobot);
                     q.push(std::make_pair(CheckRobot, CurDepth + 1));
+                    DebugRender(Board, FrontBody, BackBody, std::make_pair(ZeroX, ZeroY), std::make_pair(DestRotX, DestRotY), CurDepth);
                 }
             }
         }
