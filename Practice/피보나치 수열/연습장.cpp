@@ -24,19 +24,35 @@ void BubbleSort(std::vector<int>& Arr)
 	}
 }
 
-class MyClass 
+//class MyClass 
+//{
+//public:
+//	int x;
+//	MyClass(int val) 
+//		: x(val) 
+//	{
+//		std::cout << "MyClass 持失: " << x << std::endl;
+//	}
+//	
+//	~MyClass() 
+//	{
+//		std::cout << "MyClass 社瑚: " << x << std::endl;
+//	}
+//};
+
+class MyClass
 {
 public:
 	int x;
-	MyClass(int val) 
-		: x(val) 
+	MyClass(MyClass&& val) noexcept
+		: x(std::move(val.x))
 	{
-		std::cout << "MyClass 持失: " << x << std::endl;
 	}
-	
-	~MyClass() 
+
+	MyClass& operator=(MyClass&& val) noexcept
 	{
-		std::cout << "MyClass 社瑚: " << x << std::endl;
+		x = std::move(val.x);
+		return *this;
 	}
 };
 
